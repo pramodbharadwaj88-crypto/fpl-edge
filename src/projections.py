@@ -43,7 +43,16 @@ def _num(s):
 def team_strength() -> pd.DataFrame:
     bs = fpl_api.bootstrap()
     teams = pd.DataFrame(bs["teams"])[["id", "name", "short_name"]]
-    prev = pd.read_csv(DATA / "ci/data/2025-2026/teams.csv")
+    # strength source chain (restore-safe): repo-shipped snapshot -> CI clone
+    # -> live FPL bootstrap strength fields (always available)
+    for src in (DATA / "static/team_strength_2526.csv",
+                DATA / "ci/data/2025-2026/teams.csv"):
+        if src.exists():
+            prev = pd.read_csv(src)
+            break
+    else:
+        prev = pd.DataFrame(bs["teams"]).rename(columns={"strength": "elo"})
+        prev["elo"] = 1500 + 60 * (prev["elo"] - 3)
     prev = prev[["name", "elo", "strength_attack_home", "strength_attack_away",
                  "strength_defence_home", "strength_defence_away"]]
     m = teams.merge(prev, on="name", how="left")

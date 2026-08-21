@@ -15,3 +15,4 @@ ledger_decisions.jsonl
 data/ledger_decisions.jsonl
 # EXCEPTION: last-season baseline is public FPL data and IRREPLACEABLE after GW1
 !data/baseline_prev.json
+!data/static/
