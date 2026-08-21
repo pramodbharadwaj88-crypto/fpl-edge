@@ -1,0 +1,25 @@
+{
+  "team_id": null,
+  "league_ids": [],
+  "risk_mode": "auto",
+  "odds_api_key": "YOUR_ODDS_API_KEY",
+  "locked": [],
+  "banned": [],
+  "model": {
+    "odds_blend": 0.7,
+    "pm_blend": 0.2,
+    "scorer_prop_blend": 0.5,
+    "ep_next_weight_reliable": 0.1,
+    "ep_next_weight_thin": 0.5,
+    "decay": 0.85,
+    "horizon": 6,
+    "future_weight": 0.45,
+    "bench_weight": 0.15,
+    "sim_sd_scale": 1.6,
+    "defcon_dispersion_k": 6.0,
+    "shrinkage_mins": 900,
+    "finishing_cap": 0.15,
+    "differential_on_after_gw": 8
+  },
+  "notes": "team_id from fantasy.premierleague.com/entry/XXXX; league_ids from league standings URL. risk_mode: auto|balanced|differential|shadow. locked/banned: FPL element ids forced in/out of squads. model.* are the tuning constants (council: centralized, named)."
+}

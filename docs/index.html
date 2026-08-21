@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FPL Edge — Live</title>
+<style>
+  :root{--purple:#37003c;--green:#00ff87;--cyan:#04f5ff;--magenta:#e90052;--line:#e8e8ee;--mut:#6c6c85}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#f4f4f6;color:#242424;font:14px/1.5 -apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding-bottom:40px}
+  .mast{background:linear-gradient(100deg,var(--purple) 55%,#5b0060 75%,transparent 100%),
+        linear-gradient(100deg,transparent 60%,var(--cyan) 82%,var(--green) 100%),var(--purple);
+    color:#fff;padding:20px 20px 14px;border-radius:0 0 14px 14px}
+  .mast h1{font-size:24px;font-weight:800;font-style:italic}
+  .mast h1 span{color:var(--green)}
+  .sub{color:#ffffffcc;font-size:12px;margin-top:6px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 14px 0}
+  .tile{background:var(--purple);color:#fff;border-radius:12px;padding:12px 14px;
+    background-image:linear-gradient(135deg,transparent 70%,#04f5ff33 100%)}
+  .tl{font-size:10.5px;color:#ffffffbb;text-transform:uppercase;letter-spacing:.06em}
+  .tv{font-size:24px;font-weight:800;color:var(--green)}
+  .tv small{font-size:13px;color:#ffffff99;font-weight:400}
+  .card{background:#fff;border-radius:12px;padding:16px;margin:14px 14px 0;box-shadow:0 1px 4px #37003c14}
+  h2{font-size:14px;margin-bottom:10px;color:var(--purple);font-weight:800}
+  table{border-collapse:collapse;width:100%}
+  td,th{padding:6px 8px;text-align:left;font-size:13px;border-bottom:1px solid var(--line)}
+  th{color:var(--mut);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em}
+  tr.me td{background:#00ff8722;font-weight:700}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .mut{color:var(--mut)} .err{color:var(--magenta);font-weight:600}
+  .up{color:#0a7a45;font-weight:700}.down{color:var(--magenta);font-weight:700}
+  .foot{color:var(--mut);font-size:11px;margin:18px 14px 0;text-align:center}
+  .live{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);
+    margin-right:6px;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+</style></head><body><div class="wrap">
+<div class="mast">
+  <h1>FPL <span>Edge</span> — Live</h1>
+  <div class="sub"><span class="live"></span>YehBaburaoKaStyleHai · Bad Talks Classic Cash League ·
+  <span id="updated">loading…</span></div>
+</div>
+<div class="kpis">
+  <div class="tile"><div class="tl">GW points</div><div class="tv" id="gwpts">—</div></div>
+  <div class="tile"><div class="tl">Total points</div><div class="tv" id="total">—</div></div>
+  <div class="tile"><div class="tl">League rank</div><div class="tv" id="lrank">—</div></div>
+  <div class="tile"><div class="tl">Next deadline (ET)</div><div class="tv" id="dl" style="font-size:15px;line-height:1.3">—</div></div>
+</div>
+<section class="card"><h2>Bad Talks Classic Cash League</h2>
+  <table><thead><tr><th>#</th><th></th><th>Team</th><th>Manager</th><th class="num">GW</th><th class="num">Total</th></tr></thead>
+  <tbody id="league"><tr><td colspan="6" class="mut">loading league…</td></tr></tbody></table>
+</section>
+<section class="card"><h2>My team — live</h2>
+  <table><thead><tr><th>Player</th><th></th><th class="num">Pts</th></tr></thead>
+  <tbody id="team"><tr><td colspan="3" class="mut">picks appear after GW1 processing…</td></tr></tbody></table>
+</section>
+<div class="foot">FPL Edge · auto-refreshes every 2 min · data © fantasy.premierleague.com<br>
+Full model briefings arrive daily via Claude scheduled runs.</div>
+</div>
+<script>
+const TEAM_ID = 3314291, LEAGUE_ID = 939099;
+const PROXIES = [
+  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u),
+  u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+];
+async function fpl(path){
+  const url = 'https://fantasy.premierleague.com/api/' + path;
+  for (const p of PROXIES){
+    try{
+      const r = await fetch(p(url), {cache:'no-store'});
+      if (r.ok) return await r.json();
+    }catch(e){}
+  }
+  throw new Error('all proxies failed');
+}
+const $ = id => document.getElementById(id);
+function et(iso){
+  return new Date(iso).toLocaleString('en-US',{timeZone:'America/New_York',
+    weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}) + ' ET';
+}
+async function refresh(){
+  try{
+    const bs = await fpl('bootstrap-static/');
+    const cur = bs.events.find(e=>e.is_current) || bs.events.find(e=>e.is_next);
+    const nxt = bs.events.find(e=>e.is_next);
+    if (nxt) $('dl').textContent = et(nxt.deadline_time);
+    const gw = cur ? cur.id : 1;
+    // league
+    try{
+      const lg = await fpl('leagues-classic/'+LEAGUE_ID+'/standings/');
+      const rows = lg.standings.results.length ? lg.standings.results
+        : (lg.new_entries?.results||[]).map((r,i)=>({rank:i+1,entry:r.entry,
+            entry_name:r.entry_name,player_name:(r.player_first_name||'')+' '+(r.player_last_name||''),
+            event_total:'—',total:'—',last_rank:null}));
+      $('league').innerHTML = rows.map(r=>{
+        const me = r.entry===TEAM_ID;
+        if (me && r.rank && r.rank !== '—') $('lrank').innerHTML = r.rank + '<small>/' + rows.length + '</small>';
+        let mv = '';
+        if (r.last_rank && r.rank){
+          if (r.last_rank>r.rank) mv='<span class="up">▲</span>';
+          else if (r.last_rank<r.rank) mv='<span class="down">▼</span>';
+        }
+        return `<tr${me?' class="me"':''}><td>${r.rank??'—'}</td><td>${mv}</td><td>${r.entry_name}</td>`+
+               `<td class="mut">${r.player_name}</td><td class="num">${r.event_total??'—'}</td><td class="num">${r.total??'—'}</td></tr>`;
+      }).join('');
+    }catch(e){ $('league').innerHTML='<tr><td colspan="6" class="err">league feed unavailable ('+e.message+')</td></tr>'; }
+    // my team + live points
+    try{
+      const ent = await fpl('entry/'+TEAM_ID+'/');
+      if (ent.summary_event_points!=null) $('gwpts').textContent = ent.summary_event_points;
+      if (ent.summary_overall_points!=null) $('total').textContent = ent.summary_overall_points;
+      const picks = await fpl('entry/'+TEAM_ID+'/event/'+gw+'/picks/');
+      const live = await fpl('event/'+gw+'/live/');
+      const els = Object.fromEntries(bs.elements.map(e=>[e.id,e]));
+      const pts = Object.fromEntries(live.elements.map(e=>[e.id,e.stats.total_points]));
+      let gwSum = 0;
+      $('team').innerHTML = picks.picks.map(p=>{
+        const e = els[p.element]; const pt = (pts[p.element]??0)*(p.multiplier||1);
+        gwSum += pt;
+        const tag = p.is_captain?' (C)':(p.is_vice_captain?' (V)':'');
+        const chip = picks.active_chip==='bboost' ? '' : (p.position>11?' <span class="mut">bench</span>':'');
+        return `<tr><td>${e.web_name}${tag}${chip}</td><td class="mut">${bs.teams.find(t=>t.id===e.team).short_name}</td>`+
+               `<td class="num">${pt}</td></tr>`;
+      }).join('');
+      if (picks.active_chip==='bboost') $('gwpts').textContent = gwSum;
+    }catch(e){ /* picks may lag post-deadline; leave placeholder */ }
+    $('updated').textContent = 'updated ' + new Date().toLocaleTimeString('en-US',{timeZone:'America/New_York'}) + ' ET';
+  }catch(e){
+    $('updated').innerHTML = '<span class="err">FPL API unreachable — retrying…</span>';
+  }
+}
+refresh(); setInterval(refresh, 120000);
+</script>
+</body></html>

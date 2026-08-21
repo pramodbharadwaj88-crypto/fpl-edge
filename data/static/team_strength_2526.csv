@@ -1,0 +1,21 @@
+code,id,name,short_name,strength,strength_overall_home,strength_overall_away,strength_attack_home,strength_attack_away,strength_defence_home,strength_defence_away,pulse_id,elo,fotmob_name
+3,1,Arsenal,ARS,5,1305,1370,1340,1390,1270,1350,1,2064,Arsenal
+7,2,Aston Villa,AVL,3,1155,1230,1140,1190,1170,1270,2,1921,Aston Villa
+90,3,Burnley,BUR,2,975,1045,910,1050,1040,1040,43,1666,Burnley
+91,4,Bournemouth,BOU,3,1145,1200,1060,1160,1230,1240,127,1872,AFC Bournemouth
+94,5,Brentford,BRE,3,1125,1215,1110,1170,1140,1260,130,1837,Brentford
+36,6,Brighton,BHA,3,1165,1230,1130,1200,1200,1260,131,1842,Brighton & Hove Albion
+21,19,West Ham,WHU,3,1095,1130,1060,1080,1130,1180,25,1769,West Ham United
+39,20,Wolves,WOL,2,975,1060,950,1050,1000,1070,38,1680,Wolverhampton Wanderers
+8,7,Chelsea,CHE,4,1185,1225,1130,1170,1240,1280,4,1831,Chelsea
+31,8,Crystal Palace,CRY,3,1140,1160,1130,1150,1150,1170,6,1804,Crystal Palace
+11,9,Everton,EVE,3,1140,1145,1140,1140,1140,1150,7,1803,Everton
+54,10,Fulham,FUL,3,1095,1190,1080,1170,1110,1210,34,1813,Fulham
+2,11,Leeds,LEE,3,1095,1195,1090,1160,1100,1230,9,1797,Leeds United
+14,12,Liverpool,LIV,4,1235,1275,1170,1200,1300,1350,10,1911,Liverpool
+43,13,Man City,MCI,4,1260,1350,1190,1310,1330,1390,11,1971,Manchester City
+1,14,Man Utd,MUN,4,1230,1250,1170,1170,1290,1330,12,1915,Manchester United
+4,15,Newcastle,NEW,3,1115,1205,1120,1120,1110,1290,23,1838,Newcastle United
+17,16,Nott'm Forest,NFO,3,1130,1160,1110,1160,1150,1160,15,1822,Nottingham Forest
+56,17,Sunderland,SUN,3,1090,1155,1090,1190,1090,1120,29,1736,Sunderland
+6,18,Spurs,TOT,3,1145,1145,1120,1120,1150,1190,21,1777,Tottenham Hotspur

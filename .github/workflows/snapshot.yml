@@ -1,0 +1,27 @@
+# FPL Edge — dumb post-deadline snapshot (council v4 degraded-hybrid).
+# Public FPL API only. No secrets. Never runs pre-deadline logic.
+# Commits per-GW facts + the model-vs-actual scoreboard back to the repo.
+name: snapshot
+on:
+  schedule:
+    - cron: "0 3 * * *"   # daily 03:00 UTC (23:00 ET) — after all matches
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: snapshot finished gameweeks
+        run: python scripts/snapshot.py
+      - name: commit if changed
+        run: |
+          git config user.name "fpl-edge-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/season/
+          git diff --cached --quiet || git commit -m "season snapshot [skip ci]"
+          git push
