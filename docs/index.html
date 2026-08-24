@@ -58,18 +58,58 @@ Full model briefings arrive daily via Claude scheduled runs.</div>
 <script>
 const TEAM_ID = 3314291, LEAGUE_ID = 939099;
 const PROXIES = [
-  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u),
   u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u),
+  u => 'https://corsproxy.io/?url=' + encodeURIComponent(u),
 ];
+function withTimeout(promise, ms){
+  return Promise.race([promise, new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')), ms))]);
+}
 async function fpl(path){
   const url = 'https://fantasy.premierleague.com/api/' + path;
   for (const p of PROXIES){
     try{
-      const r = await fetch(p(url), {cache:'no-store'});
-      if (r.ok) return await r.json();
+      const r = await withTimeout(fetch(p(url), {cache:'no-store'}), 6000);
+      if (r.ok){ const j = await r.json(); if (j) return j; }
     }catch(e){}
   }
-  throw new Error('all proxies failed');
+  throw new Error('proxies down');
+}
+// same-origin cache written hourly by the GitHub Actions snapshot — no CORS,
+// no third parties. This is the RELIABLE path; proxies are the live bonus.
+async function cached(){
+  const r = await fetch('data/latest.json?t=' + Date.now(), {cache:'no-store'});
+  if (!r.ok) throw new Error('no cache yet');
+  return await r.json();
+}
+function renderCached(c){
+  if (c.next_deadline) $('dl').textContent = et(c.next_deadline);
+  if (c.entry){
+    if (c.entry.gw_points!=null) $('gwpts').textContent = c.entry.gw_points;
+    if (c.entry.total!=null) $('total').textContent = c.entry.total;
+  }
+  if (c.league && c.league.length){
+    $('league').innerHTML = c.league.map(r=>{
+      const me = r.entry===TEAM_ID;
+      if (me) $('lrank').innerHTML = r.rank + '<small>/' + c.league.length + '</small>';
+      let mv = '';
+      if (r.last_rank && r.rank){
+        if (r.last_rank>r.rank) mv='<span class="up">▲</span>';
+        else if (r.last_rank<r.rank) mv='<span class="down">▼</span>';
+      }
+      return `<tr${me?' class="me"':''}><td>${r.rank??'—'}</td><td>${mv}</td><td>${r.team}</td>`+
+             `<td class="mut">${r.manager}</td><td class="num">${r.gw??'—'}</td><td class="num">${r.total??'—'}</td></tr>`;
+    }).join('');
+  }
+  if (c.team && c.team.length){
+    $('team').innerHTML = c.team.map(p=>{
+      const tag = p.cap?' (C)':(p.vice?' (V)':'');
+      return `<tr><td>${p.name}${tag}</td><td class="mut">${p.club}</td>`+
+             `<td class="num">${(p.points||0)*Math.max(p.mult,1)}</td></tr>`;
+    }).join('');
+  }
+  $('updated').textContent = 'cached ' + new Date(c.generated_utc).toLocaleString('en-US',
+    {timeZone:'America/New_York',hour:'numeric',minute:'2-digit',weekday:'short'}) + ' ET (hourly)';
 }
 const $ = id => document.getElementById(id);
 function et(iso){
@@ -124,9 +164,13 @@ async function refresh(){
     }catch(e){ /* picks may lag post-deadline; leave placeholder */ }
     $('updated').textContent = 'updated ' + new Date().toLocaleTimeString('en-US',{timeZone:'America/New_York'}) + ' ET';
   }catch(e){
-    $('updated').innerHTML = '<span class="err">FPL API unreachable — retrying…</span>';
+    // live path failed — fall back to the same-origin hourly cache
+    try{ renderCached(await cached()); }
+    catch(e2){ $('updated').innerHTML = '<span class="err">live feed + cache unavailable — retrying…</span>'; }
   }
 }
-refresh(); setInterval(refresh, 120000);
+// paint the cache instantly, then try to upgrade to live
+(async()=>{ try{ renderCached(await cached()); }catch(e){} refresh(); })();
+setInterval(refresh, 120000);
 </script>
 </body></html>

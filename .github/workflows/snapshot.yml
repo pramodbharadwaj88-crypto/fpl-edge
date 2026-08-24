@@ -4,7 +4,7 @@
 name: snapshot
 on:
   schedule:
-    - cron: "0 3 * * *"   # daily 03:00 UTC (23:00 ET) — after all matches
+    - cron: "17 * * * *"   # hourly — refreshes docs/data/latest.json (Pages cache)
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -22,6 +22,6 @@ jobs:
         run: |
           git config user.name "fpl-edge-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/season/
+          git add data/season/ docs/data/
           git diff --cached --quiet || git commit -m "season snapshot [skip ci]"
           git push

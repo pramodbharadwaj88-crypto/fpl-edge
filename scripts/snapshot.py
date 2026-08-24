@@ -22,8 +22,54 @@ def get(path):
         return json.loads(r.read().decode())
 
 
+def write_live_cache(bs):
+    """Always-run: publish a same-origin data cache into docs/ so the Pages
+    dashboard never depends on third-party CORS proxies."""
+    docs = ROOT / "docs" / "data"
+    docs.mkdir(parents=True, exist_ok=True)
+    cur = next((e for e in bs["events"] if e.get("is_current")), None)
+    nxt = next((e for e in bs["events"] if e.get("is_next")), None)
+    gw = (cur or nxt or {"id": 1})["id"]
+    out = {"generated_utc": __import__("datetime").datetime.utcnow()
+           .strftime("%Y-%m-%dT%H:%M:%SZ"),
+           "gw": gw, "next_deadline": (nxt or {}).get("deadline_time")}
+    try:
+        ent = get(f"entry/{TEAM_ID}/")
+        out["entry"] = dict(gw_points=ent.get("summary_event_points"),
+                            total=ent.get("summary_overall_points"),
+                            overall_rank=ent.get("summary_overall_rank"))
+    except Exception as e:
+        out["entry_error"] = str(e)
+    try:
+        lg = get(f"leagues-classic/{LEAGUE_ID}/standings/")
+        out["league"] = [dict(rank=r["rank"], entry=r["entry"], team=r["entry_name"],
+                              manager=r["player_name"], gw=r["event_total"],
+                              total=r["total"], last_rank=r.get("last_rank"))
+                         for r in lg["standings"]["results"]]
+    except Exception as e:
+        out["league_error"] = str(e)
+    try:
+        byid = {e["id"]: e for e in bs["elements"]}
+        teams = {t["id"]: t["short_name"] for t in bs["teams"]}
+        picks = get(f"entry/{TEAM_ID}/event/{gw}/picks/")
+        live = get(f"event/{gw}/live/")
+        pts = {e["id"]: e["stats"]["total_points"] for e in live["elements"]}
+        out["chip"] = picks.get("active_chip")
+        out["team"] = [dict(name=byid[p["element"]]["web_name"],
+                            club=teams[byid[p["element"]]["team"]],
+                            mult=p["multiplier"], cap=p["is_captain"],
+                            vice=p["is_vice_captain"],
+                            points=pts.get(p["element"], 0))
+                       for p in picks["picks"]]
+    except Exception as e:
+        out["team_error"] = str(e)
+    (docs / "latest.json").write_text(json.dumps(out, ensure_ascii=False, indent=1))
+    print("wrote docs/data/latest.json")
+
+
 def main():
     bs = get("bootstrap-static/")
+    write_live_cache(bs)
     finished = [e["id"] for e in bs["events"] if e.get("finished")]
     if not finished:
         print("no finished GW yet; nothing to snapshot")
