@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-08-24T13:32:02Z",
+ "generated_utc": "2026-08-24T16:06:14Z",
  "gw": 1,
  "next_deadline": "2026-08-28T17:30:00Z",
  "entry": {
@@ -55,18 +55,18 @@
   },
   {
    "rank": 6,
-   "entry": 1315673,
-   "team": "Ramurai Push",
-   "manager": "Sid Damle",
+   "entry": 4387682,
+   "team": "Tappu Ke Papa",
+   "manager": "Hursh Anandwala",
    "gw": 44,
    "total": 44,
    "last_rank": 0
   },
   {
    "rank": 6,
-   "entry": 4387682,
-   "team": "Tappu Ke Papa",
-   "manager": "Hursh Anandwala",
+   "entry": 1315673,
+   "team": "Ramurai Push",
+   "manager": "Sid Damle",
    "gw": 44,
    "total": 44,
    "last_rank": 0
@@ -100,9 +100,9 @@
   },
   {
    "rank": 11,
-   "entry": 2798588,
-   "team": "Manchester United FC",
-   "manager": "Ali Babwani",
+   "entry": 5445035,
+   "team": "Xabi to Win",
+   "manager": "Raj Desai",
    "gw": 38,
    "total": 38,
    "last_rank": 0
@@ -118,9 +118,9 @@
   },
   {
    "rank": 11,
-   "entry": 5445035,
-   "team": "Xabi to Win",
-   "manager": "Raj Desai",
+   "entry": 2798588,
+   "team": "Manchester United FC",
+   "manager": "Ali Babwani",
    "gw": 38,
    "total": 38,
    "last_rank": 0
@@ -136,18 +136,18 @@
   },
   {
    "rank": 15,
-   "entry": 4749698,
-   "team": "Jungle_King",
-   "manager": "Pankit Khant",
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
    "gw": 35,
    "total": 35,
    "last_rank": 0
   },
   {
    "rank": 15,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
+   "entry": 4749698,
+   "team": "Jungle_King",
+   "manager": "Pankit Khant",
    "gw": 35,
    "total": 35,
    "last_rank": 0
