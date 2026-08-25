@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-24T23:57:00Z",
+ "generated_utc": "2026-08-25T03:27:46Z",
  "gw": 1,
  "next_deadline": "2026-08-28T17:30:00Z",
  "entry": {
   "gw_points": 74,
   "total": 74,
-  "overall_rank": 227612
+  "overall_rank": 227611
  },
  "league": [
   {
@@ -37,18 +37,18 @@
   },
   {
    "rank": 4,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
+   "entry": 4387682,
+   "team": "Tappu Ke Papa",
+   "manager": "Hursh Anandwala",
    "gw": 63,
    "total": 63,
    "last_rank": 0
   },
   {
    "rank": 4,
-   "entry": 4387682,
-   "team": "Tappu Ke Papa",
-   "manager": "Hursh Anandwala",
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
    "gw": 63,
    "total": 63,
    "last_rank": 0
