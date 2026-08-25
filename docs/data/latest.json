@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-25T08:24:04Z",
+ "generated_utc": "2026-08-25T10:59:01Z",
  "gw": 1,
  "next_deadline": "2026-08-28T17:30:00Z",
  "entry": {
   "gw_points": 74,
   "total": 74,
-  "overall_rank": 227611
+  "overall_rank": 279575
  },
  "league": [
   {
@@ -37,18 +37,18 @@
   },
   {
    "rank": 4,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
+   "entry": 4387682,
+   "team": "Tappu Ke Papa",
+   "manager": "Hursh Anandwala",
    "gw": 63,
    "total": 63,
    "last_rank": 0
   },
   {
    "rank": 4,
-   "entry": 4387682,
-   "team": "Tappu Ke Papa",
-   "manager": "Hursh Anandwala",
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
    "gw": 63,
    "total": 63,
    "last_rank": 0
@@ -82,6 +82,15 @@
   },
   {
    "rank": 9,
+   "entry": 2894511,
+   "team": "Goal Of Duty",
+   "manager": "Nirav Patel",
+   "gw": 54,
+   "total": 54,
+   "last_rank": 0
+  },
+  {
+   "rank": 9,
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
@@ -90,16 +99,25 @@
    "last_rank": 0
   },
   {
-   "rank": 10,
-   "entry": 2894511,
-   "team": "Goal Of Duty",
-   "manager": "Nirav Patel",
+   "rank": 11,
+   "entry": 5363619,
+   "team": "Galactic FC",
+   "manager": "Vaikrant Pandav",
    "gw": 53,
    "total": 53,
    "last_rank": 0
   },
   {
-   "rank": 11,
+   "rank": 12,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 52,
+   "total": 52,
+   "last_rank": 0
+  },
+  {
+   "rank": 13,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
@@ -108,7 +126,7 @@
    "last_rank": 0
   },
   {
-   "rank": 12,
+   "rank": 14,
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
@@ -117,16 +135,7 @@
    "last_rank": 0
   },
   {
-   "rank": 12,
-   "entry": 5363619,
-   "team": "Galactic FC",
-   "manager": "Vaikrant Pandav",
-   "gw": 49,
-   "total": 49,
-   "last_rank": 0
-  },
-  {
-   "rank": 14,
+   "rank": 15,
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
@@ -135,16 +144,7 @@
    "last_rank": 0
   },
   {
-   "rank": 15,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 46,
-   "total": 46,
-   "last_rank": 0
-  },
-  {
-   "rank": 15,
+   "rank": 16,
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
@@ -157,8 +157,8 @@
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 43,
-   "total": 43,
+   "gw": 44,
+   "total": 44,
    "last_rank": 0
   },
   {
