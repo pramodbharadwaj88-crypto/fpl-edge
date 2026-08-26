@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-26T14:08:31Z",
+ "generated_utc": "2026-08-26T16:59:00Z",
  "gw": 1,
  "next_deadline": "2026-08-28T17:30:00Z",
  "entry": {
   "gw_points": 74,
   "total": 74,
-  "overall_rank": 279573
+  "overall_rank": 279827
  },
  "league": [
   {
@@ -82,18 +82,18 @@
   },
   {
    "rank": 9,
-   "entry": 5432670,
-   "team": "Babuchak's XI",
-   "manager": "Aditya Mehta",
+   "entry": 2894511,
+   "team": "Goal Of Duty",
+   "manager": "Nirav Patel",
    "gw": 54,
    "total": 54,
    "last_rank": 0
   },
   {
    "rank": 9,
-   "entry": 2894511,
-   "team": "Goal Of Duty",
-   "manager": "Nirav Patel",
+   "entry": 5432670,
+   "team": "Babuchak's XI",
+   "manager": "Aditya Mehta",
    "gw": 54,
    "total": 54,
    "last_rank": 0
