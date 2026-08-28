@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-28T01:32:26Z",
- "gw": 1,
- "next_deadline": "2026-08-28T17:30:00Z",
+ "generated_utc": "2026-08-28T21:55:09Z",
+ "gw": 2,
+ "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
-  "gw_points": 74,
-  "total": 74,
-  "overall_rank": 279827
+  "gw_points": 13,
+  "total": 87,
+  "overall_rank": 1045841
  },
  "league": [
   {
@@ -13,191 +13,191 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 93,
-   "total": 93,
-   "last_rank": 0
+   "gw": 2,
+   "total": 95,
+   "last_rank": 1
   },
   {
    "rank": 2,
-   "entry": 3314291,
-   "team": "YehBaburaoKaStyleHai",
-   "manager": "Pramod B",
-   "gw": 74,
-   "total": 74,
-   "last_rank": 0
-  },
-  {
-   "rank": 3,
-   "entry": 6246591,
-   "team": "Lawade Na Bhojyam",
-   "manager": "Faraz Virani",
-   "gw": 67,
-   "total": 67,
-   "last_rank": 0
-  },
-  {
-   "rank": 4,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
-   "gw": 63,
-   "total": 63,
-   "last_rank": 0
-  },
-  {
-   "rank": 4,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
-   "gw": 63,
-   "total": 63,
-   "last_rank": 0
+   "gw": 26,
+   "total": 89,
+   "last_rank": 4
   },
   {
-   "rank": 6,
-   "entry": 5445035,
-   "team": "Xabi to Win",
-   "manager": "Raj Desai",
-   "gw": 58,
-   "total": 58,
-   "last_rank": 0
+   "rank": 3,
+   "entry": 3314291,
+   "team": "YehBaburaoKaStyleHai",
+   "manager": "Pramod B",
+   "gw": 13,
+   "total": 87,
+   "last_rank": 2
   },
   {
-   "rank": 7,
+   "rank": 4,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
-   "gw": 56,
-   "total": 56,
-   "last_rank": 0
+   "gw": 26,
+   "total": 82,
+   "last_rank": 7
+  },
+  {
+   "rank": 5,
+   "entry": 2734531,
+   "team": "Grim's XI",
+   "manager": "Vikram B",
+   "gw": 31,
+   "total": 81,
+   "last_rank": 13
+  },
+  {
+   "rank": 6,
+   "entry": 5432670,
+   "team": "Babuchak's XI",
+   "manager": "Aditya Mehta",
+   "gw": 26,
+   "total": 80,
+   "last_rank": 9
+  },
+  {
+   "rank": 7,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 28,
+   "total": 80,
+   "last_rank": 12
   },
   {
    "rank": 8,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
-   "gw": 55,
-   "total": 55,
-   "last_rank": 0
+   "gw": 24,
+   "total": 79,
+   "last_rank": 8
   },
   {
    "rank": 9,
-   "entry": 2894511,
-   "team": "Goal Of Duty",
-   "manager": "Nirav Patel",
-   "gw": 54,
-   "total": 54,
-   "last_rank": 0
-  },
-  {
-   "rank": 9,
-   "entry": 5432670,
-   "team": "Babuchak's XI",
-   "manager": "Aditya Mehta",
-   "gw": 54,
-   "total": 54,
-   "last_rank": 0
-  },
-  {
-   "rank": 11,
-   "entry": 5363619,
-   "team": "Galactic FC",
-   "manager": "Vaikrant Pandav",
-   "gw": 53,
-   "total": 53,
-   "last_rank": 0
-  },
-  {
-   "rank": 12,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 52,
-   "total": 52,
-   "last_rank": 0
-  },
-  {
-   "rank": 13,
-   "entry": 2734531,
-   "team": "Grim's XI",
-   "manager": "Vikram B",
-   "gw": 50,
-   "total": 50,
-   "last_rank": 0
-  },
-  {
-   "rank": 14,
-   "entry": 2798588,
-   "team": "Manchester United FC",
-   "manager": "Ali Babwani",
-   "gw": 49,
-   "total": 49,
-   "last_rank": 0
-  },
-  {
-   "rank": 15,
-   "entry": 2875701,
-   "team": "One Last Season",
-   "manager": "Saurabh Kharkar",
-   "gw": 47,
-   "total": 47,
-   "last_rank": 0
-  },
-  {
-   "rank": 16,
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
-   "gw": 46,
-   "total": 46,
-   "last_rank": 0
+   "gw": 31,
+   "total": 77,
+   "last_rank": 16
   },
   {
-   "rank": 17,
+   "rank": 10,
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
+   "gw": 13,
+   "total": 76,
+   "last_rank": 4
+  },
+  {
+   "rank": 11,
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 44,
-   "total": 44,
-   "last_rank": 0
+   "gw": 31,
+   "total": 75,
+   "last_rank": 17
   },
   {
-   "rank": 18,
+   "rank": 12,
+   "entry": 6246591,
+   "team": "Lawade Na Bhojyam",
+   "manager": "Faraz Virani",
+   "gw": 7,
+   "total": 74,
+   "last_rank": 3
+  },
+  {
+   "rank": 13,
+   "entry": 2894511,
+   "team": "Goal Of Duty",
+   "manager": "Nirav Patel",
+   "gw": 18,
+   "total": 72,
+   "last_rank": 9
+  },
+  {
+   "rank": 14,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 41,
-   "total": 41,
-   "last_rank": 0
+   "gw": 26,
+   "total": 67,
+   "last_rank": 18
   },
   {
-   "rank": 19,
+   "rank": 15,
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 40,
-   "total": 40,
-   "last_rank": 0
+   "gw": 26,
+   "total": 66,
+   "last_rank": 19
+  },
+  {
+   "rank": 16,
+   "entry": 5445035,
+   "team": "Xabi to Win",
+   "manager": "Raj Desai",
+   "gw": 8,
+   "total": 66,
+   "last_rank": 6
+  },
+  {
+   "rank": 16,
+   "entry": 5363619,
+   "team": "Galactic FC",
+   "manager": "Vaikrant Pandav",
+   "gw": 13,
+   "total": 66,
+   "last_rank": 11
+  },
+  {
+   "rank": 18,
+   "entry": 2798588,
+   "team": "Manchester United FC",
+   "manager": "Ali Babwani",
+   "gw": 13,
+   "total": 62,
+   "last_rank": 14
+  },
+  {
+   "rank": 19,
+   "entry": 2875701,
+   "team": "One Last Season",
+   "manager": "Saurabh Kharkar",
+   "gw": 5,
+   "total": 52,
+   "last_rank": 15
   },
   {
    "rank": 20,
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 33,
-   "total": 33,
-   "last_rank": 0
+   "gw": 13,
+   "total": 46,
+   "last_rank": 20
   }
  ],
- "chip": "bboost",
+ "chip": null,
  "team": [
   {
-   "name": "Verbruggen",
-   "club": "BHA",
+   "name": "Kinsky",
+   "club": "TOT",
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 6
+   "points": 0
   },
   {
    "name": "Shaw",
@@ -205,7 +205,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 1
+   "points": 0
   },
   {
    "name": "White",
@@ -213,7 +213,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 11
+   "points": 0
   },
   {
    "name": "Calafiori",
@@ -221,15 +221,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 9
-  },
-  {
-   "name": "Groß",
-   "club": "BHA",
-   "mult": 1,
-   "cap": false,
-   "vice": false,
-   "points": 2
+   "points": 0
   },
   {
    "name": "Mbeumo",
@@ -237,7 +229,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 2
+   "points": 0
   },
   {
    "name": "Tzolis",
@@ -245,7 +237,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 6
+   "points": 0
   },
   {
    "name": "B.Fernandes",
@@ -253,7 +245,7 @@
    "mult": 2,
    "cap": true,
    "vice": false,
-   "points": 2
+   "points": 0
   },
   {
    "name": "Ndiaye",
@@ -261,7 +253,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 9
+   "points": 0
   },
   {
    "name": "João Pedro",
@@ -269,7 +261,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 11
+   "points": 0
   },
   {
    "name": "Haaland",
@@ -277,31 +269,7 @@
    "mult": 1,
    "cap": false,
    "vice": true,
-   "points": 2
-  },
-  {
-   "name": "Kinsky",
-   "club": "TOT",
-   "mult": 1,
-   "cap": false,
-   "vice": false,
-   "points": 2
-  },
-  {
-   "name": "Rodon",
-   "club": "LEE",
-   "mult": 1,
-   "cap": false,
-   "vice": false,
-   "points": 6
-  },
-  {
-   "name": "Davis",
-   "club": "IPS",
-   "mult": 1,
-   "cap": false,
-   "vice": false,
-   "points": 2
+   "points": 13
   },
   {
    "name": "Calvert-Lewin",
@@ -309,7 +277,39 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 1
+   "points": 0
+  },
+  {
+   "name": "Verbruggen",
+   "club": "BHA",
+   "mult": 0,
+   "cap": false,
+   "vice": false,
+   "points": 0
+  },
+  {
+   "name": "Groß",
+   "club": "BHA",
+   "mult": 0,
+   "cap": false,
+   "vice": false,
+   "points": 0
+  },
+  {
+   "name": "Rodon",
+   "club": "LEE",
+   "mult": 0,
+   "cap": false,
+   "vice": false,
+   "points": 0
+  },
+  {
+   "name": "Davis",
+   "club": "IPS",
+   "mult": 0,
+   "cap": false,
+   "vice": false,
+   "points": 0
   }
  ]
 }
