@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-29T20:23:33Z",
+ "generated_utc": "2026-08-29T21:23:33Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 18,
   "total": 92,
-  "overall_rank": 1763044
+  "overall_rank": 1756439
  },
  "league": [
   {
@@ -55,15 +55,6 @@
   },
   {
    "rank": 6,
-   "entry": 4749698,
-   "team": "Jungle_King",
-   "manager": "Pankit Khant",
-   "gw": 42,
-   "total": 88,
-   "last_rank": 16
-  },
-  {
-   "rank": 6,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
@@ -72,13 +63,13 @@
    "last_rank": 8
   },
   {
-   "rank": 8,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 31,
-   "total": 87,
-   "last_rank": 7
+   "rank": 6,
+   "entry": 4749698,
+   "team": "Jungle_King",
+   "manager": "Pankit Khant",
+   "gw": 42,
+   "total": 88,
+   "last_rank": 16
   },
   {
    "rank": 8,
@@ -88,6 +79,15 @@
    "gw": 20,
    "total": 87,
    "last_rank": 3
+  },
+  {
+   "rank": 8,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 31,
+   "total": 87,
+   "last_rank": 7
   },
   {
    "rank": 10,
@@ -100,21 +100,21 @@
   },
   {
    "rank": 11,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
-   "gw": 18,
-   "total": 81,
-   "last_rank": 4
-  },
-  {
-   "rank": 11,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
    "gw": 29,
    "total": 81,
    "last_rank": 12
+  },
+  {
+   "rank": 11,
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
+   "gw": 18,
+   "total": 81,
+   "last_rank": 4
   },
   {
    "rank": 13,
