@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-29T21:23:33Z",
+ "generated_utc": "2026-08-29T22:23:39Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 18,
   "total": 92,
-  "overall_rank": 1756439
+  "overall_rank": 1756438
  },
  "league": [
   {
@@ -55,15 +55,6 @@
   },
   {
    "rank": 6,
-   "entry": 1315673,
-   "team": "Ramurai Push",
-   "manager": "Sid Damle",
-   "gw": 33,
-   "total": 88,
-   "last_rank": 8
-  },
-  {
-   "rank": 6,
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
@@ -72,13 +63,13 @@
    "last_rank": 16
   },
   {
-   "rank": 8,
-   "entry": 6246591,
-   "team": "Lawade Na Bhojyam",
-   "manager": "Faraz Virani",
-   "gw": 20,
-   "total": 87,
-   "last_rank": 3
+   "rank": 6,
+   "entry": 1315673,
+   "team": "Ramurai Push",
+   "manager": "Sid Damle",
+   "gw": 33,
+   "total": 88,
+   "last_rank": 8
   },
   {
    "rank": 8,
@@ -88,6 +79,15 @@
    "gw": 31,
    "total": 87,
    "last_rank": 7
+  },
+  {
+   "rank": 8,
+   "entry": 6246591,
+   "team": "Lawade Na Bhojyam",
+   "manager": "Faraz Virani",
+   "gw": 20,
+   "total": 87,
+   "last_rank": 3
   },
   {
    "rank": 10,
