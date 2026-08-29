@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-29T13:23:38Z",
+ "generated_utc": "2026-08-29T14:23:23Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
-  "gw_points": 13,
-  "total": 87,
-  "overall_rank": 1812543
+  "gw_points": 14,
+  "total": 88,
+  "overall_rank": 1779927
  },
  "league": [
   {
@@ -31,12 +31,21 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 13,
-   "total": 87,
+   "gw": 14,
+   "total": 88,
    "last_rank": 2
   },
   {
-   "rank": 4,
+   "rank": 3,
+   "entry": 7810137,
+   "team": "Ganpati Bappa Morya",
+   "manager": "Tushar Panchal",
+   "gw": 48,
+   "total": 88,
+   "last_rank": 19
+  },
+  {
+   "rank": 5,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
@@ -45,22 +54,13 @@
    "last_rank": 7
   },
   {
-   "rank": 4,
+   "rank": 5,
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
    "gw": 19,
    "total": 86,
    "last_rank": 3
-  },
-  {
-   "rank": 6,
-   "entry": 7810137,
-   "team": "Ganpati Bappa Morya",
-   "manager": "Tushar Panchal",
-   "gw": 45,
-   "total": 85,
-   "last_rank": 19
   },
   {
    "rank": 7,
@@ -72,12 +72,12 @@
    "last_rank": 9
   },
   {
-   "rank": 8,
+   "rank": 7,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
-   "gw": 28,
-   "total": 83,
+   "gw": 29,
+   "total": 84,
    "last_rank": 8
   },
   {
@@ -85,8 +85,8 @@
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 31,
-   "total": 81,
+   "gw": 32,
+   "total": 82,
    "last_rank": 13
   },
   {
@@ -109,6 +109,15 @@
   },
   {
    "rank": 12,
+   "entry": 4749698,
+   "team": "Jungle_King",
+   "manager": "Pankit Khant",
+   "gw": 33,
+   "total": 79,
+   "last_rank": 16
+  },
+  {
+   "rank": 13,
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
@@ -117,21 +126,12 @@
    "last_rank": 17
   },
   {
-   "rank": 13,
-   "entry": 4749698,
-   "team": "Jungle_King",
-   "manager": "Pankit Khant",
-   "gw": 31,
-   "total": 77,
-   "last_rank": 16
-  },
-  {
    "rank": 14,
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 22,
-   "total": 76,
+   "gw": 23,
+   "total": 77,
    "last_rank": 9
   },
   {
@@ -139,8 +139,8 @@
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 17,
-   "total": 70,
+   "gw": 18,
+   "total": 71,
    "last_rank": 11
   },
   {
@@ -148,8 +148,8 @@
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 26,
-   "total": 67,
+   "gw": 27,
+   "total": 68,
    "last_rank": 18
   },
   {
@@ -157,8 +157,8 @@
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 17,
-   "total": 66,
+   "gw": 18,
+   "total": 67,
    "last_rank": 14
   },
   {
@@ -184,8 +184,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 17,
-   "total": 50,
+   "gw": 19,
+   "total": 52,
    "last_rank": 20
   }
  ],
@@ -253,7 +253,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 1
   },
   {
    "name": "João Pedro",
