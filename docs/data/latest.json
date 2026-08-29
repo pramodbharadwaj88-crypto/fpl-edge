@@ -1,22 +1,13 @@
 {
- "generated_utc": "2026-08-29T18:23:47Z",
+ "generated_utc": "2026-08-29T19:23:28Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 18,
   "total": 92,
-  "overall_rank": 1763049
+  "overall_rank": 1763045
  },
  "league": [
-  {
-   "rank": 1,
-   "entry": 5289,
-   "team": "Devil's Own XI",
-   "manager": "Chandan Gupta",
-   "gw": 15,
-   "total": 108,
-   "last_rank": 1
-  },
   {
    "rank": 1,
    "entry": 7810137,
@@ -25,6 +16,15 @@
    "gw": 68,
    "total": 108,
    "last_rank": 19
+  },
+  {
+   "rank": 1,
+   "entry": 5289,
+   "team": "Devil's Own XI",
+   "manager": "Chandan Gupta",
+   "gw": 15,
+   "total": 108,
+   "last_rank": 1
   },
   {
    "rank": 3,
@@ -73,21 +73,21 @@
   },
   {
    "rank": 8,
-   "entry": 6246591,
-   "team": "Lawade Na Bhojyam",
-   "manager": "Faraz Virani",
-   "gw": 20,
-   "total": 87,
-   "last_rank": 3
-  },
-  {
-   "rank": 8,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
    "gw": 31,
    "total": 87,
    "last_rank": 7
+  },
+  {
+   "rank": 8,
+   "entry": 6246591,
+   "team": "Lawade Na Bhojyam",
+   "manager": "Faraz Virani",
+   "gw": 20,
+   "total": 87,
+   "last_rank": 3
   },
   {
    "rank": 10,
