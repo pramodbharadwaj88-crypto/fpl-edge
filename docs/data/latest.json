@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-29T15:23:23Z",
+ "generated_utc": "2026-08-29T16:23:43Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
-  "gw_points": 15,
-  "total": 89,
-  "overall_rank": 1921443
+  "gw_points": 17,
+  "total": 91,
+  "overall_rank": 1738226
  },
  "league": [
   {
@@ -22,39 +22,30 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 60,
-   "total": 100,
+   "gw": 56,
+   "total": 96,
    "last_rank": 19
   },
   {
    "rank": 3,
-   "entry": 4749698,
-   "team": "Jungle_King",
-   "manager": "Pankit Khant",
-   "gw": 46,
-   "total": 92,
-   "last_rank": 16
+   "entry": 3314291,
+   "team": "YehBaburaoKaStyleHai",
+   "manager": "Pramod B",
+   "gw": 17,
+   "total": 91,
+   "last_rank": 2
   },
   {
    "rank": 4,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 40,
-   "total": 90,
+   "gw": 39,
+   "total": 89,
    "last_rank": 13
   },
   {
    "rank": 5,
-   "entry": 3314291,
-   "team": "YehBaburaoKaStyleHai",
-   "manager": "Pramod B",
-   "gw": 15,
-   "total": 89,
-   "last_rank": 2
-  },
-  {
-   "rank": 6,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
@@ -63,16 +54,25 @@
    "last_rank": 4
   },
   {
-   "rank": 7,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 30,
-   "total": 86,
-   "last_rank": 7
+   "rank": 6,
+   "entry": 4749698,
+   "team": "Jungle_King",
+   "manager": "Pankit Khant",
+   "gw": 41,
+   "total": 87,
+   "last_rank": 16
   },
   {
-   "rank": 7,
+   "rank": 6,
+   "entry": 1315673,
+   "team": "Ramurai Push",
+   "manager": "Sid Damle",
+   "gw": 32,
+   "total": 87,
+   "last_rank": 8
+  },
+  {
+   "rank": 8,
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
@@ -81,13 +81,13 @@
    "last_rank": 3
   },
   {
-   "rank": 9,
-   "entry": 1315673,
-   "team": "Ramurai Push",
-   "manager": "Sid Damle",
+   "rank": 8,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
    "gw": 30,
-   "total": 85,
-   "last_rank": 8
+   "total": 86,
+   "last_rank": 7
   },
   {
    "rank": 10,
@@ -100,15 +100,6 @@
   },
   {
    "rank": 11,
-   "entry": 2894511,
-   "team": "Goal Of Duty",
-   "manager": "Nirav Patel",
-   "gw": 28,
-   "total": 82,
-   "last_rank": 9
-  },
-  {
-   "rank": 12,
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
@@ -117,7 +108,7 @@
    "last_rank": 4
   },
   {
-   "rank": 13,
+   "rank": 12,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
@@ -126,7 +117,7 @@
    "last_rank": 12
   },
   {
-   "rank": 14,
+   "rank": 13,
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
@@ -135,31 +126,40 @@
    "last_rank": 17
   },
   {
+   "rank": 14,
+   "entry": 2894511,
+   "team": "Goal Of Duty",
+   "manager": "Nirav Patel",
+   "gw": 24,
+   "total": 78,
+   "last_rank": 9
+  },
+  {
    "rank": 15,
-   "entry": 2942185,
-   "team": "House",
-   "manager": "Praveen Hosdrug",
-   "gw": 32,
-   "total": 73,
-   "last_rank": 18
-  },
-  {
-   "rank": 16,
-   "entry": 2798588,
-   "team": "Manchester United FC",
-   "manager": "Ali Babwani",
-   "gw": 23,
-   "total": 72,
-   "last_rank": 14
-  },
-  {
-   "rank": 17,
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 19,
-   "total": 72,
+   "gw": 21,
+   "total": 74,
    "last_rank": 11
+  },
+  {
+   "rank": 16,
+   "entry": 2942185,
+   "team": "House",
+   "manager": "Praveen Hosdrug",
+   "gw": 28,
+   "total": 69,
+   "last_rank": 18
+  },
+  {
+   "rank": 17,
+   "entry": 2798588,
+   "team": "Manchester United FC",
+   "manager": "Ali Babwani",
+   "gw": 19,
+   "total": 68,
+   "last_rank": 14
   },
   {
    "rank": 18,
@@ -184,8 +184,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 28,
-   "total": 61,
+   "gw": 27,
+   "total": 60,
    "last_rank": 20
   }
  ],
@@ -253,7 +253,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 2
+   "points": 4
   },
   {
    "name": "João Pedro",
