@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-29T12:23:46Z",
+ "generated_utc": "2026-08-29T13:23:38Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 13,
   "total": 87,
-  "overall_rank": 1222303
+  "overall_rank": 1812543
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 4,
-   "total": 97,
+   "gw": 14,
+   "total": 107,
    "last_rank": 1
   },
   {
@@ -40,12 +40,48 @@
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
-   "gw": 27,
-   "total": 83,
+   "gw": 30,
+   "total": 86,
    "last_rank": 7
   },
   {
-   "rank": 5,
+   "rank": 4,
+   "entry": 6246591,
+   "team": "Lawade Na Bhojyam",
+   "manager": "Faraz Virani",
+   "gw": 19,
+   "total": 86,
+   "last_rank": 3
+  },
+  {
+   "rank": 6,
+   "entry": 7810137,
+   "team": "Ganpati Bappa Morya",
+   "manager": "Tushar Panchal",
+   "gw": 45,
+   "total": 85,
+   "last_rank": 19
+  },
+  {
+   "rank": 7,
+   "entry": 5432670,
+   "team": "Babuchak's XI",
+   "manager": "Aditya Mehta",
+   "gw": 30,
+   "total": 84,
+   "last_rank": 9
+  },
+  {
+   "rank": 8,
+   "entry": 1315673,
+   "team": "Ramurai Push",
+   "manager": "Sid Damle",
+   "gw": 28,
+   "total": 83,
+   "last_rank": 8
+  },
+  {
+   "rank": 9,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
@@ -54,25 +90,16 @@
    "last_rank": 13
   },
   {
-   "rank": 5,
-   "entry": 5432670,
-   "team": "Babuchak's XI",
-   "manager": "Aditya Mehta",
-   "gw": 27,
+   "rank": 10,
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
+   "gw": 18,
    "total": 81,
-   "last_rank": 9
+   "last_rank": 4
   },
   {
-   "rank": 7,
-   "entry": 1315673,
-   "team": "Ramurai Push",
-   "manager": "Sid Damle",
-   "gw": 25,
-   "total": 80,
-   "last_rank": 8
-  },
-  {
-   "rank": 8,
+   "rank": 11,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
@@ -81,7 +108,16 @@
    "last_rank": 12
   },
   {
-   "rank": 9,
+   "rank": 12,
+   "entry": 4709922,
+   "team": "Flames",
+   "manager": "Nirav Tony",
+   "gw": 35,
+   "total": 79,
+   "last_rank": 17
+  },
+  {
+   "rank": 13,
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
@@ -90,52 +126,25 @@
    "last_rank": 16
   },
   {
-   "rank": 10,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
-   "gw": 14,
-   "total": 77,
-   "last_rank": 4
-  },
-  {
-   "rank": 11,
-   "entry": 6246591,
-   "team": "Lawade Na Bhojyam",
-   "manager": "Faraz Virani",
-   "gw": 9,
-   "total": 76,
-   "last_rank": 3
-  },
-  {
-   "rank": 12,
-   "entry": 4709922,
-   "team": "Flames",
-   "manager": "Nirav Tony",
-   "gw": 32,
-   "total": 76,
-   "last_rank": 17
-  },
-  {
-   "rank": 13,
-   "entry": 7810137,
-   "team": "Ganpati Bappa Morya",
-   "manager": "Tushar Panchal",
-   "gw": 33,
-   "total": 73,
-   "last_rank": 19
-  },
-  {
    "rank": 14,
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 19,
-   "total": 73,
+   "gw": 22,
+   "total": 76,
    "last_rank": 9
   },
   {
    "rank": 15,
+   "entry": 5363619,
+   "team": "Galactic FC",
+   "manager": "Vaikrant Pandav",
+   "gw": 17,
+   "total": 70,
+   "last_rank": 11
+  },
+  {
+   "rank": 16,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
@@ -144,16 +153,16 @@
    "last_rank": 18
   },
   {
-   "rank": 16,
-   "entry": 5363619,
-   "team": "Galactic FC",
-   "manager": "Vaikrant Pandav",
-   "gw": 14,
-   "total": 67,
-   "last_rank": 11
+   "rank": 17,
+   "entry": 2798588,
+   "team": "Manchester United FC",
+   "manager": "Ali Babwani",
+   "gw": 17,
+   "total": 66,
+   "last_rank": 14
   },
   {
-   "rank": 17,
+   "rank": 18,
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
@@ -162,21 +171,12 @@
    "last_rank": 6
   },
   {
-   "rank": 18,
-   "entry": 2798588,
-   "team": "Manchester United FC",
-   "manager": "Ali Babwani",
-   "gw": 14,
-   "total": 63,
-   "last_rank": 14
-  },
-  {
    "rank": 19,
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
-   "gw": 7,
-   "total": 54,
+   "gw": 17,
+   "total": 64,
    "last_rank": 15
   },
   {
@@ -184,8 +184,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 14,
-   "total": 47,
+   "gw": 17,
+   "total": 50,
    "last_rank": 20
   }
  ],
