@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-29T01:23:25Z",
+ "generated_utc": "2026-08-29T02:23:27Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 13,
   "total": 87,
-  "overall_rank": 1045840
+  "overall_rank": 1045839
  },
  "league": [
   {
@@ -145,21 +145,21 @@
   },
   {
    "rank": 16,
-   "entry": 5445035,
-   "team": "Xabi to Win",
-   "manager": "Raj Desai",
-   "gw": 8,
-   "total": 66,
-   "last_rank": 6
-  },
-  {
-   "rank": 16,
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
    "gw": 13,
    "total": 66,
    "last_rank": 11
+  },
+  {
+   "rank": 16,
+   "entry": 5445035,
+   "team": "Xabi to Win",
+   "manager": "Raj Desai",
+   "gw": 8,
+   "total": 66,
+   "last_rank": 6
   },
   {
    "rank": 18,
