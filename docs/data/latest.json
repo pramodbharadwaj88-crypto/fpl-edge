@@ -1,22 +1,13 @@
 {
- "generated_utc": "2026-08-29T23:23:26Z",
+ "generated_utc": "2026-08-30T00:23:38Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 18,
   "total": 92,
-  "overall_rank": 1756438
+  "overall_rank": 1760560
  },
  "league": [
-  {
-   "rank": 1,
-   "entry": 7810137,
-   "team": "Ganpati Bappa Morya",
-   "manager": "Tushar Panchal",
-   "gw": 68,
-   "total": 108,
-   "last_rank": 19
-  },
   {
    "rank": 1,
    "entry": 5289,
@@ -25,6 +16,15 @@
    "gw": 15,
    "total": 108,
    "last_rank": 1
+  },
+  {
+   "rank": 1,
+   "entry": 7810137,
+   "team": "Ganpati Bappa Morya",
+   "manager": "Tushar Panchal",
+   "gw": 68,
+   "total": 108,
+   "last_rank": 19
   },
   {
    "rank": 3,
@@ -73,21 +73,21 @@
   },
   {
    "rank": 8,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 31,
-   "total": 87,
-   "last_rank": 7
-  },
-  {
-   "rank": 8,
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
    "gw": 20,
    "total": 87,
    "last_rank": 3
+  },
+  {
+   "rank": 8,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 31,
+   "total": 87,
+   "last_rank": 7
   },
   {
    "rank": 10,
@@ -100,21 +100,21 @@
   },
   {
    "rank": 11,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 29,
-   "total": 81,
-   "last_rank": 12
-  },
-  {
-   "rank": 11,
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
    "gw": 18,
    "total": 81,
    "last_rank": 4
+  },
+  {
+   "rank": 11,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 29,
+   "total": 81,
+   "last_rank": 12
   },
   {
    "rank": 13,
