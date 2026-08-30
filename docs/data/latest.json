@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-30T02:23:42Z",
+ "generated_utc": "2026-08-30T03:23:24Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 18,
   "total": 92,
-  "overall_rank": 1760554
+  "overall_rank": 1760552
  },
  "league": [
   {
@@ -100,21 +100,21 @@
   },
   {
    "rank": 11,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
-   "gw": 18,
-   "total": 81,
-   "last_rank": 4
-  },
-  {
-   "rank": 11,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
    "gw": 29,
    "total": 81,
    "last_rank": 12
+  },
+  {
+   "rank": 11,
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
+   "gw": 18,
+   "total": 81,
+   "last_rank": 4
   },
   {
    "rank": 13,
