@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-08-30T03:23:24Z",
+ "generated_utc": "2026-08-30T04:23:33Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
@@ -73,21 +73,21 @@
   },
   {
    "rank": 8,
-   "entry": 6246591,
-   "team": "Lawade Na Bhojyam",
-   "manager": "Faraz Virani",
-   "gw": 20,
-   "total": 87,
-   "last_rank": 3
-  },
-  {
-   "rank": 8,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
    "gw": 31,
    "total": 87,
    "last_rank": 7
+  },
+  {
+   "rank": 8,
+   "entry": 6246591,
+   "team": "Lawade Na Bhojyam",
+   "manager": "Faraz Virani",
+   "gw": 20,
+   "total": 87,
+   "last_rank": 3
   },
   {
    "rank": 10,
