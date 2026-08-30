@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-30T19:23:31Z",
+ "generated_utc": "2026-08-30T20:23:38Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 94,
   "total": 168,
-  "overall_rank": 142772
+  "overall_rank": 142773
  },
  "league": [
   {
@@ -73,21 +73,21 @@
   },
   {
    "rank": 8,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 87,
-   "total": 143,
-   "last_rank": 7
-  },
-  {
-   "rank": 8,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
    "gw": 93,
    "total": 143,
    "last_rank": 13
+  },
+  {
+   "rank": 8,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 87,
+   "total": 143,
+   "last_rank": 7
   },
   {
    "rank": 10,
