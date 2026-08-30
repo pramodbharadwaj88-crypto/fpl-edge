@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-30T09:23:45Z",
+ "generated_utc": "2026-08-30T10:23:32Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 18,
   "total": 92,
-  "overall_rank": 1760549
+  "overall_rank": 1760547
  },
  "league": [
   {
@@ -73,21 +73,21 @@
   },
   {
    "rank": 8,
-   "entry": 6246591,
-   "team": "Lawade Na Bhojyam",
-   "manager": "Faraz Virani",
-   "gw": 20,
-   "total": 87,
-   "last_rank": 3
-  },
-  {
-   "rank": 8,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
    "gw": 31,
    "total": 87,
    "last_rank": 7
+  },
+  {
+   "rank": 8,
+   "entry": 6246591,
+   "team": "Lawade Na Bhojyam",
+   "manager": "Faraz Virani",
+   "gw": 20,
+   "total": 87,
+   "last_rank": 3
   },
   {
    "rank": 10,
@@ -145,21 +145,21 @@
   },
   {
    "rank": 16,
-   "entry": 2798588,
-   "team": "Manchester United FC",
-   "manager": "Ali Babwani",
-   "gw": 20,
-   "total": 69,
-   "last_rank": 14
-  },
-  {
-   "rank": 16,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
    "gw": 28,
    "total": 69,
    "last_rank": 18
+  },
+  {
+   "rank": 16,
+   "entry": 2798588,
+   "team": "Manchester United FC",
+   "manager": "Ali Babwani",
+   "gw": 20,
+   "total": 69,
+   "last_rank": 14
   },
   {
    "rank": 18,
