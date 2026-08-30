@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-08-30T06:23:40Z",
+ "generated_utc": "2026-08-30T07:23:29Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
@@ -145,21 +145,21 @@
   },
   {
    "rank": 16,
-   "entry": 2942185,
-   "team": "House",
-   "manager": "Praveen Hosdrug",
-   "gw": 28,
-   "total": 69,
-   "last_rank": 18
-  },
-  {
-   "rank": 16,
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
    "gw": 20,
    "total": 69,
    "last_rank": 14
+  },
+  {
+   "rank": 16,
+   "entry": 2942185,
+   "team": "House",
+   "manager": "Praveen Hosdrug",
+   "gw": 28,
+   "total": 69,
+   "last_rank": 18
   },
   {
    "rank": 18,
