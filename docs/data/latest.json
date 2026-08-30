@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-08-30T04:23:33Z",
+ "generated_utc": "2026-08-30T05:23:39Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
@@ -10,21 +10,21 @@
  "league": [
   {
    "rank": 1,
-   "entry": 5289,
-   "team": "Devil's Own XI",
-   "manager": "Chandan Gupta",
-   "gw": 15,
-   "total": 108,
-   "last_rank": 1
-  },
-  {
-   "rank": 1,
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
    "gw": 68,
    "total": 108,
    "last_rank": 19
+  },
+  {
+   "rank": 1,
+   "entry": 5289,
+   "team": "Devil's Own XI",
+   "manager": "Chandan Gupta",
+   "gw": 15,
+   "total": 108,
+   "last_rank": 1
   },
   {
    "rank": 3,
@@ -145,21 +145,21 @@
   },
   {
    "rank": 16,
-   "entry": 2798588,
-   "team": "Manchester United FC",
-   "manager": "Ali Babwani",
-   "gw": 20,
-   "total": 69,
-   "last_rank": 14
-  },
-  {
-   "rank": 16,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
    "gw": 28,
    "total": 69,
    "last_rank": 18
+  },
+  {
+   "rank": 16,
+   "entry": 2798588,
+   "team": "Manchester United FC",
+   "manager": "Ali Babwani",
+   "gw": 20,
+   "total": 69,
+   "last_rank": 14
   },
   {
    "rank": 18,
