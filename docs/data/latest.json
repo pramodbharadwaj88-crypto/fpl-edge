@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-30T18:23:22Z",
+ "generated_utc": "2026-08-30T19:23:31Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 94,
   "total": 168,
-  "overall_rank": 137980
+  "overall_rank": 142772
  },
  "league": [
   {
@@ -73,21 +73,21 @@
   },
   {
    "rank": 8,
-   "entry": 2734531,
-   "team": "Grim's XI",
-   "manager": "Vikram B",
-   "gw": 93,
-   "total": 143,
-   "last_rank": 13
-  },
-  {
-   "rank": 8,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
    "gw": 87,
    "total": 143,
    "last_rank": 7
+  },
+  {
+   "rank": 8,
+   "entry": 2734531,
+   "team": "Grim's XI",
+   "manager": "Vikram B",
+   "gw": 93,
+   "total": 143,
+   "last_rank": 13
   },
   {
    "rank": 10,
@@ -118,15 +118,6 @@
   },
   {
    "rank": 13,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 81,
-   "total": 133,
-   "last_rank": 12
-  },
-  {
-   "rank": 14,
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
@@ -135,13 +126,22 @@
    "last_rank": 20
   },
   {
-   "rank": 15,
+   "rank": 14,
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
    "gw": 84,
    "total": 131,
    "last_rank": 15
+  },
+  {
+   "rank": 15,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 79,
+   "total": 131,
+   "last_rank": 12
   },
   {
    "rank": 16,
