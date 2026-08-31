@@ -17,3 +17,4 @@ data/ledger_decisions.jsonl
 !data/baseline_prev.json
 !data/static/
 !data/season/
+data/pending_moves.json
