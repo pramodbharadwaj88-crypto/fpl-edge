@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-31T18:23:43Z",
+ "generated_utc": "2026-08-31T19:23:36Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
-  "gw_points": 94,
-  "total": 168,
-  "overall_rank": 142773
+  "gw_points": 97,
+  "total": 171,
+  "overall_rank": 127448
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 89,
-   "total": 182,
+   "gw": 92,
+   "total": 185,
    "last_rank": 1
   },
   {
@@ -22,8 +22,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 94,
-   "total": 168,
+   "gw": 97,
+   "total": 171,
    "last_rank": 2
   },
   {
@@ -31,8 +31,8 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 88,
-   "total": 155,
+   "gw": 90,
+   "total": 157,
    "last_rank": 3
   },
   {
@@ -40,8 +40,8 @@
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 90,
-   "total": 153,
+   "gw": 92,
+   "total": 155,
    "last_rank": 4
   },
   {
@@ -49,8 +49,8 @@
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 94,
-   "total": 148,
+   "gw": 96,
+   "total": 150,
    "last_rank": 9
   },
   {
@@ -58,8 +58,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 87,
-   "total": 145,
+   "gw": 90,
+   "total": 148,
    "last_rank": 6
   },
   {
@@ -67,35 +67,35 @@
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
-   "gw": 90,
-   "total": 144,
+   "gw": 92,
+   "total": 146,
    "last_rank": 9
-  },
-  {
-   "rank": 8,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 87,
-   "total": 143,
-   "last_rank": 7
   },
   {
    "rank": 8,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 93,
-   "total": 143,
+   "gw": 95,
+   "total": 145,
    "last_rank": 13
+  },
+  {
+   "rank": 8,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 89,
+   "total": 145,
+   "last_rank": 7
   },
   {
    "rank": 10,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
-   "gw": 79,
-   "total": 142,
+   "gw": 82,
+   "total": 145,
    "last_rank": 4
   },
   {
@@ -103,8 +103,8 @@
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 90,
-   "total": 139,
+   "gw": 92,
+   "total": 141,
    "last_rank": 14
   },
   {
@@ -112,8 +112,8 @@
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
-   "gw": 87,
-   "total": 133,
+   "gw": 89,
+   "total": 135,
    "last_rank": 16
   },
   {
@@ -121,8 +121,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 99,
-   "total": 132,
+   "gw": 101,
+   "total": 134,
    "last_rank": 20
   },
   {
@@ -130,8 +130,8 @@
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
-   "gw": 84,
-   "total": 131,
+   "gw": 86,
+   "total": 133,
    "last_rank": 15
   },
   {
@@ -139,8 +139,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 79,
-   "total": 131,
+   "gw": 80,
+   "total": 132,
    "last_rank": 12
   },
   {
@@ -148,8 +148,8 @@
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 85,
-   "total": 126,
+   "gw": 87,
+   "total": 128,
    "last_rank": 18
   },
   {
@@ -157,8 +157,8 @@
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
-   "gw": 70,
-   "total": 125,
+   "gw": 71,
+   "total": 126,
    "last_rank": 8
   },
   {
@@ -166,8 +166,8 @@
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 71,
-   "total": 124,
+   "gw": 72,
+   "total": 125,
    "last_rank": 11
   },
   {
@@ -184,8 +184,8 @@
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 63,
-   "total": 107,
+   "gw": 65,
+   "total": 109,
    "last_rank": 17
   }
  ],
@@ -213,7 +213,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 1
   },
   {
    "name": "Calafiori",
@@ -221,7 +221,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 1
   },
   {
    "name": "Mbeumo",
@@ -237,7 +237,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 1
   },
   {
    "name": "B.Fernandes",
