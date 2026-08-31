@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-31T20:23:32Z",
+ "generated_utc": "2026-08-31T21:23:37Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
-  "gw_points": 111,
-  "total": 185,
-  "overall_rank": 90178
+  "gw_points": 112,
+  "total": 186,
+  "overall_rank": 84979
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 106,
-   "total": 199,
+   "gw": 108,
+   "total": 201,
    "last_rank": 1
   },
   {
@@ -22,8 +22,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 111,
-   "total": 185,
+   "gw": 112,
+   "total": 186,
    "last_rank": 2
   },
   {
@@ -31,8 +31,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 110,
-   "total": 168,
+   "gw": 112,
+   "total": 170,
    "last_rank": 6
   },
   {
@@ -55,20 +55,20 @@
   },
   {
    "rank": 6,
+   "entry": 2894511,
+   "team": "Goal Of Duty",
+   "manager": "Nirav Patel",
+   "gw": 108,
+   "total": 162,
+   "last_rank": 9
+  },
+  {
+   "rank": 7,
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
    "gw": 107,
    "total": 161,
-   "last_rank": 9
-  },
-  {
-   "rank": 7,
-   "entry": 2894511,
-   "team": "Goal Of Duty",
-   "manager": "Nirav Patel",
-   "gw": 106,
-   "total": 160,
    "last_rank": 9
   },
   {
@@ -112,8 +112,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 116,
-   "total": 149,
+   "gw": 118,
+   "total": 151,
    "last_rank": 20
   },
   {
@@ -121,8 +121,8 @@
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
-   "gw": 101,
-   "total": 148,
+   "gw": 103,
+   "total": 150,
    "last_rank": 15
   },
   {
@@ -139,8 +139,8 @@
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
-   "gw": 93,
-   "total": 139,
+   "gw": 95,
+   "total": 141,
    "last_rank": 16
   },
   {
@@ -148,8 +148,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 85,
-   "total": 137,
+   "gw": 87,
+   "total": 139,
    "last_rank": 12
   },
   {
@@ -213,7 +213,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 6
+   "points": 7
   },
   {
    "name": "Calafiori",
