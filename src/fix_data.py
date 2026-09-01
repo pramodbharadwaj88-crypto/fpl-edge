@@ -183,3 +183,51 @@ if __name__ == "__main__":
         print("captains:", d["captains"])
         top = sorted(d["ownership"].items(), key=lambda x: -x[1])[:10]
         print("top owned:", top)
+
+
+# ---------------------------------------------------------------------------
+# Elite META (chips / transfers / finance / manager notes) — added 2026-09-01.
+# The reveal page lays each manager out as:
+#   [Gameweek N - Manager Mindset <note>] [Transfers GW Remaining: x GW Hits Taken: y]
+#   [Finance Team Value: .. In The Bank: ..] [Chip Usage WC1 .. WC2 .. TC .. FH .. BB ..]
+#   [Rank Live Rank: .. GW Points: ..] [Show Bio <NAME> Number of Top 1k Finishes ...]
+# i.e. every stats block PRECEDES the "Show Bio <name>" that owns it.
+# ---------------------------------------------------------------------------
+def parse_meta(html: str) -> list[dict]:
+    from bs4 import BeautifulSoup
+    text = BeautifulSoup(html, "html.parser").get_text(" ", strip=True)
+    # each manager section: "<NAME> Show Bio [handle] Last Updated: <date> FPL Finishing History ..."
+    heads = list(re.finditer(
+        r"([A-Z][\w'’-]+(?: [A-Z][\w'’-]+){0,2}) Show Bio (?:\S+ )?Last Updated: (.+?) FPL Finishing History", text))
+    out = []
+    for i, h in enumerate(heads):
+        seg = text[h.end(): heads[i + 1].start() if i + 1 < len(heads) else len(text)]
+        chip = re.search(r"Chip Usage WC1 (\w+) WC2 (\w+) TC (\w+) FH (\w+) BB (GW \d+|\w+)", seg)
+        chips = dict(zip(["WC1", "WC2", "TC", "FH", "BB"], chip.groups())) if chip else {}
+        tr = re.search(r"GW Remaining: (\w+) GW Hits Taken: (\d+)", seg)
+        fin = re.search(r"Team Value: ([\d.]+)m In The Bank: ([\d.]+)m", seg)
+        rk = re.search(r"Live Rank: ([\d,]+) GW Points: (\d+)", seg)
+        live = re.search(r"Live Transfers (.*?) Gameweek \d+ - Manager Mindset", seg)
+        note = re.search(r"Manager Mindset (.*?) Transfers GW Remaining", seg)
+        out.append(dict(
+            manager=re.sub(r"^(?:RETURN TO )?(?:MANAGER )?STATS ", "", h.group(1)).strip(),
+            last_updated=h.group(2).strip(),
+            chips=chips, active_chip=next((k for k, v in chips.items() if v == "Active"), None),
+            ft_remaining=tr.group(1) if tr else None, hits=int(tr.group(2)) if tr else None,
+            team_value=float(fin.group(1)) if fin else None, bank=float(fin.group(2)) if fin else None,
+            live_rank=int(rk.group(1).replace(",", "")) if rk else None,
+            gw_points=int(rk.group(2)) if rk else None,
+            live_transfers=(live.group(1).replace("Out In Live transfer will show instantly when complete.", "").strip() if live else ""),
+            note=(note.group(1).strip() if note else "")[:1500]))
+    return out
+
+
+def refresh_meta() -> list[dict] | None:
+    html = fetch_page()
+    if not html:
+        return None
+    meta = parse_meta(html)
+    (DATA / "elite_meta.json").write_text(json.dumps(
+        dict(updated=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), managers=meta),
+        ensure_ascii=False, indent=1))
+    return meta
