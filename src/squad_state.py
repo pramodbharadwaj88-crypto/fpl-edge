@@ -105,15 +105,17 @@ def _apply_pending(state: dict, bs) -> dict:
         out_id, in_id = _resolve_name(m["out"], bs), _resolve_name(m["in"], bs)
         if out_id in state["element_ids"] and in_id and in_id not in state["element_ids"]:
             sell = selling_price(out_id, bs)
-            buy = next(e["now_cost"] for e in bs["elements"] if e["id"] == in_id) / 10.0
+            book_f = DATA / "purchases.json"
+            book = json.loads(book_f.read_text()) if book_f.exists() else {}
+            # buy price = user-stated, else first-seen booked price, else today's
+            now_in = next(e["now_cost"] for e in bs["elements"] if e["id"] == in_id)
+            buy_tenths = int(m.get("in_cost_tenths") or book.get(str(in_id)) or now_in)
+            buy = buy_tenths / 10.0
             state["element_ids"] = [in_id if x == out_id else x
                                     for x in state["element_ids"]]
             state["bank"] = round(state["bank"] + sell - buy, 1)
-            # book the purchase at today's price
-            book_f = DATA / "purchases.json"
-            book = json.loads(book_f.read_text()) if book_f.exists() else {}
             book.pop(str(out_id), None)
-            book.setdefault(str(in_id), int(round(buy * 10)))  # first-seen buy price
+            book[str(in_id)] = buy_tenths
             book_f.write_text(json.dumps(book))
             if state.get("captain") == out_id:
                 state["captain"] = None
