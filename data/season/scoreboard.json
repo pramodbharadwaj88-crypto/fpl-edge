@@ -5,6 +5,12 @@
    "my": 74,
    "model": null,
    "delta": null
+  },
+  {
+   "gw": 2,
+   "my": 112,
+   "model": null,
+   "delta": null
   }
  ],
  "cumulative_delta": 0
