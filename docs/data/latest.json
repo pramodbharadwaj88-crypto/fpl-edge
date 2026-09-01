@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-01T10:31:32Z",
+ "generated_utc": "2026-09-01T11:27:41Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 112,
   "total": 186,
-  "overall_rank": 85109
+  "overall_rank": 86597
  },
  "league": [
   {
@@ -49,8 +49,8 @@
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 101,
-   "total": 164,
+   "gw": 103,
+   "total": 166,
    "last_rank": 4
   },
   {
@@ -82,21 +82,21 @@
   },
   {
    "rank": 9,
-   "entry": 2734531,
-   "team": "Grim's XI",
-   "manager": "Vikram B",
-   "gw": 104,
-   "total": 154,
-   "last_rank": 13
-  },
-  {
-   "rank": 9,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
    "gw": 98,
    "total": 154,
    "last_rank": 7
+  },
+  {
+   "rank": 9,
+   "entry": 2734531,
+   "team": "Grim's XI",
+   "manager": "Vikram B",
+   "gw": 104,
+   "total": 154,
+   "last_rank": 13
   },
   {
    "rank": 11,
@@ -127,6 +127,15 @@
   },
   {
    "rank": 14,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 92,
+   "total": 144,
+   "last_rank": 12
+  },
+  {
+   "rank": 15,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
@@ -135,22 +144,13 @@
    "last_rank": 18
   },
   {
-   "rank": 15,
+   "rank": 16,
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
    "gw": 95,
    "total": 141,
    "last_rank": 16
-  },
-  {
-   "rank": 16,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 87,
-   "total": 139,
-   "last_rank": 12
   },
   {
    "rank": 17,
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 75,
-   "total": 115,
+   "gw": 76,
+   "total": 116,
    "last_rank": 19
   }
  ],
