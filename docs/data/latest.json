@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-08-31T23:23:27Z",
+ "generated_utc": "2026-09-01T00:39:26Z",
  "gw": 2,
  "next_deadline": "2026-09-04T17:30:00Z",
  "entry": {
   "gw_points": 112,
   "total": 186,
-  "overall_rank": 84979
+  "overall_rank": 85110
  },
  "league": [
   {
@@ -175,8 +175,8 @@
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 77,
-   "total": 121,
+   "gw": 79,
+   "total": 123,
    "last_rank": 17
   },
   {
