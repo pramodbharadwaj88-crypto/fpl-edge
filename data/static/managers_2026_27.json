@@ -1,0 +1,9 @@
+{"source": "premierleague.com/en/news/4679012 (manager line-up complete for 2026/27), verified 2026-09-01",
+ "rule": "NEVER name a manager from model memory — use this table for presser searches and lineup reasoning; re-verify on any sacking news.",
+ "managers": {
+  "ARS": "Mikel Arteta", "AVL": "Unai Emery", "BOU": "Marco Rose", "BRE": "Keith Andrews",
+  "BHA": "Fabian Hurzeler", "CHE": "Xabi Alonso", "COV": "Frank Lampard", "CRY": "Pierre Sage",
+  "EVE": "David Moyes", "FUL": "Alvaro Arbeloa", "HUL": "Sergej Jakirovic", "IPS": "Gary O'Neil",
+  "LEE": "Daniel Farke", "LIV": "Andoni Iraola", "MCI": "Enzo Maresca", "MUN": "Michael Carrick",
+  "NEW": "Matthias Jaissle", "NFO": "Oliver Glasner", "SUN": "Regis Le Bris", "TOT": "Roberto De Zerbi"},
+ "new_this_season": ["BOU Rose", "CHE Alonso", "CRY Sage", "FUL Arbeloa", "IPS O'Neil", "LIV Iraola", "MCI Maresca", "NEW Jaissle", "NFO Glasner", "TOT De Zerbi"]}
