@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-04T17:26:04Z",
- "gw": 2,
- "next_deadline": "2026-09-04T17:30:00Z",
+ "generated_utc": "2026-09-04T18:29:23Z",
+ "gw": 3,
+ "next_deadline": "2026-09-12T12:30:00Z",
  "entry": {
   "gw_points": 112,
   "total": 186,
-  "overall_rank": 86599
+  "overall_rank": 86592
  },
  "league": [
   {
@@ -82,21 +82,21 @@
   },
   {
    "rank": 9,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 98,
-   "total": 154,
-   "last_rank": 7
-  },
-  {
-   "rank": 9,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
    "gw": 104,
    "total": 154,
    "last_rank": 13
+  },
+  {
+   "rank": 9,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 98,
+   "total": 154,
+   "last_rank": 7
   },
   {
    "rank": 11,
@@ -189,23 +189,23 @@
    "last_rank": 19
   }
  ],
- "chip": null,
+ "chip": "3xc",
  "team": [
   {
-   "name": "Kinsky",
-   "club": "TOT",
+   "name": "Verbruggen",
+   "club": "BHA",
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 1
+   "points": 0
   },
   {
-   "name": "Shaw",
-   "club": "MUN",
+   "name": "De Cuyper",
+   "club": "BHA",
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 2
+   "points": 0
   },
   {
    "name": "White",
@@ -213,7 +213,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 7
+   "points": 0
   },
   {
    "name": "Calafiori",
@@ -221,31 +221,23 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 11
+   "points": 0
   },
   {
-   "name": "Mbeumo",
-   "club": "MUN",
+   "name": "Cherki",
+   "club": "MCI",
    "mult": 1,
    "cap": false,
-   "vice": false,
-   "points": 11
-  },
-  {
-   "name": "Tzolis",
-   "club": "ARS",
-   "mult": 1,
-   "cap": false,
-   "vice": false,
+   "vice": true,
    "points": 0
   },
   {
    "name": "B.Fernandes",
    "club": "MUN",
-   "mult": 2,
-   "cap": true,
+   "mult": 1,
+   "cap": false,
    "vice": false,
-   "points": 23
+   "points": 0
   },
   {
    "name": "Ndiaye",
@@ -253,7 +245,15 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 4
+   "points": 0
+  },
+  {
+   "name": "Groß",
+   "club": "BHA",
+   "mult": 1,
+   "cap": false,
+   "vice": false,
+   "points": 0
   },
   {
    "name": "João Pedro",
@@ -261,15 +261,15 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 9
+   "points": 0
   },
   {
    "name": "Haaland",
    "club": "MCI",
-   "mult": 1,
-   "cap": false,
-   "vice": true,
-   "points": 13
+   "mult": 3,
+   "cap": true,
+   "vice": false,
+   "points": 0
   },
   {
    "name": "Calvert-Lewin",
@@ -277,31 +277,23 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 8
+   "points": 0
   },
   {
-   "name": "Verbruggen",
-   "club": "BHA",
+   "name": "Kinsky",
+   "club": "TOT",
    "mult": 0,
    "cap": false,
    "vice": false,
    "points": 0
   },
   {
-   "name": "Groß",
-   "club": "BHA",
+   "name": "Tzolis",
+   "club": "ARS",
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 13
-  },
-  {
-   "name": "Rodon",
-   "club": "LEE",
-   "mult": 0,
-   "cap": false,
-   "vice": false,
-   "points": 1
+   "points": 0
   },
   {
    "name": "Davis",
@@ -309,7 +301,15 @@
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 6
+   "points": 0
+  },
+  {
+   "name": "Shaw",
+   "club": "MUN",
+   "mult": 0,
+   "cap": false,
+   "vice": false,
+   "points": 0
   }
  ]
 }
