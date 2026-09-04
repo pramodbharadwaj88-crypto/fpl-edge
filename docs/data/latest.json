@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-04T20:27:42Z",
+ "generated_utc": "2026-09-04T21:27:01Z",
  "gw": 3,
  "next_deadline": "2026-09-12T12:30:00Z",
  "entry": {
   "gw_points": 0,
   "total": 186,
-  "overall_rank": 232196
+  "overall_rank": 229742
  },
  "league": [
   {
@@ -109,21 +109,21 @@
   },
   {
    "rank": 12,
-   "entry": 2734531,
-   "team": "Grim's XI",
-   "manager": "Vikram B",
-   "gw": 0,
-   "total": 154,
-   "last_rank": 9
-  },
-  {
-   "rank": 12,
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
    "gw": 3,
    "total": 154,
    "last_rank": 12
+  },
+  {
+   "rank": 12,
+   "entry": 2734531,
+   "team": "Grim's XI",
+   "manager": "Vikram B",
+   "gw": 0,
+   "total": 154,
+   "last_rank": 9
   },
   {
    "rank": 14,
