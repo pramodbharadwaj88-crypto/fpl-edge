@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-05T12:31:28Z",
+ "generated_utc": "2026-09-05T13:26:19Z",
  "gw": 3,
  "next_deadline": "2026-09-12T12:30:00Z",
  "entry": {
   "gw_points": 0,
   "total": 186,
-  "overall_rank": 246328
+  "overall_rank": 254734
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 4,
-   "total": 205,
+   "gw": 5,
+   "total": 206,
    "last_rank": 1
   },
   {
@@ -40,8 +40,8 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 12,
-   "total": 178,
+   "gw": 13,
+   "total": 179,
    "last_rank": 4
   },
   {
@@ -85,8 +85,8 @@
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
-   "gw": 0,
-   "total": 159,
+   "gw": 1,
+   "total": 160,
    "last_rank": 8
   },
   {
@@ -139,8 +139,8 @@
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 1,
-   "total": 144,
+   "gw": 2,
+   "total": 145,
    "last_rank": 15
   },
   {
@@ -157,8 +157,8 @@
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 7,
-   "total": 142,
+   "gw": 8,
+   "total": 143,
    "last_rank": 18
   },
   {
