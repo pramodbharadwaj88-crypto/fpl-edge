@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-05T16:27:33Z",
+ "generated_utc": "2026-09-05T17:25:28Z",
  "gw": 3,
  "next_deadline": "2026-09-12T12:30:00Z",
  "entry": {
   "gw_points": 42,
   "total": 228,
-  "overall_rank": 108500
+  "overall_rank": 111603
  },
  "league": [
   {
@@ -31,8 +31,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 50,
-   "total": 220,
+   "gw": 52,
+   "total": 222,
    "last_rank": 3
   },
   {
@@ -76,8 +76,8 @@
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 42,
-   "total": 196,
+   "gw": 43,
+   "total": 197,
    "last_rank": 9
   },
   {
@@ -130,12 +130,12 @@
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 38,
-   "total": 181,
+   "gw": 41,
+   "total": 184,
    "last_rank": 15
   },
   {
-   "rank": 14,
+   "rank": 15,
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
@@ -175,8 +175,8 @@
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 37,
-   "total": 160,
+   "gw": 38,
+   "total": 161,
    "last_rank": 19
   },
   {
