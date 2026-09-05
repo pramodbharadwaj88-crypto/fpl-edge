@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-05T11:26:00Z",
+ "generated_utc": "2026-09-05T12:31:28Z",
  "gw": 3,
  "next_deadline": "2026-09-12T12:30:00Z",
  "entry": {
   "gw_points": 0,
   "total": 186,
-  "overall_rank": 229870
+  "overall_rank": 246328
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 3,
-   "total": 204,
+   "gw": 4,
+   "total": 205,
    "last_rank": 1
   },
   {
@@ -40,8 +40,8 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 11,
-   "total": 177,
+   "gw": 12,
+   "total": 178,
    "last_rank": 4
   },
   {
@@ -49,8 +49,8 @@
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 11,
-   "total": 177,
+   "gw": 12,
+   "total": 178,
    "last_rank": 5
   },
   {
@@ -112,12 +112,12 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 3,
-   "total": 154,
+   "gw": 4,
+   "total": 155,
    "last_rank": 12
   },
   {
-   "rank": 12,
+   "rank": 13,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
@@ -136,6 +136,15 @@
   },
   {
    "rank": 15,
+   "entry": 2942185,
+   "team": "House",
+   "manager": "Praveen Hosdrug",
+   "gw": 1,
+   "total": 144,
+   "last_rank": 15
+  },
+  {
+   "rank": 16,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
@@ -144,31 +153,22 @@
    "last_rank": 14
   },
   {
-   "rank": 16,
-   "entry": 2942185,
-   "team": "House",
-   "manager": "Praveen Hosdrug",
-   "gw": 0,
-   "total": 143,
-   "last_rank": 15
+   "rank": 17,
+   "entry": 5363619,
+   "team": "Galactic FC",
+   "manager": "Vaikrant Pandav",
+   "gw": 7,
+   "total": 142,
+   "last_rank": 18
   },
   {
-   "rank": 17,
+   "rank": 18,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
    "gw": 3,
    "total": 139,
    "last_rank": 17
-  },
-  {
-   "rank": 18,
-   "entry": 5363619,
-   "team": "Galactic FC",
-   "manager": "Vaikrant Pandav",
-   "gw": 3,
-   "total": 138,
-   "last_rank": 18
   },
   {
    "rank": 19,
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 3,
-   "total": 119,
+   "gw": 8,
+   "total": 124,
    "last_rank": 20
   }
  ],
