@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-05T18:29:07Z",
+ "generated_utc": "2026-09-05T19:25:14Z",
  "gw": 3,
  "next_deadline": "2026-09-12T12:30:00Z",
  "entry": {
   "gw_points": 42,
   "total": 228,
-  "overall_rank": 120000
+  "overall_rank": 120391
  },
  "league": [
   {
@@ -31,8 +31,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 56,
-   "total": 226,
+   "gw": 57,
+   "total": 227,
    "last_rank": 3
   },
   {
@@ -72,12 +72,12 @@
    "last_rank": 9
   },
   {
-   "rank": 8,
+   "rank": 7,
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 39,
-   "total": 201,
+   "gw": 40,
+   "total": 202,
    "last_rank": 6
   },
   {
@@ -109,21 +109,21 @@
   },
   {
    "rank": 12,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 43,
+   "total": 187,
+   "last_rank": 14
+  },
+  {
+   "rank": 13,
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
    "gw": 25,
    "total": 186,
    "last_rank": 7
-  },
-  {
-   "rank": 13,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 42,
-   "total": 186,
-   "last_rank": 14
   },
   {
    "rank": 14,
