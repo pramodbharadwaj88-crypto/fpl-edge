@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-06T17:25:52Z",
+ "generated_utc": "2026-09-06T18:29:16Z",
  "gw": 3,
  "next_deadline": "2026-09-12T12:30:00Z",
  "entry": {
   "gw_points": 49,
   "total": 235,
-  "overall_rank": 170008
+  "overall_rank": 170070
  },
  "league": [
   {
@@ -100,21 +100,21 @@
   },
   {
    "rank": 11,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 45,
-   "total": 199,
-   "last_rank": 9
-  },
-  {
-   "rank": 11,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
    "gw": 56,
    "total": 199,
    "last_rank": 15
+  },
+  {
+   "rank": 11,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 45,
+   "total": 199,
+   "last_rank": 9
   },
   {
    "rank": 13,
