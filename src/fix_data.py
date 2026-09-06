@@ -202,7 +202,7 @@ def parse_meta(html: str) -> list[dict]:
     out = []
     for i, h in enumerate(heads):
         seg = text[h.end(): heads[i + 1].start() if i + 1 < len(heads) else len(text)]
-        chip = re.search(r"Chip Usage WC1 (\w+) WC2 (\w+) TC (\w+) FH (\w+) BB (GW \d+|\w+)", seg)
+        chip = re.search(r"Chip Usage WC1 (GW \d+|\w+) WC2 (GW \d+|\w+) TC (GW \d+|\w+) FH (GW \d+|\w+) BB (GW \d+|\w+)", seg)
         chips = dict(zip(["WC1", "WC2", "TC", "FH", "BB"], chip.groups())) if chip else {}
         tr = re.search(r"GW Remaining: (\w+) GW Hits Taken: (\d+)", seg)
         fin = re.search(r"Team Value: ([\d.]+)m In The Bank: ([\d.]+)m", seg)
