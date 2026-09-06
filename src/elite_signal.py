@@ -116,3 +116,29 @@ def divergence(proj: pd.DataFrame, squad_names: list[str], my_captain: str,
     return dict(n_teams=n_teams, top_template=template[:top_n],
                 we_lack=missing, elite_captains=caps, our_captain=my_captain,
                 captain_backed=round(caps.get(my_captain, 0.0), 2))
+
+
+def wc_board_share(proj: pd.DataFrame, gw: int | None = None) -> pd.Series:
+    """Share of elite boards that are on a CLEAN SLATE this GW (WC/FH active
+    per data/elite_meta.json) owning each element. A wildcarder's board is the
+    freshest read of what the elites think the optimal 15 is right now, so
+    consensus mode weights it above legacy holdings."""
+    d = load(gw)
+    if not d:
+        return pd.Series(dtype=float)
+    try:
+        meta = json.loads((DATA / "elite_meta.json").read_text())
+        active = {m["manager"]: m.get("active_chip") for m in meta.get("managers", [])}
+    except Exception:
+        return pd.Series(dtype=float)
+    boards = [t for t in d.get("teams", []) if active.get(t.get("manager")) in ("WC1", "WC2", "FH")]
+    if not boards:
+        return pd.Series(dtype=float)
+    nm = _name_to_id(proj)
+    counts: dict[int, float] = {}
+    for t in boards:
+        for p in t.get("players", []):
+            pid = nm.get(p.lower())
+            if pid is not None:
+                counts[pid] = counts.get(pid, 0.0) + 1.0 / len(boards)
+    return pd.Series(counts)

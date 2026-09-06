@@ -163,9 +163,21 @@ def run() -> dict:
         import elite_signal
         e_eo = elite_signal.elite_eo(proj, gw)
         if not e_eo.empty:
-            tilt = float(cfg.get("model", {}).get("elite_tilt", 0.05))
+            m = cfg.get("model", {})
             proj["elite_eo"] = proj["id"].map(e_eo).fillna(0.0)
-            proj["score"] = proj["score"] * (1.0 + tilt * proj["elite_eo"].clip(0, 2) / 2)
+            if m.get("elite_mode", "consensus") == "consensus":  # default: user rule
+                # USER RULE (2026-09-06): match elite consensus ~99% of the
+                # time. Elite EO dominates the objective; xP only breaks ties.
+                # Boards playing WC/FH this GW are the clean-slate opinion, so
+                # they carry extra weight (elite_signal.wc_board_share).
+                w = float(m.get("elite_consensus_weight", 20.0))
+                wc_share = elite_signal.wc_board_share(proj, gw)
+                proj["elite_wc"] = proj["id"].map(wc_share).fillna(0.0) if not wc_share.empty else 0.0
+                consensus = 0.6 * proj["elite_wc"] + 0.4 * proj["elite_eo"].clip(0, 1)
+                proj["score"] = proj["score"] + w * consensus
+            else:
+                tilt = float(m.get("elite_tilt", 0.05))
+                proj["score"] = proj["score"] * (1.0 + tilt * proj["elite_eo"].clip(0, 2) / 2)
             state["elite_loaded"] = True
     except Exception as ex:
         state["elite_error"] = str(ex)
