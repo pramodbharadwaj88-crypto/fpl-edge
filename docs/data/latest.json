@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-07T08:32:37Z",
+ "generated_utc": "2026-09-07T09:31:56Z",
  "gw": 3,
  "next_deadline": "2026-09-12T12:30:00Z",
  "entry": {
   "gw_points": 49,
   "total": 235,
-  "overall_rank": 170069
+  "overall_rank": 176546
  },
  "league": [
   {
@@ -100,21 +100,21 @@
   },
   {
    "rank": 11,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 48,
+   "total": 202,
+   "last_rank": 9
+  },
+  {
+   "rank": 12,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
    "gw": 56,
    "total": 199,
    "last_rank": 15
-  },
-  {
-   "rank": 11,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 45,
-   "total": 199,
-   "last_rank": 9
   },
   {
    "rank": 13,
@@ -166,8 +166,8 @@
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
-   "gw": 41,
-   "total": 177,
+   "gw": 42,
+   "total": 178,
    "last_rank": 17
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 40,
-   "total": 156,
+   "gw": 45,
+   "total": 161,
    "last_rank": 20
   }
  ],
