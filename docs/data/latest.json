@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-12T17:26:20Z",
+ "generated_utc": "2026-09-12T18:29:11Z",
  "gw": 4,
  "next_deadline": "2026-09-18T17:30:00Z",
  "entry": {
   "gw_points": 33,
   "total": 268,
-  "overall_rank": 185741
+  "overall_rank": 228729
  },
  "league": [
   {
@@ -94,8 +94,8 @@
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 30,
-   "total": 228,
+   "gw": 36,
+   "total": 234,
    "last_rank": 13
   },
   {
@@ -109,6 +109,15 @@
   },
   {
    "rank": 12,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 26,
+   "total": 218,
+   "last_rank": 15
+  },
+  {
+   "rank": 13,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
@@ -117,7 +126,7 @@
    "last_rank": 11
   },
   {
-   "rank": 13,
+   "rank": 14,
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
@@ -126,22 +135,13 @@
    "last_rank": 14
   },
   {
-   "rank": 14,
+   "rank": 15,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
    "gw": 13,
    "total": 212,
    "last_rank": 12
-  },
-  {
-   "rank": 15,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 19,
-   "total": 211,
-   "last_rank": 15
   },
   {
    "rank": 16,
@@ -163,30 +163,30 @@
   },
   {
    "rank": 18,
+   "entry": 2108081,
+   "team": "Gunners11",
+   "manager": "Karan Mankodi",
+   "gw": 8,
+   "total": 199,
+   "last_rank": 16
+  },
+  {
+   "rank": 19,
+   "entry": 7810137,
+   "team": "Ganpati Bappa Morya",
+   "manager": "Tushar Panchal",
+   "gw": 35,
+   "total": 196,
+   "last_rank": 20
+  },
+  {
+   "rank": 20,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
    "gw": 21,
    "total": 195,
    "last_rank": 18
-  },
-  {
-   "rank": 19,
-   "entry": 2108081,
-   "team": "Gunners11",
-   "manager": "Karan Mankodi",
-   "gw": 2,
-   "total": 193,
-   "last_rank": 16
-  },
-  {
-   "rank": 20,
-   "entry": 7810137,
-   "team": "Ganpati Bappa Morya",
-   "manager": "Tushar Panchal",
-   "gw": 22,
-   "total": 183,
-   "last_rank": 20
   }
  ],
  "chip": "wildcard",
