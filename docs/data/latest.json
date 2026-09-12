@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-12T14:28:03Z",
+ "generated_utc": "2026-09-12T15:26:51Z",
  "gw": 4,
  "next_deadline": "2026-09-18T17:30:00Z",
  "entry": {
-  "gw_points": 20,
-  "total": 255,
-  "overall_rank": 134789
+  "gw_points": 22,
+  "total": 257,
+  "overall_rank": 169198
  },
  "league": [
   {
@@ -22,53 +22,53 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 20,
-   "total": 255,
+   "gw": 22,
+   "total": 257,
    "last_rank": 3
   },
   {
    "rank": 3,
-   "entry": 5289,
-   "team": "Devil's Own XI",
-   "manager": "Chandan Gupta",
-   "gw": 13,
-   "total": 251,
-   "last_rank": 2
-  },
-  {
-   "rank": 4,
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 24,
-   "total": 249,
+   "gw": 30,
+   "total": 255,
    "last_rank": 4
   },
   {
-   "rank": 5,
-   "entry": 2875701,
-   "team": "One Last Season",
-   "manager": "Saurabh Kharkar",
-   "gw": 26,
-   "total": 233,
-   "last_rank": 9
+   "rank": 4,
+   "entry": 5289,
+   "team": "Devil's Own XI",
+   "manager": "Chandan Gupta",
+   "gw": 15,
+   "total": 253,
+   "last_rank": 2
   },
   {
    "rank": 5,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 21,
-   "total": 233,
+   "gw": 32,
+   "total": 244,
    "last_rank": 5
+  },
+  {
+   "rank": 6,
+   "entry": 2875701,
+   "team": "One Last Season",
+   "manager": "Saurabh Kharkar",
+   "gw": 29,
+   "total": 236,
+   "last_rank": 9
   },
   {
    "rank": 7,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
-   "gw": 20,
-   "total": 228,
+   "gw": 24,
+   "total": 232,
    "last_rank": 8
   },
   {
@@ -76,8 +76,8 @@
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
-   "gw": 20,
-   "total": 225,
+   "gw": 22,
+   "total": 227,
    "last_rank": 10
   },
   {
@@ -85,8 +85,8 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 10,
-   "total": 221,
+   "gw": 11,
+   "total": 222,
    "last_rank": 6
   },
   {
@@ -94,8 +94,8 @@
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 7,
-   "total": 217,
+   "gw": 9,
+   "total": 219,
    "last_rank": 7
   },
   {
@@ -103,8 +103,8 @@
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 13,
-   "total": 211,
+   "gw": 21,
+   "total": 219,
    "last_rank": 13
   },
   {
@@ -112,71 +112,71 @@
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
-   "gw": 7,
-   "total": 209,
+   "gw": 9,
+   "total": 211,
    "last_rank": 11
   },
   {
    "rank": 13,
-   "entry": 4749698,
-   "team": "Jungle_King",
-   "manager": "Pankit Khant",
-   "gw": 9,
-   "total": 203,
-   "last_rank": 14
-  },
-  {
-   "rank": 14,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 4,
-   "total": 203,
+   "gw": 8,
+   "total": 207,
    "last_rank": 12
   },
   {
-   "rank": 15,
+   "rank": 14,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 9,
-   "total": 201,
+   "gw": 14,
+   "total": 206,
    "last_rank": 15
+  },
+  {
+   "rank": 15,
+   "entry": 4749698,
+   "team": "Jungle_King",
+   "manager": "Pankit Khant",
+   "gw": 11,
+   "total": 205,
+   "last_rank": 14
   },
   {
    "rank": 16,
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 8,
-   "total": 196,
+   "gw": 10,
+   "total": 198,
    "last_rank": 17
   },
   {
    "rank": 17,
-   "entry": 2108081,
-   "team": "Gunners11",
-   "manager": "Karan Mankodi",
-   "gw": 0,
-   "total": 191,
-   "last_rank": 16
-  },
-  {
-   "rank": 18,
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 13,
-   "total": 189,
+   "gw": 16,
+   "total": 192,
    "last_rank": 19
+  },
+  {
+   "rank": 18,
+   "entry": 2108081,
+   "team": "Gunners11",
+   "manager": "Karan Mankodi",
+   "gw": 1,
+   "total": 192,
+   "last_rank": 16
   },
   {
    "rank": 19,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
-   "gw": 10,
-   "total": 184,
+   "gw": 12,
+   "total": 186,
    "last_rank": 18
   },
   {
@@ -237,7 +237,7 @@
    "mult": 2,
    "cap": true,
    "vice": false,
-   "points": 1
+   "points": 5
   },
   {
    "name": "Szoboszlai",
@@ -245,7 +245,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 1
+   "points": 3
   },
   {
    "name": "Groß",
@@ -261,7 +261,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 9
+   "points": 8
   },
   {
    "name": "João Pedro",
@@ -269,7 +269,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 6
+   "points": 12
   },
   {
    "name": "Haaland",
@@ -293,7 +293,7 @@
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 1
+   "points": 0
   },
   {
    "name": "Hall",
