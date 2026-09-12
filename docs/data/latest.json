@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-12T16:27:58Z",
+ "generated_utc": "2026-09-12T17:26:20Z",
  "gw": 4,
  "next_deadline": "2026-09-18T17:30:00Z",
  "entry": {
   "gw_points": 33,
   "total": 268,
-  "overall_rank": 179350
+  "overall_rank": 185741
  },
  "league": [
   {
@@ -55,21 +55,21 @@
   },
   {
    "rank": 6,
-   "entry": 2875701,
-   "team": "One Last Season",
-   "manager": "Saurabh Kharkar",
-   "gw": 33,
-   "total": 240,
-   "last_rank": 9
-  },
-  {
-   "rank": 6,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
    "gw": 32,
    "total": 240,
    "last_rank": 8
+  },
+  {
+   "rank": 6,
+   "entry": 2875701,
+   "team": "One Last Season",
+   "manager": "Saurabh Kharkar",
+   "gw": 33,
+   "total": 240,
+   "last_rank": 9
   },
   {
    "rank": 8,
@@ -94,8 +94,8 @@
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 29,
-   "total": 227,
+   "gw": 30,
+   "total": 228,
    "last_rank": 13
   },
   {
@@ -139,8 +139,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 18,
-   "total": 210,
+   "gw": 19,
+   "total": 211,
    "last_rank": 15
   },
   {
@@ -175,8 +175,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 1,
-   "total": 192,
+   "gw": 2,
+   "total": 193,
    "last_rank": 16
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 20,
-   "total": 181,
+   "gw": 22,
+   "total": 183,
    "last_rank": 20
   }
  ],
