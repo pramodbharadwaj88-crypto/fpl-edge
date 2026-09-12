@@ -26,6 +26,13 @@ SPORT = "soccer_epl"
 
 PM_BLEND = 0.20  # weight on prediction markets vs bookmaker consensus
 
+# Peer-to-peer exchanges in The Odds API UK feed. Their prices are commission-
+# based, not margin-loaded, so they are the sharpest "true probability" read we
+# have — closer to a prediction market than a traditional book. NB: bet365 is
+# NOT offered by The Odds API (it blocks aggregators); these exchanges are the
+# better sharp reference in its place.
+EXCHANGES = {"betfair_ex_uk", "smarkets", "matchbook"}
+
 
 def _pm_probs() -> dict:
     try:
@@ -89,14 +96,17 @@ def refresh_match_odds() -> dict | None:
     out = {}
     for ev in r.json():
         h, a = ev["home_team"], ev["away_team"]
-        # median across bookmakers
-        h2h_probs, over_probs, lines = [], [], []
+        # median across bookmakers; exchanges tracked separately
+        h2h_probs, exch_probs, over_probs, lines = [], [], [], []
         for bk in ev.get("bookmakers", []):
             mk = {m["key"]: m for m in bk.get("markets", [])}
             if "h2h" in mk:
                 d = {o["name"]: 1 / o["price"] for o in mk["h2h"]["outcomes"]}
                 if h in d and a in d and "Draw" in d:
-                    h2h_probs.append(_devig([d[h], d["Draw"], d[a]]))
+                    dv = _devig([d[h], d["Draw"], d[a]])
+                    h2h_probs.append(dv)
+                    if bk.get("key") in EXCHANGES:
+                        exch_probs.append(dv)
             if "totals" in mk:
                 outs = mk["totals"]["outcomes"]
                 for o in outs:
@@ -109,6 +119,12 @@ def refresh_match_odds() -> dict | None:
         if not h2h_probs:
             continue
         ph, pd_, pa = np.median(np.array(h2h_probs), axis=0)
+        # exchange-only consensus (sharp reference), tracked before any blend
+        exch = None
+        if exch_probs:
+            eh, ed, ea = np.median(np.array(exch_probs), axis=0)
+            exch = dict(p_home=round(float(eh), 3), p_draw=round(float(ed), 3),
+                        p_away=round(float(ea), 3), n=len(exch_probs))
         # blend in prediction markets (Polymarket/Kalshi) when available
         hs, as_ = TEAM_MAP.get(h), TEAM_MAP.get(a)
         pm = _pm_probs().get(f"{hs}|{as_}") if hs and as_ else None
@@ -122,12 +138,30 @@ def refresh_match_odds() -> dict | None:
         p_over = float(np.median(over_probs)) if over_probs else 0.5
         line = float(np.median(lines)) if lines else 2.5
         lh, la = implied_lambdas(ph, pd_, pa, line, p_over)
-        out[f"{h}|{a}"] = dict(home=h, away=a, kickoff=ev["commence_time"],
-                               lam_home=round(lh, 3), lam_away=round(la, 3),
-                               p_home=round(float(ph), 3), p_draw=round(float(pd_), 3),
-                               p_away=round(float(pa), 3),
-                               cs_home=round(math.exp(-la), 3),
-                               cs_away=round(math.exp(-lh), 3))
+        rec = dict(home=h, away=a, kickoff=ev["commence_time"],
+                   n_books=len(h2h_probs),
+                   lam_home=round(lh, 3), lam_away=round(la, 3),
+                   p_home=round(float(ph), 3), p_draw=round(float(pd_), 3),
+                   p_away=round(float(pa), 3),
+                   cs_home=round(math.exp(-la), 3),
+                   cs_away=round(math.exp(-lh), 3))
+        # sharp-signal breakout: bookmaker consensus vs exchange vs Polymarket,
+        # with the largest home-prob gap flagged as divergence
+        if exch:
+            rec["exchange"] = exch
+        if pm:
+            rec["polymarket"] = dict(p_home=pm["p_home"], p_draw=pm["p_draw"],
+                                     p_away=pm["p_away"], src=pm.get("src"))
+        homes = [("book", rec["p_home"])]
+        if exch:
+            homes.append(("exchange", exch["p_home"]))
+        if pm:
+            homes.append(("polymarket", pm["p_home"]))
+        if len(homes) > 1:
+            hi = max(homes, key=lambda x: x[1]); lo = min(homes, key=lambda x: x[1])
+            rec["divergence"] = round(hi[1] - lo[1], 3)
+            rec["divergence_note"] = f"{hi[0]} {hi[1]:.0%} vs {lo[0]} {lo[1]:.0%}"
+        out[f"{h}|{a}"] = rec
     cache.write_text(json.dumps(out, indent=1))
     return out
 

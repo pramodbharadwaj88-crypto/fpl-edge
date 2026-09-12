@@ -35,7 +35,9 @@ NAME_MAP = {
 
 
 def _short(name: str) -> str | None:
-    n = re.sub(r"\s+fc$", "", name.strip().lower()).strip()
+    # strip a trailing club suffix ("FC", "AFC") — e.g. "Hull City AFC",
+    # "Sunderland AFC", "Arsenal FC" — which the reveal/Polymarket titles carry
+    n = re.sub(r"\s+a?fc$", "", name.strip().lower()).strip()
     return NAME_MAP.get(n)
 
 
@@ -81,6 +83,7 @@ def polymarket_match_probs() -> dict:
 
 def kalshi_match_probs() -> dict:
     out, cursor = {}, None
+    seen = quoted = 0                       # liquidity telemetry for reporting
     try:
         for _ in range(5):  # paginate
             params = {"limit": 100, "status": "open", "series_ticker": "KXEPLGAME"}
@@ -91,6 +94,9 @@ def kalshi_match_probs() -> dict:
             mkts = r.get("markets", [])
             byev: dict[str, list] = {}
             for m in mkts:
+                seen += 1
+                if (m.get("yes_bid") and m.get("yes_ask")) or m.get("last_price"):
+                    quoted += 1
                 byev.setdefault(m["event_ticker"], []).append(m)
             for evt, legs in byev.items():
                 probs = {}
@@ -128,7 +134,130 @@ def kalshi_match_probs() -> dict:
                 break
     except Exception:
         pass
+    try:
+        (DATA / "kalshi_status.json").write_text(json.dumps(
+            dict(markets_seen=seen, quoted=quoted, fixtures=len(out),
+                 liquidity=("none" if quoted == 0 else "partial" if quoted < seen else "full"),
+                 updated=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))))
+    except Exception:
+        pass
     return out
+
+
+# ---------------------------------------------------------------- player markets
+# Polymarket season-outright markets: title substring -> our short market key.
+# These price P(player LEADS the league in that stat all season) as independent
+# Yes/No contracts, so they are a season-long talent/role signal, NOT per-GW xP.
+POLY_PLAYER_MARKETS = {
+    "top goalscorer": "top_scorer",
+    "most assists": "most_assists",
+    "most clean sheets": "most_clean_sheets",  # matches player & team variants
+    "player of the season": "player_of_season",
+}
+
+
+def _poly_real(git: str, yes) -> bool:
+    """Reject unpriced placeholder legs Polymarket pads markets with."""
+    if yes is None or not (0.0 < yes < 1.0):
+        return False
+    if abs(yes - 0.5) < 1e-6:        # default/unquoted leg
+        return False
+    g = str(git or "").strip().lower()
+    if not g or g == "other" or re.fullmatch(r"player [a-z]", g):
+        return False
+    return True
+
+
+def polymarket_player_markets(max_age: int = 6 * 3600) -> dict:
+    """Season-outright player/team markets from Polymarket.
+
+    Returns {market_key: {"is_team": bool, "runners": [{name, prob}]}}
+    sorted by prob desc, real quotes only. Cached to data/pm_players.json.
+    """
+    cache = DATA / "pm_players.json"
+    if cache.exists() and time.time() - cache.stat().st_mtime < max_age:
+        try:
+            return json.loads(cache.read_text())
+        except Exception:
+            pass
+    out: dict = {}
+    try:
+        evs = requests.get("https://gamma-api.polymarket.com/events",
+                           params={"limit": 100, "closed": "false",
+                                   "tag_slug": "epl"}, timeout=25).json()
+    except Exception:
+        return out
+    for e in evs:
+        title = (e.get("title") or "").lower()
+        key = next((v for sub, v in POLY_PLAYER_MARKETS.items() if sub in title), None)
+        if not key:
+            continue
+        is_team = "team" in title  # "Team with Most Clean Sheets"
+        mk = key + ("_team" if is_team else "")
+        runners = []
+        for m in e.get("markets", []):
+            git = m.get("groupItemTitle")
+            op = m.get("outcomePrices")
+            try:
+                yes = float(json.loads(op)[0]) if isinstance(op, str) else float(op[0])
+            except Exception:
+                yes = None
+            if _poly_real(git, yes):
+                runners.append({"name": git, "prob": round(yes, 4)})
+        if runners:
+            runners.sort(key=lambda r: -r["prob"])
+            out[mk] = {"is_team": is_team, "runners": runners}
+    if out:
+        cache.write_text(json.dumps(out, indent=1))
+    return out
+
+
+def map_players_to_fpl(markets: dict, elements: list) -> dict:
+    """Attach an FPL web_name to each runner via surname-token match against
+    the supplied bootstrap `elements` (kept out of this module's fetch path so
+    it stays sandbox-safe). Team markets are passed through unchanged."""
+    import unicodedata
+
+    def norm(s):
+        s = unicodedata.normalize("NFKD", s or "")
+        return "".join(c for c in s if not unicodedata.combining(c)).lower()
+
+    idx = {}
+    for el in elements:
+        idx.setdefault(norm(el["web_name"]).split()[-1], []).append(el)
+    mapped = {}
+    for mk, blk in markets.items():
+        rows = []
+        for r in blk["runners"]:
+            fpl = None
+            if not blk.get("is_team"):
+                toks = norm(r["name"]).replace("-", " ").split()
+                for t in reversed(toks):          # surname first
+                    if t in idx:
+                        fpl = idx[t][0]["web_name"]
+                        break
+            rows.append({**r, "fpl": fpl})
+        mapped[mk] = {"is_team": blk.get("is_team", False), "runners": rows}
+    return mapped
+
+
+def squad_market_view(web_names: list, elements: list, max_age: int = 6 * 3600) -> dict:
+    """Season-outright Polymarket standing for the manager's own players.
+
+    Returns {market_key: [{fpl, name, prob, rank}]} for players in `web_names`,
+    plus 'top_scorer_team'/'most_clean_sheets_team' team rows untouched. Use in
+    briefings to answer 'what does the sharp market think of MY players'."""
+    mapped = map_players_to_fpl(polymarket_player_markets(max_age), elements)
+    want = set(web_names)
+    view = {}
+    for mk, blk in mapped.items():
+        rows = []
+        for i, r in enumerate(blk["runners"], 1):
+            if blk.get("is_team") or (r.get("fpl") in want):
+                rows.append({**r, "rank": i})
+        if rows:
+            view[mk] = rows
+    return view
 
 
 def refresh(max_age: int = 4 * 3600) -> dict:
