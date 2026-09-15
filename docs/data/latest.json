@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-15T08:33:05Z",
+ "generated_utc": "2026-09-15T09:35:16Z",
  "gw": 4,
  "next_deadline": "2026-09-18T17:30:00Z",
  "entry": {
   "gw_points": 93,
   "total": 328,
-  "overall_rank": 78190
+  "overall_rank": 80693
  },
  "league": [
   {
@@ -121,8 +121,8 @@
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 67,
-   "total": 266,
+   "gw": 68,
+   "total": 267,
    "last_rank": 12
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 53,
-   "total": 214,
+   "gw": 54,
+   "total": 215,
    "last_rank": 20
   }
  ],
