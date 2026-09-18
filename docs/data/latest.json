@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-18T19:26:45Z",
+ "generated_utc": "2026-09-18T20:27:42Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
-  "gw_points": 2,
-  "total": 330,
-  "overall_rank": 73340
+  "gw_points": 4,
+  "total": 332,
+  "overall_rank": 70106
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 1,
-   "total": 340,
+   "gw": 2,
+   "total": 341,
    "last_rank": 1
   },
   {
@@ -22,8 +22,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 2,
-   "total": 330,
+   "gw": 4,
+   "total": 332,
    "last_rank": 2
   },
   {
@@ -31,8 +31,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 2,
-   "total": 326,
+   "gw": 4,
+   "total": 328,
    "last_rank": 3
   },
   {
@@ -49,8 +49,8 @@
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
-   "gw": 2,
-   "total": 302,
+   "gw": 4,
+   "total": 304,
    "last_rank": 5
   },
   {
@@ -67,8 +67,8 @@
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 2,
-   "total": 290,
+   "gw": 3,
+   "total": 291,
    "last_rank": 8
   },
   {
@@ -81,31 +81,31 @@
    "last_rank": 7
   },
   {
-   "rank": 9,
+   "rank": 8,
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
-   "gw": 1,
-   "total": 287,
+   "gw": 2,
+   "total": 288,
    "last_rank": 9
   },
   {
    "rank": 10,
-   "entry": 6246591,
-   "team": "Lawade Na Bhojyam",
-   "manager": "Faraz Virani",
-   "gw": 2,
-   "total": 280,
-   "last_rank": 10
-  },
-  {
-   "rank": 11,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
-   "gw": 4,
-   "total": 278,
+   "gw": 11,
+   "total": 285,
    "last_rank": 11
+  },
+  {
+   "rank": 11,
+   "entry": 6246591,
+   "team": "Lawade Na Bhojyam",
+   "manager": "Faraz Virani",
+   "gw": 4,
+   "total": 282,
+   "last_rank": 10
   },
   {
    "rank": 12,
@@ -121,48 +121,57 @@
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 1,
-   "total": 267,
+   "gw": 2,
+   "total": 268,
    "last_rank": 14
-  },
-  {
-   "rank": 14,
-   "entry": 2942185,
-   "team": "House",
-   "manager": "Praveen Hosdrug",
-   "gw": 1,
-   "total": 264,
-   "last_rank": 13
   },
   {
    "rank": 14,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 5,
-   "total": 264,
+   "gw": 9,
+   "total": 268,
    "last_rank": 19
   },
   {
-   "rank": 14,
+   "rank": 15,
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 2,
-   "total": 264,
+   "gw": 4,
+   "total": 266,
    "last_rank": 16
+  },
+  {
+   "rank": 16,
+   "entry": 2942185,
+   "team": "House",
+   "manager": "Praveen Hosdrug",
+   "gw": 2,
+   "total": 265,
+   "last_rank": 13
   },
   {
    "rank": 17,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
-   "gw": 1,
-   "total": 264,
+   "gw": 2,
+   "total": 265,
    "last_rank": 15
   },
   {
    "rank": 18,
+   "entry": 5363619,
+   "team": "Galactic FC",
+   "manager": "Vaikrant Pandav",
+   "gw": 4,
+   "total": 263,
+   "last_rank": 18
+  },
+  {
+   "rank": 19,
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
@@ -171,21 +180,12 @@
    "last_rank": 17
   },
   {
-   "rank": 18,
-   "entry": 5363619,
-   "team": "Galactic FC",
-   "manager": "Vaikrant Pandav",
-   "gw": 2,
-   "total": 261,
-   "last_rank": 18
-  },
-  {
    "rank": 20,
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 1,
-   "total": 216,
+   "gw": 2,
+   "total": 217,
    "last_rank": 20
   }
  ],
@@ -237,7 +237,7 @@
    "mult": 1,
    "cap": false,
    "vice": true,
-   "points": 1
+   "points": 2
   },
   {
    "name": "Szoboszlai",
@@ -253,7 +253,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 1
+   "points": 2
   },
   {
    "name": "João Pedro",
