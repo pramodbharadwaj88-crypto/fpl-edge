@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-18T22:27:11Z",
+ "generated_utc": "2026-09-18T23:27:11Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
@@ -55,21 +55,21 @@
   },
   {
    "rank": 6,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
-   "gw": 0,
-   "total": 297,
-   "last_rank": 6
-  },
-  {
-   "rank": 6,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
    "gw": 9,
    "total": 297,
    "last_rank": 8
+  },
+  {
+   "rank": 6,
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
+   "gw": 0,
+   "total": 297,
+   "last_rank": 6
   },
   {
    "rank": 8,
