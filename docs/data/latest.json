@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-19T19:25:08Z",
+ "generated_utc": "2026-09-19T20:27:36Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
-  "gw_points": 28,
-  "total": 356,
-  "overall_rank": 63232
+  "gw_points": 27,
+  "total": 355,
+  "overall_rank": 69600
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 21,
-   "total": 360,
+   "gw": 22,
+   "total": 361,
    "last_rank": 1
   },
   {
@@ -22,8 +22,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 28,
-   "total": 356,
+   "gw": 27,
+   "total": 355,
    "last_rank": 2
   },
   {
@@ -31,8 +31,8 @@
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 29,
-   "total": 336,
+   "gw": 30,
+   "total": 337,
    "last_rank": 4
   },
   {
@@ -73,21 +73,21 @@
   },
   {
    "rank": 8,
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
+   "gw": 11,
+   "total": 308,
+   "last_rank": 6
+  },
+  {
+   "rank": 9,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
    "gw": 33,
    "total": 307,
    "last_rank": 11
-  },
-  {
-   "rank": 8,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
-   "gw": 10,
-   "total": 307,
-   "last_rank": 6
   },
   {
    "rank": 10,
@@ -112,8 +112,8 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 17,
-   "total": 295,
+   "gw": 16,
+   "total": 294,
    "last_rank": 10
   },
   {
@@ -197,7 +197,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 7
+   "points": 6
   },
   {
    "name": "Hall",
@@ -301,7 +301,7 @@
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 5
+   "points": 6
   },
   {
    "name": "Egan",
