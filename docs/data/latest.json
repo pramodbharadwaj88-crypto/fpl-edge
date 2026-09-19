@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-19T18:29:39Z",
+ "generated_utc": "2026-09-19T19:25:08Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
-  "gw_points": 27,
-  "total": 355,
-  "overall_rank": 67155
+  "gw_points": 28,
+  "total": 356,
+  "overall_rank": 63232
  },
  "league": [
   {
@@ -22,8 +22,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 27,
-   "total": 355,
+   "gw": 28,
+   "total": 356,
    "last_rank": 2
   },
   {
@@ -130,8 +130,8 @@
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 19,
-   "total": 278,
+   "gw": 20,
+   "total": 279,
    "last_rank": 18
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 33,
-   "total": 248,
+   "gw": 34,
+   "total": 249,
    "last_rank": 20
   }
  ],
@@ -205,7 +205,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 12
+   "points": 13
   },
   {
    "name": "Konsa",
