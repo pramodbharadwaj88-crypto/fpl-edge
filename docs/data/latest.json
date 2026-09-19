@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-19T15:27:00Z",
+ "generated_utc": "2026-09-19T16:27:47Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
-  "gw_points": 29,
-  "total": 357,
-  "overall_rank": 53274
+  "gw_points": 26,
+  "total": 354,
+  "overall_rank": 63111
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 24,
-   "total": 363,
+   "gw": 21,
+   "total": 360,
    "last_rank": 1
   },
   {
@@ -22,8 +22,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 29,
-   "total": 357,
+   "gw": 26,
+   "total": 354,
    "last_rank": 2
   },
   {
@@ -31,8 +31,8 @@
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 25,
-   "total": 332,
+   "gw": 29,
+   "total": 336,
    "last_rank": 4
   },
   {
@@ -58,8 +58,8 @@
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
-   "gw": 32,
-   "total": 318,
+   "gw": 30,
+   "total": 316,
    "last_rank": 9
   },
   {
@@ -67,8 +67,8 @@
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
-   "gw": 23,
-   "total": 311,
+   "gw": 24,
+   "total": 312,
    "last_rank": 7
   },
   {
@@ -76,12 +76,12 @@
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 12,
-   "total": 309,
+   "gw": 10,
+   "total": 307,
    "last_rank": 6
   },
   {
-   "rank": 9,
+   "rank": 8,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
@@ -103,8 +103,8 @@
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
-   "gw": 21,
-   "total": 293,
+   "gw": 23,
+   "total": 295,
    "last_rank": 12
   },
   {
@@ -121,8 +121,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 23,
-   "total": 282,
+   "gw": 25,
+   "total": 284,
    "last_rank": 19
   },
   {
@@ -130,9 +130,18 @@
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 22,
-   "total": 281,
+   "gw": 19,
+   "total": 278,
    "last_rank": 18
+  },
+  {
+   "rank": 15,
+   "entry": 2942185,
+   "team": "House",
+   "manager": "Praveen Hosdrug",
+   "gw": 11,
+   "total": 274,
+   "last_rank": 13
   },
   {
    "rank": 15,
@@ -144,22 +153,13 @@
    "last_rank": 16
   },
   {
-   "rank": 16,
+   "rank": 17,
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
    "gw": 7,
    "total": 273,
    "last_rank": 14
-  },
-  {
-   "rank": 17,
-   "entry": 2942185,
-   "team": "House",
-   "manager": "Praveen Hosdrug",
-   "gw": 10,
-   "total": 273,
-   "last_rank": 13
   },
   {
    "rank": 18,
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 35,
-   "total": 250,
+   "gw": 31,
+   "total": 246,
    "last_rank": 20
   }
  ],
@@ -205,7 +205,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 15
+   "points": 12
   },
   {
    "name": "Konsa",
@@ -301,7 +301,7 @@
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 7
+   "points": 5
   },
   {
    "name": "Egan",
