@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-19T17:25:43Z",
+ "generated_utc": "2026-09-19T18:29:39Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
   "gw_points": 27,
   "total": 355,
-  "overall_rank": 70648
+  "overall_rank": 67155
  },
  "league": [
   {
@@ -40,8 +40,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 9,
-   "total": 333,
+   "gw": 8,
+   "total": 332,
    "last_rank": 3
   },
   {
@@ -49,8 +49,8 @@
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
-   "gw": 22,
-   "total": 322,
+   "gw": 30,
+   "total": 330,
    "last_rank": 5
   },
   {
@@ -91,6 +91,15 @@
   },
   {
    "rank": 10,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 32,
+   "total": 304,
+   "last_rank": 12
+  },
+  {
+   "rank": 11,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
@@ -99,22 +108,13 @@
    "last_rank": 8
   },
   {
-   "rank": 11,
+   "rank": 12,
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 20,
-   "total": 298,
+   "gw": 17,
+   "total": 295,
    "last_rank": 10
-  },
-  {
-   "rank": 12,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 24,
-   "total": 296,
-   "last_rank": 12
   },
   {
    "rank": 13,
@@ -136,24 +136,33 @@
   },
   {
    "rank": 15,
-   "entry": 2942185,
-   "team": "House",
-   "manager": "Praveen Hosdrug",
-   "gw": 14,
-   "total": 277,
-   "last_rank": 13
+   "entry": 2108081,
+   "team": "Gunners11",
+   "manager": "Karan Mankodi",
+   "gw": 15,
+   "total": 276,
+   "last_rank": 17
   },
   {
    "rank": 16,
-   "entry": 2798588,
-   "team": "Manchester United FC",
-   "manager": "Ali Babwani",
-   "gw": 8,
-   "total": 274,
-   "last_rank": 14
+   "entry": 2942185,
+   "team": "House",
+   "manager": "Praveen Hosdrug",
+   "gw": 13,
+   "total": 276,
+   "last_rank": 13
   },
   {
    "rank": 17,
+   "entry": 2798588,
+   "team": "Manchester United FC",
+   "manager": "Ali Babwani",
+   "gw": 9,
+   "total": 275,
+   "last_rank": 14
+  },
+  {
+   "rank": 18,
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
@@ -162,30 +171,21 @@
    "last_rank": 16
   },
   {
-   "rank": 18,
+   "rank": 19,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
-   "gw": 10,
-   "total": 273,
+   "gw": 9,
+   "total": 272,
    "last_rank": 15
-  },
-  {
-   "rank": 19,
-   "entry": 2108081,
-   "team": "Gunners11",
-   "manager": "Karan Mankodi",
-   "gw": 7,
-   "total": 268,
-   "last_rank": 17
   },
   {
    "rank": 20,
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 34,
-   "total": 249,
+   "gw": 33,
+   "total": 248,
    "last_rank": 20
   }
  ],
