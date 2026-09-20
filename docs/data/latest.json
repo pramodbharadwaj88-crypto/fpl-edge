@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-20T19:29:32Z",
+ "generated_utc": "2026-09-20T22:29:01Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
   "gw_points": 41,
   "total": 369,
-  "overall_rank": 148219
+  "overall_rank": 148218
  },
  "league": [
   {
@@ -136,21 +136,21 @@
   },
   {
    "rank": 15,
-   "entry": 2798588,
-   "team": "Manchester United FC",
-   "manager": "Ali Babwani",
-   "gw": 37,
-   "total": 303,
-   "last_rank": 14
-  },
-  {
-   "rank": 15,
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
    "gw": 42,
    "total": 303,
    "last_rank": 17
+  },
+  {
+   "rank": 15,
+   "entry": 2798588,
+   "team": "Manchester United FC",
+   "manager": "Ali Babwani",
+   "gw": 37,
+   "total": 303,
+   "last_rank": 14
   },
   {
    "rank": 17,
