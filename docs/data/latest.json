@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-24T10:05:14Z",
+ "generated_utc": "2026-09-24T15:10:26Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
@@ -136,6 +136,15 @@
   },
   {
    "rank": 15,
+   "entry": 4709922,
+   "team": "Flames",
+   "manager": "Nirav Tony",
+   "gw": 47,
+   "total": 309,
+   "last_rank": 16
+  },
+  {
+   "rank": 15,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
@@ -151,15 +160,6 @@
    "gw": 46,
    "total": 309,
    "last_rank": 13
-  },
-  {
-   "rank": 15,
-   "entry": 4709922,
-   "team": "Flames",
-   "manager": "Nirav Tony",
-   "gw": 47,
-   "total": 309,
-   "last_rank": 16
   },
   {
    "rank": 18,
