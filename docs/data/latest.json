@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-09-25T07:53:23Z",
+ "generated_utc": "2026-09-25T13:51:56Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
   "gw_points": 55,
   "total": 383,
-  "overall_rank": 56389
+  "overall_rank": 56388
  },
  "league": [
   {
@@ -136,21 +136,21 @@
   },
   {
    "rank": 15,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 50,
-   "total": 309,
-   "last_rank": 19
-  },
-  {
-   "rank": 15,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
    "gw": 46,
    "total": 309,
    "last_rank": 13
+  },
+  {
+   "rank": 15,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 50,
+   "total": 309,
+   "last_rank": 19
   },
   {
    "rank": 15,
