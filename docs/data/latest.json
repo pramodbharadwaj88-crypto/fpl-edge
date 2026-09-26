@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-25T22:24:26Z",
+ "generated_utc": "2026-09-26T01:36:58Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
@@ -136,6 +136,15 @@
   },
   {
    "rank": 15,
+   "entry": 4709922,
+   "team": "Flames",
+   "manager": "Nirav Tony",
+   "gw": 47,
+   "total": 309,
+   "last_rank": 16
+  },
+  {
+   "rank": 15,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
@@ -151,15 +160,6 @@
    "gw": 50,
    "total": 309,
    "last_rank": 19
-  },
-  {
-   "rank": 15,
-   "entry": 4709922,
-   "team": "Flames",
-   "manager": "Nirav Tony",
-   "gw": 47,
-   "total": 309,
-   "last_rank": 16
   },
   {
    "rank": 18,
