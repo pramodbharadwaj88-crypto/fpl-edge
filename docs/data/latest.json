@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-29T15:55:50Z",
+ "generated_utc": "2026-09-29T20:51:14Z",
  "gw": 5,
  "next_deadline": "2026-10-10T10:00:00Z",
  "entry": {
@@ -136,12 +136,12 @@
   },
   {
    "rank": 15,
-   "entry": 2942185,
-   "team": "House",
-   "manager": "Praveen Hosdrug",
-   "gw": 46,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 50,
    "total": 309,
-   "last_rank": 13
+   "last_rank": 19
   },
   {
    "rank": 15,
@@ -154,12 +154,12 @@
   },
   {
    "rank": 15,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 50,
+   "entry": 2942185,
+   "team": "House",
+   "manager": "Praveen Hosdrug",
+   "gw": 46,
    "total": 309,
-   "last_rank": 19
+   "last_rank": 13
   },
   {
    "rank": 18,
