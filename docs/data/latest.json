@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-10T18:39:31Z",
+ "generated_utc": "2026-10-10T22:36:39Z",
  "gw": 6,
  "next_deadline": "2026-10-17T10:00:00Z",
  "entry": {
   "gw_points": 52,
   "total": 435,
-  "overall_rank": 95528
+  "overall_rank": 96155
  },
  "league": [
   {
@@ -166,8 +166,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 17,
-   "total": 326,
+   "gw": 19,
+   "total": 328,
    "last_rank": 15
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 8,
-   "total": 276,
+   "gw": 10,
+   "total": 278,
    "last_rank": 20
   }
  ],
