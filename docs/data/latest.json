@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-12T17:59:03Z",
+ "generated_utc": "2026-10-13T00:45:26Z",
  "gw": 6,
  "next_deadline": "2026-10-17T10:00:00Z",
  "entry": {
-  "gw_points": 64,
-  "total": 447,
-  "overall_rank": 104245
+  "gw_points": 66,
+  "total": 449,
+  "overall_rank": 95270
  },
  "league": [
   {
@@ -22,8 +22,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 77,
-   "total": 453,
+   "gw": 79,
+   "total": 455,
    "last_rank": 3
   },
   {
@@ -31,27 +31,27 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 64,
-   "total": 447,
+   "gw": 66,
+   "total": 449,
    "last_rank": 2
   },
   {
    "rank": 4,
+   "entry": 2894511,
+   "team": "Goal Of Duty",
+   "manager": "Nirav Patel",
+   "gw": 75,
+   "total": 430,
+   "last_rank": 4
+  },
+  {
+   "rank": 5,
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
    "gw": 84,
    "total": 427,
    "last_rank": 7
-  },
-  {
-   "rank": 5,
-   "entry": 2894511,
-   "team": "Goal Of Duty",
-   "manager": "Nirav Patel",
-   "gw": 69,
-   "total": 424,
-   "last_rank": 4
   },
   {
    "rank": 6,
@@ -64,6 +64,15 @@
   },
   {
    "rank": 7,
+   "entry": 2873635,
+   "team": "ManutdForever7",
+   "manager": "zoheb lalani",
+   "gw": 78,
+   "total": 416,
+   "last_rank": 9
+  },
+  {
+   "rank": 8,
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
@@ -72,21 +81,12 @@
    "last_rank": 5
   },
   {
-   "rank": 8,
-   "entry": 2873635,
-   "team": "ManutdForever7",
-   "manager": "zoheb lalani",
-   "gw": 76,
-   "total": 414,
-   "last_rank": 9
-  },
-  {
    "rank": 9,
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
-   "gw": 64,
-   "total": 410,
+   "gw": 68,
+   "total": 414,
    "last_rank": 6
   },
   {
@@ -94,8 +94,8 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 83,
-   "total": 406,
+   "gw": 85,
+   "total": 408,
    "last_rank": 12
   },
   {
@@ -103,8 +103,8 @@
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
-   "gw": 70,
-   "total": 400,
+   "gw": 74,
+   "total": 404,
    "last_rank": 10
   },
   {
@@ -139,8 +139,8 @@
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 76,
-   "total": 383,
+   "gw": 78,
+   "total": 385,
    "last_rank": 18
   },
   {
@@ -163,21 +163,21 @@
   },
   {
    "rank": 18,
+   "entry": 2108081,
+   "team": "Gunners11",
+   "manager": "Karan Mankodi",
+   "gw": 46,
+   "total": 349,
+   "last_rank": 19
+  },
+  {
+   "rank": 19,
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
    "gw": 38,
    "total": 347,
    "last_rank": 15
-  },
-  {
-   "rank": 19,
-   "entry": 2108081,
-   "team": "Gunners11",
-   "manager": "Karan Mankodi",
-   "gw": 40,
-   "total": 343,
-   "last_rank": 19
   },
   {
    "rank": 20,
@@ -277,7 +277,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 2
   },
   {
    "name": "Bentley",
