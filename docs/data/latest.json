@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-13T07:46:22Z",
+ "generated_utc": "2026-10-13T16:03:23Z",
  "gw": 6,
  "next_deadline": "2026-10-17T10:00:00Z",
  "entry": {
-  "gw_points": 66,
-  "total": 449,
-  "overall_rank": 95270
+  "gw_points": 72,
+  "total": 455,
+  "overall_rank": 63290
  },
  "league": [
   {
@@ -27,12 +27,12 @@
    "last_rank": 3
   },
   {
-   "rank": 3,
+   "rank": 2,
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 66,
-   "total": 449,
+   "gw": 72,
+   "total": 455,
    "last_rank": 2
   },
   {
@@ -55,6 +55,15 @@
   },
   {
    "rank": 6,
+   "entry": 4749698,
+   "team": "Jungle_King",
+   "manager": "Pankit Khant",
+   "gw": 75,
+   "total": 425,
+   "last_rank": 5
+  },
+  {
+   "rank": 7,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
@@ -63,22 +72,13 @@
    "last_rank": 8
   },
   {
-   "rank": 7,
+   "rank": 8,
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
    "gw": 78,
    "total": 416,
    "last_rank": 9
-  },
-  {
-   "rank": 8,
-   "entry": 4749698,
-   "team": "Jungle_King",
-   "manager": "Pankit Khant",
-   "gw": 65,
-   "total": 415,
-   "last_rank": 5
   },
   {
    "rank": 9,
@@ -112,8 +112,8 @@
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 87,
-   "total": 392,
+   "gw": 88,
+   "total": 393,
    "last_rank": 15
   },
   {
@@ -127,21 +127,21 @@
   },
   {
    "rank": 14,
+   "entry": 5363619,
+   "team": "Galactic FC",
+   "manager": "Vaikrant Pandav",
+   "gw": 80,
+   "total": 387,
+   "last_rank": 18
+  },
+  {
+   "rank": 15,
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
    "gw": 77,
    "total": 386,
    "last_rank": 15
-  },
-  {
-   "rank": 15,
-   "entry": 5363619,
-   "team": "Galactic FC",
-   "manager": "Vaikrant Pandav",
-   "gw": 78,
-   "total": 385,
-   "last_rank": 18
   },
   {
    "rank": 16,
@@ -166,8 +166,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 46,
-   "total": 349,
+   "gw": 48,
+   "total": 351,
    "last_rank": 19
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 29,
-   "total": 297,
+   "gw": 31,
+   "total": 299,
    "last_rank": 20
   }
  ],
@@ -232,6 +232,14 @@
    "points": 1
   },
   {
+   "name": "Rogers",
+   "club": "CHE",
+   "mult": 1,
+   "cap": false,
+   "vice": false,
+   "points": 9
+  },
+  {
    "name": "Palmer",
    "club": "CHE",
    "mult": 1,
@@ -240,20 +248,12 @@
    "points": 8
   },
   {
-   "name": "Szoboszlai",
-   "club": "LIV",
+   "name": "Groß",
+   "club": "BHA",
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
-  },
-  {
-   "name": "Rogers",
-   "club": "CHE",
-   "mult": 1,
-   "cap": false,
-   "vice": false,
-   "points": 9
+   "points": 6
   },
   {
    "name": "João Pedro",
@@ -288,12 +288,12 @@
    "points": 0
   },
   {
-   "name": "Groß",
-   "club": "BHA",
+   "name": "Szoboszlai",
+   "club": "LIV",
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 6
+   "points": 0
   },
   {
    "name": "De Cuyper",
