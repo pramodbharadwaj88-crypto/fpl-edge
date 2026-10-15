@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-15T19:11:59Z",
+ "generated_utc": "2026-10-15T22:23:13Z",
  "gw": 6,
  "next_deadline": "2026-10-17T10:00:00Z",
  "entry": {
@@ -19,21 +19,21 @@
   },
   {
    "rank": 2,
-   "entry": 3314291,
-   "team": "YehBaburaoKaStyleHai",
-   "manager": "Pramod B",
-   "gw": 72,
-   "total": 455,
-   "last_rank": 2
-  },
-  {
-   "rank": 2,
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
    "gw": 79,
    "total": 455,
    "last_rank": 3
+  },
+  {
+   "rank": 2,
+   "entry": 3314291,
+   "team": "YehBaburaoKaStyleHai",
+   "manager": "Pramod B",
+   "gw": 72,
+   "total": 455,
+   "last_rank": 2
   },
   {
    "rank": 4,
