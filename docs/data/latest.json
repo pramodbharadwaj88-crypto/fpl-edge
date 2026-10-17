@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-17T17:15:12Z",
+ "generated_utc": "2026-10-17T19:28:47Z",
  "gw": 7,
  "next_deadline": "2026-10-23T17:30:00Z",
  "entry": {
   "gw_points": 33,
   "total": 488,
-  "overall_rank": 77493
+  "overall_rank": 81923
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 41,
-   "total": 496,
+   "gw": 43,
+   "total": 498,
    "last_rank": 2
   },
   {
@@ -67,8 +67,8 @@
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 35,
-   "total": 451,
+   "gw": 37,
+   "total": 453,
    "last_rank": 8
   },
   {
@@ -76,8 +76,8 @@
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 32,
-   "total": 449,
+   "gw": 34,
+   "total": 451,
    "last_rank": 7
   },
   {
@@ -109,30 +109,21 @@
   },
   {
    "rank": 12,
+   "entry": 5363619,
+   "team": "Galactic FC",
+   "manager": "Vaikrant Pandav",
+   "gw": 37,
+   "total": 424,
+   "last_rank": 14
+  },
+  {
+   "rank": 13,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
    "gw": 35,
    "total": 424,
    "last_rank": 13
-  },
-  {
-   "rank": 13,
-   "entry": 5363619,
-   "team": "Galactic FC",
-   "manager": "Vaikrant Pandav",
-   "gw": 35,
-   "total": 422,
-   "last_rank": 14
-  },
-  {
-   "rank": 14,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 18,
-   "total": 422,
-   "last_rank": 11
   },
   {
    "rank": 14,
@@ -144,12 +135,21 @@
    "last_rank": 15
   },
   {
+   "rank": 14,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 18,
+   "total": 422,
+   "last_rank": 11
+  },
+  {
    "rank": 16,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
-   "gw": 39,
-   "total": 416,
+   "gw": 41,
+   "total": 418,
    "last_rank": 16
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 43,
-   "total": 342,
+   "gw": 45,
+   "total": 344,
    "last_rank": 20
   }
  ],
@@ -293,7 +293,7 @@
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 2
+   "points": 4
   },
   {
    "name": "Ødegaard",
