@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-17T19:28:47Z",
+ "generated_utc": "2026-10-17T22:22:54Z",
  "gw": 7,
  "next_deadline": "2026-10-23T17:30:00Z",
  "entry": {
@@ -127,21 +127,21 @@
   },
   {
    "rank": 14,
-   "entry": 4709922,
-   "team": "Flames",
-   "manager": "Nirav Tony",
-   "gw": 36,
-   "total": 422,
-   "last_rank": 15
-  },
-  {
-   "rank": 14,
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
    "gw": 18,
    "total": 422,
    "last_rank": 11
+  },
+  {
+   "rank": 14,
+   "entry": 4709922,
+   "team": "Flames",
+   "manager": "Nirav Tony",
+   "gw": 36,
+   "total": 422,
+   "last_rank": 15
   },
   {
    "rank": 16,
