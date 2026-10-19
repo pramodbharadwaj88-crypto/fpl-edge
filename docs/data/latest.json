@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-19T15:40:27Z",
+ "generated_utc": "2026-10-19T21:06:49Z",
  "gw": 7,
  "next_deadline": "2026-10-23T17:30:00Z",
  "entry": {
   "gw_points": 65,
   "total": 520,
-  "overall_rank": 97934
+  "overall_rank": 103947
  },
  "league": [
   {
@@ -67,8 +67,8 @@
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 61,
-   "total": 491,
+   "gw": 62,
+   "total": 492,
    "last_rank": 4
   },
   {
@@ -85,8 +85,8 @@
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
-   "gw": 60,
-   "total": 474,
+   "gw": 67,
+   "total": 481,
    "last_rank": 9
   },
   {
@@ -130,8 +130,8 @@
    "entry": 7499007,
    "team": "Nuksan FC",
    "manager": "Mustansir Lokhandwala",
-   "gw": 52,
-   "total": 456,
+   "gw": 55,
+   "total": 459,
    "last_rank": 11
   },
   {
@@ -157,8 +157,8 @@
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 52,
-   "total": 427,
+   "gw": 58,
+   "total": 433,
    "last_rank": 17
   },
   {
@@ -166,8 +166,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 68,
-   "total": 415,
+   "gw": 72,
+   "total": 419,
    "last_rank": 19
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 60,
-   "total": 359,
+   "gw": 64,
+   "total": 363,
    "last_rank": 20
   }
  ],
