@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-20T11:44:26Z",
+ "generated_utc": "2026-10-20T17:13:36Z",
  "gw": 7,
  "next_deadline": "2026-10-23T17:30:00Z",
  "entry": {
   "gw_points": 69,
   "total": 524,
-  "overall_rank": 85283
+  "overall_rank": 85281
  },
  "league": [
   {
@@ -23,7 +23,7 @@
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
    "gw": 69,
-   "total": 520,
+   "total": 524,
    "last_rank": 2
   },
   {
@@ -50,7 +50,7 @@
    "team": "Jungle_King",
    "manager": "Pankit Khant",
    "gw": 73,
-   "total": 495,
+   "total": 498,
    "last_rank": 6
   },
   {
@@ -91,15 +91,24 @@
   },
   {
    "rank": 10,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 64,
+   "total": 468,
+   "last_rank": 11
+  },
+  {
+   "rank": 11,
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
    "gw": 58,
-   "total": 464,
+   "total": 466,
    "last_rank": 10
   },
   {
-   "rank": 11,
+   "rank": 12,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
@@ -108,7 +117,7 @@
    "last_rank": 16
   },
   {
-   "rank": 12,
+   "rank": 13,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
@@ -117,7 +126,7 @@
    "last_rank": 13
   },
   {
-   "rank": 13,
+   "rank": 14,
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
@@ -126,21 +135,12 @@
    "last_rank": 14
   },
   {
-   "rank": 14,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 64,
-   "total": 459,
-   "last_rank": 11
-  },
-  {
    "rank": 15,
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
    "gw": 66,
-   "total": 455,
+   "total": 459,
    "last_rank": 12
   },
   {
@@ -158,7 +158,7 @@
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
    "gw": 67,
-   "total": 433,
+   "total": 442,
    "last_rank": 17
   },
   {
@@ -176,7 +176,7 @@
    "team": "Gunners11",
    "manager": "Karan Mankodi",
    "gw": 65,
-   "total": 414,
+   "total": 416,
    "last_rank": 18
   },
   {
@@ -185,7 +185,7 @@
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
    "gw": 70,
-   "total": 363,
+   "total": 369,
    "last_rank": 20
   }
  ],
