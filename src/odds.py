@@ -217,35 +217,71 @@ TEAM_MAP = {  # Odds API name -> FPL short name
 }
 
 
+_FOLD = str.maketrans({"ø": "o", "æ": "ae", "œ": "oe", "ß": "ss", "đ": "d",
+                       "ð": "d", "þ": "th", "ł": "l", "ı": "i"})
+_PARTICLES = {"da", "de", "do", "dos", "das", "di", "del", "van", "von", "der",
+              "den", "la", "le", "el", "al", "jr", "junior"}
+
+
+def _norm_tokens(s) -> list[str]:
+    """Accent-folded lowercase name tokens ("Šeško" -> ["sesko"])."""
+    import re, unicodedata
+    s = unicodedata.normalize("NFKD", (s if isinstance(s, str) else "").lower().translate(_FOLD))
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return [t for t in re.split(r"[^a-z0-9]+", s) if t]
+
+
 def match_player(odds_name: str, elements, team_ids: set | None = None) -> int | None:
     """Map an odds-feed player name to an FPL element id.
 
-    Council fix: the old global fuzzy match (0.72 difflib over all 599 players)
-    mis-mapped e.g. "Erling Braut Haaland" to the wrong element. Now:
-      1. candidates restricted to the match's two teams when known;
-      2. exact surname-token hit is required unless the full-string ratio is
-         very high (>=0.85);
-      3. ties broken by price (props cover starters).
+    Candidates are restricted to the match's teams when known. A candidate is
+    accepted on an exact (accent-folded) full/web/known-name match, on a
+    SURNAME hit (a non-leading token of the feed name in the element's
+    second_name / web_name surname) whose first name does not CONFLICT (feed
+    first name, or its initial, must agree with the element's first/known
+    name), on an all-given-names match, or on a full-string ratio >= 0.85.
+    Ranking: exact > surname > given names > first-name agreement > ratio >
+    outfield > price. The old rule let ANY shared token (first names included)
+    count as a "surname hit" with price as tiebreak and no first-name check,
+    so whenever the right player was not in the candidate set a namesake won
+    ("Cole Palmer" -> Alex Palmer, IPS GK; "Marc Guehi" -> Marc Guiu), and
+    accented names (Muñoz, Kovačić, Lukić) never matched.
     """
-    import difflib, re
-    target = odds_name.lower().strip()
-    t_tokens = set(re.split(r"[\s\-']+", target))
-    best, best_key = None, (-1, -1.0, -1.0)
+    import difflib
+    o = _norm_tokens(odds_name)
+    if not o:
+        return None
+    o_full, o_set = " ".join(o), set(o)
+    rest = o[1:] if len(o) > 1 else o
+    o_sur = set(rest) | {"".join(rest[i:j]) for i in range(len(rest))
+                         for j in range(i + 2, len(rest) + 1)}
+    best, best_key = None, None
     for el in elements:
         if team_ids and el["team"] not in team_ids:
             continue
-        full = f"{el['first_name']} {el['second_name']}".lower()
-        cands = [full, el["web_name"].lower(), (el.get("known_name") or "").lower()]
-        surname_tokens = set(re.split(r"[\s\-']+", el["second_name"].lower())) | \
-            set(re.split(r"[\s\-']+", el["web_name"].lower()))
-        surname_hit = 1 if (t_tokens & surname_tokens) else 0
-        ratio = max(difflib.SequenceMatcher(None, target, c).ratio() for c in cands if c)
-        if not surname_hit and ratio < 0.85:
+        first, second = _norm_tokens(el.get("first_name")), _norm_tokens(el.get("second_name"))
+        web, known = _norm_tokens(el.get("web_name")), _norm_tokens(el.get("known_name"))
+        names = {" ".join(first + second), " ".join(web), " ".join(known)} - {""}
+        exact = o_full in names
+        sur = set(second) | {"".join(second), "".join(web)}
+        sur |= {t for t in web if t not in first and len(t) > 2}
+        sur -= _PARTICLES
+        surname_hit = bool(o_sur & sur)
+        given = set(first) | set(known[:1]) | (set(web[:1]) if len(web) > 1 else set())
+        given -= _PARTICLES
+        agree = 2 if (given & o_set) else (1 if any(g[0] == o[0][0] for g in given) else 0)
+        conflict = len(o) > 1 and bool(given) and agree == 0
+        sur_ok = surname_hit and not conflict
+        # players known by given names ("Rayan Vitor", "Alysson Edward", "Alisson")
+        given_full = o_set <= (set(first) | set(known) | set(web))
+        ratio = max(difflib.SequenceMatcher(None, o_full, c).ratio() for c in names) if names else 0.0
+        if not (exact or sur_ok or given_full or ratio >= 0.85):
             continue
-        key = (surname_hit, ratio, float(el["now_cost"]))
-        if key > best_key:
+        key = (exact, sur_ok, given_full, agree, ratio, el["element_type"] != 1,
+               float(el["now_cost"]))
+        if best_key is None or key > best_key:
             best, best_key = el["id"], key
-    return best if best_key[1] >= 0.55 or best_key[0] else None
+    return best
 
 
 if __name__ == "__main__":

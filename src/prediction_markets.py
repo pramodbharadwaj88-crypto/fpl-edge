@@ -4,8 +4,9 @@ Both expose 1X2 probabilities for EPL matches:
   Polymarket gamma API: event "X FC vs. Y FC" with 3 Yes/No markets whose
     Yes-prices are already ~de-vigged probabilities.
   Kalshi trade API v2: series KXEPLGAME, three legs per event (home/away/TIE),
-    prob = mid(yes_bid, yes_ask)/100 or last_price/100. Often illiquid early —
-    legs without quotes are skipped.
+    prob = mid(yes_bid, yes_ask) or last_price, read from the *_dollars
+    decimal strings (legacy integer-cent fields still accepted). Often
+    illiquid early — legs without quotes are skipped.
 
 Output: data/pm_probs.json  {"HOME_SHORT|AWAY_SHORT": {p_home,p_draw,p_away,src}}
 Blended into the bookmaker 1X2 consensus in odds.refresh_match_odds().
@@ -81,6 +82,40 @@ def polymarket_match_probs() -> dict:
     return out
 
 
+def _kalshi_price(m: dict, field: str) -> float | None:
+    """Price as a 0-1 probability. Current API: "<field>_dollars" decimal
+    strings ("0.4300"); legacy API: integer cents in "<field>". 0 = no quote."""
+    v = m.get(f"{field}_dollars")
+    try:
+        p = float(v) if v not in (None, "") else None
+    except (TypeError, ValueError):
+        p = None
+    if p is None and isinstance(m.get(field), (int, float)):
+        p = m[field] / 100.0
+    return p if p and 0 < p < 1 else None
+
+
+def _kalshi_leg_prob(m: dict) -> float | None:
+    yb, ya = _kalshi_price(m, "yes_bid"), _kalshi_price(m, "yes_ask")
+    if yb and ya:
+        return (yb + ya) / 2.0
+    return _kalshi_price(m, "last_price")
+
+
+def _get_retry(url: str, params: dict, tries: int = 4, timeout: int = 25):
+    """GET with backoff on HTTP 429 (honours Retry-After when given)."""
+    for i in range(tries):
+        r = requests.get(url, params=params, timeout=timeout)
+        if r.status_code != 429 or i == tries - 1:
+            r.raise_for_status()
+            return r.json()
+        try:
+            wait = float(r.headers.get("Retry-After", ""))
+        except ValueError:
+            wait = 2.0 * 2 ** i                    # 2s, 4s, 8s
+        time.sleep(min(wait, 30.0))
+
+
 def kalshi_match_probs() -> dict:
     out, cursor = {}, None
     seen = quoted = 0                       # liquidity telemetry for reporting
@@ -89,29 +124,27 @@ def kalshi_match_probs() -> dict:
             params = {"limit": 100, "status": "open", "series_ticker": "KXEPLGAME"}
             if cursor:
                 params["cursor"] = cursor
-            r = requests.get("https://api.elections.kalshi.com/trade-api/v2/markets",
-                             params=params, timeout=25).json()
+            r = _get_retry("https://api.elections.kalshi.com/trade-api/v2/markets",
+                           params)
             mkts = r.get("markets", [])
             byev: dict[str, list] = {}
             for m in mkts:
                 seen += 1
-                if (m.get("yes_bid") and m.get("yes_ask")) or m.get("last_price"):
+                if _kalshi_leg_prob(m) is not None:
                     quoted += 1
                 byev.setdefault(m["event_ticker"], []).append(m)
             for evt, legs in byev.items():
-                probs = {}
+                probs, code_to_short = {}, {}
                 for m in legs:
-                    yb, ya, lp = m.get("yes_bid"), m.get("yes_ask"), m.get("last_price")
-                    if yb and ya and ya > 0:
-                        p = (yb + ya) / 200.0
-                    elif lp:
-                        p = lp / 100.0
-                    else:
+                    p = _kalshi_leg_prob(m)
+                    if p is None:
                         continue
                     sub = (m.get("yes_sub_title") or "").lower()
                     key = "draw" if sub in ("tie", "draw") else _short(sub)
                     if key:
                         probs[key] = p
+                        # Kalshi's own team codes (LFC, CFC, BRI) != FPL shorts
+                        code_to_short[(m.get("ticker") or "").rsplit("-", 1)[-1]] = key
                 # event ticker suffix: e.g. 26AUG30MUNIPS → home listed first
                 suffix = evt.rsplit("-", 1)[-1]
                 teams = [v for k, v in probs.items() if k != "draw"]
@@ -119,7 +152,7 @@ def kalshi_match_probs() -> dict:
                     continue
                 m3 = re.findall(r"[A-Z]{3}", suffix[-6:])
                 if len(m3) == 2:
-                    hcode, acode = m3
+                    hcode, acode = (code_to_short.get(c, c) for c in m3)
                     shorts = {k for k in probs if k != "draw"}
                     if hcode in shorts and acode in shorts:
                         s = sum(probs.values())
@@ -213,30 +246,23 @@ def polymarket_player_markets(max_age: int = 6 * 3600) -> dict:
 
 
 def map_players_to_fpl(markets: dict, elements: list) -> dict:
-    """Attach an FPL web_name to each runner via surname-token match against
-    the supplied bootstrap `elements` (kept out of this module's fetch path so
-    it stays sandbox-safe). Team markets are passed through unchanged."""
-    import unicodedata
+    """Attach an FPL web_name + element id to each runner using the same
+    full-name matcher as the scorer props (odds.match_player), against the
+    supplied bootstrap `elements` (kept out of this module's fetch path so it
+    stays sandbox-safe). Team markets are passed through unchanged.
 
-    def norm(s):
-        s = unicodedata.normalize("NFKD", s or "")
-        return "".join(c for c in s if not unicodedata.combining(c)).lower()
-
-    idx = {}
-    for el in elements:
-        idx.setdefault(norm(el["web_name"]).split()[-1], []).append(el)
+    The old bare-surname index took the first element sharing the last token,
+    so "Cole Palmer" -> web_name "Palmer" (ambiguous with Alex Palmer, IPS GK),
+    "Morgan Gibbs-White" -> Ben White, "Bruno Fernandes" -> Mateus Fernandes."""
+    from odds import match_player
+    by_id = {el["id"]: el for el in elements}
     mapped = {}
     for mk, blk in markets.items():
         rows = []
         for r in blk["runners"]:
-            fpl = None
-            if not blk.get("is_team"):
-                toks = norm(r["name"]).replace("-", " ").split()
-                for t in reversed(toks):          # surname first
-                    if t in idx:
-                        fpl = idx[t][0]["web_name"]
-                        break
-            rows.append({**r, "fpl": fpl})
+            pid = None if blk.get("is_team") else match_player(r["name"], elements)
+            rows.append({**r, "fpl": by_id[pid]["web_name"] if pid else None,
+                         "fpl_id": pid})
         mapped[mk] = {"is_team": blk.get("is_team", False), "runners": rows}
     return mapped
 
@@ -244,7 +270,9 @@ def map_players_to_fpl(markets: dict, elements: list) -> dict:
 def squad_market_view(web_names: list, elements: list, max_age: int = 6 * 3600) -> dict:
     """Season-outright Polymarket standing for the manager's own players.
 
-    Returns {market_key: [{fpl, name, prob, rank}]} for players in `web_names`,
+    Returns {market_key: [{fpl, fpl_id, name, prob, rank}]} for players in
+    `web_names` (element ids also accepted — prefer them; web_names such as
+    "Palmer" are ambiguous),
     plus 'top_scorer_team'/'most_clean_sheets_team' team rows untouched. Use in
     briefings to answer 'what does the sharp market think of MY players'."""
     mapped = map_players_to_fpl(polymarket_player_markets(max_age), elements)
@@ -253,7 +281,7 @@ def squad_market_view(web_names: list, elements: list, max_age: int = 6 * 3600) 
     for mk, blk in mapped.items():
         rows = []
         for i, r in enumerate(blk["runners"], 1):
-            if blk.get("is_team") or (r.get("fpl") in want):
+            if blk.get("is_team") or r.get("fpl_id") in want or r.get("fpl") in want:
                 rows.append({**r, "rank": i})
         if rows:
             view[mk] = rows

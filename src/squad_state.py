@@ -49,6 +49,42 @@ def _fallback_manual() -> dict | None:
                 free_transfers=1, unresolved=unresolved)
 
 
+FT_CAP = 5
+_FT_FREE_CHIPS = {"wildcard", "freehit"}
+
+
+def free_transfers(team_id: int, hist: dict | None = None,
+                   transfers: list | None = None) -> tuple[int, int]:
+    """(free transfers available, the GW they apply to), rebuilt from the API.
+
+    Rules (2025/26+): the entry's first GW squad is free (no bank); 1 FT for
+    the following GW; +1 per completed GW, capped at 5; each transfer consumes
+    one FT (extras are -4 hits, bank floors at 0); Wildcard / Free Hit GWs
+    consume nothing and the next GW still gets its +1.
+    """
+    hist = hist if hist is not None else fpl_api.entry_history(team_id)
+    rows = sorted(hist.get("current", []), key=lambda r: r["event"])
+    if not rows:
+        return 1, 1
+    if transfers is None:
+        try:
+            transfers = fpl_api.entry_transfers(team_id)
+        except Exception:
+            transfers = []
+    made_by_gw: dict[int, int] = {}
+    for t in transfers:
+        made_by_gw[t["event"]] = made_by_gw.get(t["event"], 0) + 1
+    chips = {c["event"]: c["name"] for c in hist.get("chips", [])}
+    ft = 1                                   # for the GW after the first one
+    for r in rows[1:]:
+        gw = r["event"]
+        if chips.get(gw) not in _FT_FREE_CHIPS:
+            made = max(made_by_gw.get(gw, 0), r.get("event_transfers") or 0)
+            ft = max(0, ft - made)
+        ft = min(FT_CAP, ft + 1)
+    return ft, rows[-1]["event"] + 1
+
+
 def _resolve_name(name: str, bs) -> int | None:
     """web_name -> element id; ties broken by ownership (the famous one)."""
     cands = [e for e in bs["elements"] if e["web_name"] == name]
@@ -151,6 +187,11 @@ def current(team_id: int) -> dict:
                 bank=(ent.get("last_deadline_bank") or 0) / 10.0,
                 value=(ent.get("last_deadline_value") or 0) / 10.0,
                 free_transfers=1, unresolved=[])
+            try:
+                state["free_transfers"], state["ft_gw"] = free_transfers(team_id)
+            except Exception as ex:
+                state.setdefault("warnings", []).append(
+                    f"FT count unavailable ({type(ex).__name__}); assuming 1")
             _update_purchases(state["element_ids"], bs)
             return _apply_pending(state, bs)
         except Exception:
@@ -195,7 +236,8 @@ if __name__ == "__main__":
     byid = {e["id"]: e for e in bs["elements"]}
     short = {t["id"]: t["short_name"] for t in bs["teams"]}
     print(f"source: {st['source']} | gw: {st['gw']} | chip: {st.get('chip')} | "
-          f"bank £{st['bank']:.1f}m | FTs {st['free_transfers']}")
+          f"bank £{st['bank']:.1f}m | FTs {st['free_transfers']}"
+          + (f" (GW{st['ft_gw']})" if st.get("ft_gw") else ""))
     for pid in st["element_ids"]:
         e = byid.get(pid)
         tag = " (C)" if pid == st.get("captain") else (" (V)" if pid == st.get("vice") else "")

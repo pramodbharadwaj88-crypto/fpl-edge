@@ -51,6 +51,10 @@ def entry_history(team_id: int):
     return _get(f"entry/{team_id}/history/", f"entryhist_{team_id}", max_age=3600)
 
 
+def entry_transfers(team_id: int):
+    return _get(f"entry/{team_id}/transfers/", f"entrytr_{team_id}", max_age=3600)
+
+
 def entry_picks(team_id: int, gw: int):
     return _get(f"entry/{team_id}/event/{gw}/picks/", f"picks_{team_id}_{gw}", max_age=3600)
 

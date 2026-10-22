@@ -249,12 +249,18 @@ def _scorer_prop_ev(els: pd.DataFrame, xm_map: dict | None = None) -> dict:
                 ids.add(short_to_id[sh])
         return ids
 
-    by_match: dict[str, list] = {}
+    # Books spell some players differently ("Josh King" / "Joshua King"): both
+    # spellings map to one element — average them so he is counted ONCE in the
+    # match's implied-goal normalization.
+    grouped: dict[str, dict[int, list]] = {}
     for name, v in raw.items():
         if 0 < v["p_goal"] < 0.95:
             pid = odds_mod.match_player(name, recs, _match_teams(v["match"]) or None)
             if pid:
-                by_match.setdefault(v["match"], []).append((pid, -math.log(1 - v["p_goal"])))
+                grouped.setdefault(v["match"], {}).setdefault(pid, []).append(
+                    -math.log(1 - v["p_goal"]))
+    by_match = {m: [(pid, sum(gs) / len(gs)) for pid, gs in d.items()]
+                for m, d in grouped.items()}
     out = {}
     for match, pairs in by_match.items():
         # pairs carry raw -ln(1-p); recover p, then POWER de-vig: p' = p^k with k
