@@ -79,6 +79,16 @@ def parse(html: str) -> dict | None:
     gw_m = re.search(r"Gameweek (\d+)", html)
     gw = int(gw_m.group(1)) if gw_m else None
     nmap = _fpl_name_map()
+    import fpl_api
+    from odds import match_player          # full-name -> element id (accent-aware)
+    els = fpl_api.bootstrap()["elements"]
+    byid = {e["id"]: e for e in els}
+    _pid_cache: dict = {}
+
+    def pid_of(full: str):
+        if full not in _pid_cache:
+            _pid_cache[full] = match_player(full, els) if full else None
+        return _pid_cache[full]
 
     # --- ownership table (+ Fix 5-GW projections) ---------------------------
     ownership, proj5 = {}, {}
@@ -105,7 +115,9 @@ def parse(html: str) -> dict | None:
             # the first value that looks like a percentage of the league
             if len(nums) >= 3:
                 proj5[wn] = nums[1]
-                ownership[wn] = round(nums[2] / 100.0, 4)
+                # fallback only (replaced by board counts below); keep the
+                # larger share when two players share a web_name ("Palmer")
+                ownership[wn] = max(ownership.get(wn, 0.0), round(nums[2] / 100.0, 4))
 
     # --- per-manager squads + captains (structural, per flip-card block) ----
     teams = []
@@ -119,21 +131,27 @@ def parse(html: str) -> dict | None:
                     and "Update" not in txt:
                 name = txt
                 break
-        players, cap, vice, last = [], None, None, None
+        players, player_ids, seen = [], [], set()
+        cap = vice = cap_id = vice_id = last = last_id = None
         for a in b.find_all("a"):
             cls = a.get("class") or []
             if "open-playermodal" in cls:
-                nm = _to_web_name(a.get("data-name") or "", nmap)
-                if nm and nm not in players and len(players) < 15:
+                full = a.get("data-name") or ""
+                nm, pid = _to_web_name(full, nmap), pid_of(full)
+                key = pid or nm
+                if nm and key not in seen and len(players) < 15:
+                    seen.add(key)
                     players.append(nm)
-                last = nm
+                    player_ids.append(pid)
+                last, last_id = nm, pid
             elif a.get("title") == "Captain" and last and cap is None:
-                cap = last
+                cap, cap_id = last, last_id
             elif a.get("title") == "Vice-captain" and last and vice is None:
-                vice = last
+                vice, vice_id = last, last_id
         if len(players) >= 11 and not is_consensus:
             teams.append(dict(manager=name or "unknown", players=players,
-                              captain=cap, vice=vice))
+                              player_ids=player_ids, captain=cap, vice=vice,
+                              captain_id=cap_id, vice_id=vice_id))
 
     caps = {}
     for t in teams:
@@ -143,12 +161,35 @@ def parse(html: str) -> dict | None:
     captains = {k: round(v / ncap, 2) for k, v in
                 sorted(caps.items(), key=lambda x: -x[1])}
 
+    # Elite ownership = counts over the parsed boards, keyed by element id.
+    # The table's "League ownership" column also counts the logged-in user's
+    # own team (13 teams, not 12), and keying it by web_name let Alex Palmer
+    # (IPS GK) overwrite Cole Palmer (11/12 boards -> 0.077).
+    ownership_ids, captain_ids = {}, {}
+    if len(teams) >= 10:
+        n = len(teams)
+        for t in teams:
+            for pid in t["player_ids"]:
+                if pid:
+                    ownership_ids[pid] = ownership_ids.get(pid, 0) + 1
+            if t.get("captain_id"):
+                captain_ids[t["captain_id"]] = captain_ids.get(t["captain_id"], 0) + 1
+        ownership_ids = {k: round(v / n, 4) for k, v in
+                         sorted(ownership_ids.items(), key=lambda x: -x[1])}
+        ncap_ids = max(sum(captain_ids.values()), 1)
+        captain_ids = {k: round(v / ncap_ids, 2) for k, v in captain_ids.items()}
+        ownership = {}
+        for pid, share in ownership_ids.items():
+            wn = byid[pid]["web_name"]
+            ownership[wn] = max(share, ownership.get(wn, 0.0))
+
     if not ownership and not teams:
         return None
     return dict(gw=gw, updated=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                 source="fantasyfootballfix.com/reveal (auto, session cookie)",
                 n_teams=len(teams) or None,
                 captains=captains, ownership=ownership,
+                ownership_ids=ownership_ids, captain_ids=captain_ids,
                 teams=teams), proj5
 
 

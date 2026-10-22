@@ -60,6 +60,11 @@ def elite_eo(proj: pd.DataFrame, gw: int | None = None) -> pd.Series:
     d = load(gw)
     if not d:
         return pd.Series(dtype=float)
+    if d.get("ownership_ids"):
+        # schema v3: board counts keyed by element id (no web_name collisions)
+        caps = {int(k): float(v) for k, v in (d.get("captain_ids") or {}).items()}
+        return pd.Series({int(k): float(v) + caps.get(int(k), 0.0)
+                          for k, v in d["ownership_ids"].items()})
     nm = _name_to_id(proj)
     if d.get("ownership"):
         caps = d.get("captains", {})
