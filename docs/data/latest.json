@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-23T19:17:56Z",
+ "generated_utc": "2026-10-23T23:11:09Z",
  "gw": 8,
  "next_deadline": "2026-10-31T11:00:00Z",
  "entry": {
-  "gw_points": 1,
-  "total": 521,
-  "overall_rank": 101283
+  "gw_points": 2,
+  "total": 522,
+  "overall_rank": 96954
  },
  "league": [
   {
@@ -22,8 +22,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 1,
-   "total": 521,
+   "gw": 2,
+   "total": 522,
    "last_rank": 2
   },
   {
@@ -58,8 +58,8 @@
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 1,
-   "total": 493,
+   "gw": 2,
+   "total": 494,
    "last_rank": 7
   },
   {
@@ -76,8 +76,8 @@
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 1,
-   "total": 483,
+   "gw": 2,
+   "total": 484,
    "last_rank": 8
   },
   {
@@ -94,27 +94,27 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 8,
-   "total": 472,
+   "gw": 10,
+   "total": 474,
    "last_rank": 10
   },
   {
    "rank": 11,
+   "entry": 1315673,
+   "team": "Ramurai Push",
+   "manager": "Sid Damle",
+   "gw": 2,
+   "total": 462,
+   "last_rank": 13
+  },
+  {
+   "rank": 12,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
    "gw": 0,
    "total": 462,
    "last_rank": 16
-  },
-  {
-   "rank": 12,
-   "entry": 1315673,
-   "team": "Ramurai Push",
-   "manager": "Sid Damle",
-   "gw": 1,
-   "total": 461,
-   "last_rank": 13
   },
   {
    "rank": 13,
@@ -139,8 +139,8 @@
    "entry": 2942185,
    "team": "House",
    "manager": "Praveen Hosdrug",
-   "gw": 2,
-   "total": 457,
+   "gw": 4,
+   "total": 459,
    "last_rank": 12
   },
   {
@@ -148,8 +148,8 @@
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 1,
-   "total": 453,
+   "gw": 2,
+   "total": 454,
    "last_rank": 15
   },
   {
@@ -175,8 +175,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 1,
-   "total": 415,
+   "gw": 2,
+   "total": 416,
    "last_rank": 18
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 1,
-   "total": 364,
+   "gw": 2,
+   "total": 365,
    "last_rank": 20
   }
  ],
@@ -245,7 +245,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 1
+   "points": 2
   },
   {
    "name": "Rogers",
