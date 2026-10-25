@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-25T16:28:00Z",
+ "generated_utc": "2026-10-25T19:41:28Z",
  "gw": 8,
  "next_deadline": "2026-10-31T11:00:00Z",
  "entry": {
   "gw_points": 38,
   "total": 562,
-  "overall_rank": 113589
+  "overall_rank": 138640
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 35,
-   "total": 564,
+   "gw": 47,
+   "total": 576,
    "last_rank": 1
   },
   {
@@ -58,12 +58,12 @@
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
-   "gw": 46,
-   "total": 527,
+   "gw": 55,
+   "total": 536,
    "last_rank": 9
   },
   {
-   "rank": 6,
+   "rank": 7,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
@@ -109,6 +109,15 @@
   },
   {
    "rank": 12,
+   "entry": 4387682,
+   "team": "Tappu Ke Papa",
+   "manager": "Hursh Anandwala",
+   "gw": 40,
+   "total": 502,
+   "last_rank": 12
+  },
+  {
+   "rank": 13,
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
@@ -117,22 +126,13 @@
    "last_rank": 14
   },
   {
-   "rank": 13,
+   "rank": 14,
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
    "gw": 45,
    "total": 497,
    "last_rank": 16
-  },
-  {
-   "rank": 14,
-   "entry": 4387682,
-   "team": "Tappu Ke Papa",
-   "manager": "Hursh Anandwala",
-   "gw": 31,
-   "total": 493,
-   "last_rank": 12
   },
   {
    "rank": 15,
@@ -154,29 +154,29 @@
   },
   {
    "rank": 17,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 50,
-   "total": 469,
-   "last_rank": 18
-  },
-  {
-   "rank": 18,
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 23,
-   "total": 465,
+   "gw": 34,
+   "total": 476,
    "last_rank": 17
+  },
+  {
+   "rank": 18,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 53,
+   "total": 472,
+   "last_rank": 18
   },
   {
    "rank": 19,
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 32,
-   "total": 448,
+   "gw": 37,
+   "total": 453,
    "last_rank": 19
   },
   {
@@ -309,7 +309,7 @@
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 9
   }
  ]
 }
