@@ -60,7 +60,7 @@ def free_transfers(team_id: int, hist: dict | None = None,
     Rules (2025/26+): the entry's first GW squad is free (no bank); 1 FT for
     the following GW; +1 per completed GW, capped at 5; each transfer consumes
     one FT (extras are -4 hits, bank floors at 0); Wildcard / Free Hit GWs
-    consume nothing and the next GW still gets its +1.
+    consume nothing and add nothing (banked FTs carry over unchanged).
     """
     hist = hist if hist is not None else fpl_api.entry_history(team_id)
     rows = sorted(hist.get("current", []), key=lambda r: r["event"])
@@ -78,10 +78,13 @@ def free_transfers(team_id: int, hist: dict | None = None,
     ft = 1                                   # for the GW after the first one
     for r in rows[1:]:
         gw = r["event"]
-        if chips.get(gw) not in _FT_FREE_CHIPS:
-            made = max(made_by_gw.get(gw, 0), r.get("event_transfers") or 0)
-            ft = max(0, ft - made)
-        ft = min(FT_CAP, ft + 1)
+        if chips.get(gw) in _FT_FREE_CHIPS:
+            # Wildcard / Free Hit: banked FTs are kept, but that GW earns no
+            # +1 (verified 2026-10-30 against the FPL app: GW9 shows 2 FTs,
+            # not the 3 the old "+1 anyway" rule produced).
+            continue
+        made = max(made_by_gw.get(gw, 0), r.get("event_transfers") or 0)
+        ft = min(FT_CAP, max(0, ft - made) + 1)
     return ft, rows[-1]["event"] + 1
 
 
