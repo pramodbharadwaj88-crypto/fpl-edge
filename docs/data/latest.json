@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-10-31T21:39:45Z",
+ "generated_utc": "2026-11-01T01:15:20Z",
  "gw": 9,
  "next_deadline": "2026-11-06T18:30:00Z",
  "entry": {
   "gw_points": 35,
   "total": 602,
-  "overall_rank": 267815
+  "overall_rank": 267199
  },
  "league": [
   {
@@ -73,21 +73,21 @@
   },
   {
    "rank": 8,
-   "entry": 6246591,
-   "team": "Lawade Na Bhojyam",
-   "manager": "Faraz Virani",
-   "gw": 48,
-   "total": 568,
-   "last_rank": 10
-  },
-  {
-   "rank": 8,
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
    "gw": 46,
    "total": 568,
    "last_rank": 9
+  },
+  {
+   "rank": 8,
+   "entry": 6246591,
+   "team": "Lawade Na Bhojyam",
+   "manager": "Faraz Virani",
+   "gw": 48,
+   "total": 568,
+   "last_rank": 10
   },
   {
    "rank": 10,
