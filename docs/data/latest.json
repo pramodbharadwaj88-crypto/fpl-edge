@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-02T16:14:55Z",
+ "generated_utc": "2026-11-02T23:36:48Z",
  "gw": 9,
  "next_deadline": "2026-11-06T18:30:00Z",
  "entry": {
-  "gw_points": 44,
-  "total": 611,
-  "overall_rank": 281895
+  "gw_points": 55,
+  "total": 622,
+  "overall_rank": 179364
  },
  "league": [
   {
@@ -22,8 +22,8 @@
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
-   "gw": 52,
-   "total": 613,
+   "gw": 61,
+   "total": 622,
    "last_rank": 4
   },
   {
@@ -31,8 +31,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 44,
-   "total": 611,
+   "gw": 55,
+   "total": 622,
    "last_rank": 2
   },
   {
@@ -40,8 +40,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 42,
-   "total": 607,
+   "gw": 51,
+   "total": 616,
    "last_rank": 3
   },
   {
@@ -76,8 +76,8 @@
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 57,
-   "total": 579,
+   "gw": 59,
+   "total": 581,
    "last_rank": 9
   },
   {
@@ -85,8 +85,8 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 58,
-   "total": 578,
+   "gw": 59,
+   "total": 579,
    "last_rank": 10
   },
   {
@@ -130,8 +130,8 @@
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 57,
-   "total": 556,
+   "gw": 59,
+   "total": 558,
    "last_rank": 15
   },
   {
@@ -175,8 +175,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 32,
-   "total": 486,
+   "gw": 44,
+   "total": 498,
    "last_rank": 19
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 42,
-   "total": 464,
+   "gw": 52,
+   "total": 474,
    "last_rank": 20
   }
  ],
@@ -213,7 +213,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 2
   },
   {
    "name": "Calafiori",
@@ -277,7 +277,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 9
   },
   {
    "name": "Bentley",
