@@ -1,249 +1,196 @@
-"""FPL Edge — canonical squad state (council v4: kill the squad-state fiction).
+"""FPL Edge — canonical squad state.
 
-Single authority for "what team does Pramod actually own": the FPL API's own
-record of his picks, falling back to data/actual_entry_gw1.json only while the
-API is in post-deadline maintenance. Everything downstream (transfer planning,
-briefings, ledger counterfactual) MUST source the squad from here — never from
-chip_plan.json, solver output, or memory.
+Single authority for "what does Pramod own going into the next deadline".
+`build_state(bundle)` is a pure function over the API snapshot plus the
+user-reported pending moves; nothing is written to disk.
 
-Also maintains data/purchases.json {element_id: purchase_price_tenths} so the
-50%-sell-on rule uses real purchase prices from the moment of first sight.
+API reality (2026-08-31): the FPL API hides transfers made for the upcoming
+GW until its deadline passes, so pre-deadline moves arrive via the pending
+file, keyed by element id:
 
-API REALITY (lesson 2026-08-31): the FPL API HIDES transfers made for the
-upcoming GW until its deadline passes (anti-copy privacy). /entry/{id}/transfers/
-and picks reflect only the LAST deadline. User-made pre-deadline moves therefore
-arrive via data/pending_moves.json (written from user reports / state store) and
-are overlaid here until the API confirms them post-deadline, at which point the
-overlay self-expires and is reconciled against /transfers/.
+  data/pending_moves.json
+  {"gw": 10, "team_id": 3314291,
+   "moves": [{"out": 497, "in": 496, "in_cost": 44}],
+   "app_ft_left": 0, "app_bank_tenths": 15,          # as the FPL app shows
+   "approved_hits": 0,                               # -4s Pramod said yes to
+   "reported_at": "2026-11-05T14:00:00Z"}
+
+The app is the truth for free transfers and bank: when the user reports
+them they override the computed values (a disagreement is a warning).
+A pending file for an earlier GW is ignored (the API has caught up).
 """
 from __future__ import annotations
-import json, pathlib
-import fpl_api
+import dataclasses as dc
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
-
-
-def _fallback_manual() -> dict | None:
-    f = DATA / "actual_entry_gw1.json"
-    if not f.exists():
-        return None
-    manual = json.loads(f.read_text())
-    bs = fpl_api.bootstrap()
-    short = {t["id"]: t["short_name"] for t in bs["teams"]}
-    ids, unresolved = [], []
-    for name in manual["squad15"]:
-        cands = [e for e in bs["elements"] if e["web_name"] == name]
-        if len(cands) == 1:
-            ids.append(cands[0]["id"])
-        elif len(cands) > 1:
-            # disambiguate by highest ownership (the famous player)
-            cands.sort(key=lambda e: -float(e["selected_by_percent"]))
-            ids.append(cands[0]["id"])
-        else:
-            unresolved.append(name)
-    cap = next((e["id"] for e in bs["elements"]
-                if e["web_name"] == manual.get("captain")), None)
-    return dict(source="manual_fallback", gw=manual["gw"], element_ids=ids,
-                captain=cap, chip=manual.get("chip"), bank=0.0,
-                free_transfers=1, unresolved=unresolved)
+import facts
+import fpl_rules as R
+from bundle import Bundle
 
 
-FT_CAP = 5
-_FT_FREE_CHIPS = {"wildcard", "freehit"}
+class AmbiguousName(ValueError):
+    pass
+
+
+def resolve(ref, by_id: dict[int, dict]) -> int:
+    """Element id from an id or a name. Names must match exactly one player
+    (web_name, then "first second"); anything else raises."""
+    if isinstance(ref, int) or (isinstance(ref, str) and ref.isdigit()):
+        pid = int(ref)
+        if pid not in by_id:
+            raise ValueError(f"unknown element id {pid}")
+        return pid
+    name = str(ref).strip().lower()
+    hits = [e for e in by_id.values() if e["web_name"].lower() == name]
+    if not hits:
+        hits = [e for e in by_id.values()
+                if f"{e['first_name']} {e['second_name']}".lower() == name]
+    if len(hits) == 1:
+        return hits[0]["id"]
+    if not hits:
+        raise ValueError(f"no player named {ref!r}")
+    raise AmbiguousName(f"{ref!r} matches {len(hits)} players: " + ", ".join(
+        f"{e['id']} ({e['first_name']} {e['second_name']}, team {e['team']})" for e in hits))
+
+
+@dc.dataclass
+class SquadState:
+    gw: int                              # the GW this advice is for
+    api_gw: int                          # GW of the API picks it starts from
+    api_slots: list[int]                 # 15 ids in app order, per the API
+    slots: list[int]                     # after pending moves (slot inheritance)
+    captain: int | None
+    vice: int | None
+    bank: int                            # tenths, after pending moves
+    ft: int                              # free transfers left for `gw`
+    ft_computed: int                     # from the API replay, before overrides
+    ft_source: str
+    ft_gw: int                           # the GW the FT replay applies to
+    hist_gw: int                         # latest GW in the entry history
+    approved_hits: int                   # points of hits Pramod approved (pending file)
+    purchase: dict[int, tuple[int, str]]
+    sell: dict[int, int]
+    pending_moves: list[tuple[int, int]]
+    chip_used_api_gw: str | None
+    warnings: list[str]
+
+    @property
+    def sold_this_gw(self) -> set[int]:
+        return {o for o, _ in self.pending_moves}
+
+    @property
+    def bought_this_gw(self) -> set[int]:
+        return {i for _, i in self.pending_moves}
+
+
+def build_state(b: Bundle) -> SquadState:
+    by = b.by_id
+    gw = b.next_event()["id"]
+    if b.picks.get("active_chip") == "freehit":
+        raise ValueError(f"GW{b.picks_gw} was a Free Hit: load GW{b.picks_gw - 1} picks")
+    picks = sorted(b.picks["picks"], key=lambda p: p["position"])
+    api_slots = [p["element"] for p in picks]
+    cap = next((p["element"] for p in picks if p["is_captain"]), None)
+    vice = next((p["element"] for p in picks if p["is_vice_captain"]), None)
+    bank = int(b.picks["entry_history"]["bank"])
+    warnings: list[str] = []
+
+    rows = b.entry_history.get("current", [])
+    hist_gw = max((r["event"] for r in rows), default=0)
+    ft, ft_gw = R.ft_replay(rows, b.transfers, b.entry_history.get("chips", []))
+    ft_computed = ft
+    ft_source = "API replay"
+
+    purchase = facts.purchase_prices(api_slots, b.transfers, by, b.entry_history.get("chips"))
+
+    moves: list[tuple[int, int]] = []
+    approved_hits = 0
+    pend = b.pending
+    if pend:
+        pgw = int(pend.get("gw", 0))
+        if pend.get("team_id") not in (None, b.team_id):
+            raise ValueError("pending moves belong to another team")
+        if pgw > gw:
+            raise ValueError(f"pending moves are for GW{pgw}, next deadline is GW{gw}")
+        if pgw < gw:
+            warnings.append(f"pending moves for GW{pgw} ignored (that deadline has passed)")
+            pend = None
+    slots = list(api_slots)
+    if pend:
+        approved_hits = int(pend.get("approved_hits") or 0)
+        book = dict(purchase)                      # running book: chains A->B->C work
+        for m in pend.get("moves", []):
+            o, i = resolve(m["out"], by), resolve(m["in"], by)
+            if o not in book:
+                raise ValueError(f"pending move sells {by[o]['web_name']}, who is not in the squad")
+            cost = int(m.get("in_cost") or by[i]["now_cost"])
+            bank += R.sell_price(by[o]["now_cost"], book.pop(o)[0]) - cost
+            book[i] = (cost, "pending move")
+            slots = facts.predicted_app_slots(slots, [(o, i)])
+            moves.append((o, i))
+            if cap == o:
+                cap = None
+            if vice == o:
+                vice = None
+        purchase = book
+        ft = max(0, ft - len(moves))
+        if pend.get("app_ft_left") is not None:
+            if int(pend["app_ft_left"]) != ft:
+                warnings.append(f"app shows {pend['app_ft_left']} FT left, "
+                                f"replay says {ft}; using the app")
+            ft, ft_source = int(pend["app_ft_left"]), "FPL app (reported)"
+        if pend.get("app_bank_tenths") is not None:
+            if int(pend["app_bank_tenths"]) != bank:
+                warnings.append(f"app shows £{pend['app_bank_tenths'] / 10:.1f}m bank, "
+                                f"computed £{bank / 10:.1f}m; using the app")
+            bank = int(pend["app_bank_tenths"])
+    sell = facts.selling_prices(purchase, by)
+
+    return SquadState(gw=gw, api_gw=b.picks_gw, api_slots=api_slots, slots=slots,
+                      captain=cap, vice=vice, bank=bank, ft=ft, ft_computed=ft_computed,
+                      ft_source=ft_source, ft_gw=ft_gw, hist_gw=hist_gw,
+                      approved_hits=approved_hits, purchase=purchase, sell=sell,
+                      pending_moves=moves, chip_used_api_gw=b.picks.get("active_chip"),
+                      warnings=warnings)
 
 
 def free_transfers(team_id: int, hist: dict | None = None,
                    transfers: list | None = None) -> tuple[int, int]:
-    """(free transfers available, the GW they apply to), rebuilt from the API.
-
-    Rules (2025/26+): the entry's first GW squad is free (no bank); 1 FT for
-    the following GW; +1 per completed GW, capped at 5; each transfer consumes
-    one FT (extras are -4 hits, bank floors at 0); Wildcard / Free Hit GWs
-    consume nothing and add nothing (banked FTs carry over unchanged).
-    """
+    """Back-compat wrapper: (free transfers, GW they apply to)."""
+    import fpl_api
     hist = hist if hist is not None else fpl_api.entry_history(team_id)
-    rows = sorted(hist.get("current", []), key=lambda r: r["event"])
-    if not rows:
-        return 1, 1
     if transfers is None:
-        try:
-            transfers = fpl_api.entry_transfers(team_id)
-        except Exception:
-            transfers = []
-    made_by_gw: dict[int, int] = {}
-    for t in transfers:
-        made_by_gw[t["event"]] = made_by_gw.get(t["event"], 0) + 1
-    chips = {c["event"]: c["name"] for c in hist.get("chips", [])}
-    ft = 1                                   # for the GW after the first one
-    for r in rows[1:]:
-        gw = r["event"]
-        if chips.get(gw) in _FT_FREE_CHIPS:
-            # Wildcard / Free Hit: banked FTs are kept, but that GW earns no
-            # +1 (verified 2026-10-30 against the FPL app: GW9 shows 2 FTs,
-            # not the 3 the old "+1 anyway" rule produced).
-            continue
-        made = max(made_by_gw.get(gw, 0), r.get("event_transfers") or 0)
-        ft = min(FT_CAP, max(0, ft - made) + 1)
-    return ft, rows[-1]["event"] + 1
-
-
-def _resolve_name(name: str, bs) -> int | None:
-    """web_name -> element id; ties broken by ownership (the famous one)."""
-    cands = [e for e in bs["elements"] if e["web_name"] == name]
-    if not cands:
-        return None
-    cands.sort(key=lambda e: -float(e["selected_by_percent"]))
-    return cands[0]["id"]
-
-
-def _apply_pending(state: dict, bs) -> dict:
-    """Overlay user-reported pre-deadline moves the API cannot show yet.
-
-    pending_moves.json: {"gw": N, "moves": [{"out": "Mbeumo", "in": "Cherki"}],
-                         "free_transfers_left": 1}
-    Applies only while the move's GW is still upcoming (API picks gw < N);
-    once the API has caught up post-deadline the file is reconciled against
-    /transfers/ and deleted (self-expiring — never a stale second truth).
-    """
-    f = DATA / "pending_moves.json"
-    if not f.exists():
-        return state
-    try:
-        pend = json.loads(f.read_text())
-    except Exception:
-        return state
-    if state["gw"] >= pend.get("gw", 0):
-        # API has caught up — reconcile then retire the overlay
-        try:
-            import requests
-            tr = requests.get(
-                f"https://fantasy.premierleague.com/api/entry/{pend['team_id']}/transfers/",
-                headers={"User-Agent": "Mozilla/5.0"}, timeout=20).json()
-            confirmed = {(t["element_out"], t["element_in"]) for t in tr
-                         if t["event"] == pend.get("gw")}
-            true_cost = {t["element_in"]: t["element_in_cost"] for t in tr
-                         if t["event"] == pend.get("gw")}
-            for m in pend.get("moves", []):
-                pair = (_resolve_name(m["out"], bs), _resolve_name(m["in"], bs))
-                if pair not in confirmed:
-                    state.setdefault("warnings", []).append(
-                        f"pending move {m['out']}->{m['in']} NOT in API post-deadline")
-                elif pair[1] in true_cost:
-                    # correct the purchase book with the true buy price
-                    book_f = DATA / "purchases.json"
-                    book = json.loads(book_f.read_text()) if book_f.exists() else {}
-                    book[str(pair[1])] = true_cost[pair[1]]
-                    book_f.write_text(json.dumps(book))
-        except Exception:
-            pass
-        f.unlink(missing_ok=True)
-        return state
-    applied = []
-    for m in pend.get("moves", []):
-        out_id, in_id = _resolve_name(m["out"], bs), _resolve_name(m["in"], bs)
-        if out_id in state["element_ids"] and in_id and in_id not in state["element_ids"]:
-            sell = selling_price(out_id, bs)
-            book_f = DATA / "purchases.json"
-            book = json.loads(book_f.read_text()) if book_f.exists() else {}
-            # buy price = user-stated, else first-seen booked price, else today's
-            now_in = next(e["now_cost"] for e in bs["elements"] if e["id"] == in_id)
-            buy_tenths = int(m.get("in_cost_tenths") or book.get(str(in_id)) or now_in)
-            buy = buy_tenths / 10.0
-            state["element_ids"] = [in_id if x == out_id else x
-                                    for x in state["element_ids"]]
-            state["bank"] = round(state["bank"] + sell - buy, 1)
-            book.pop(str(out_id), None)
-            book[str(in_id)] = buy_tenths
-            book_f.write_text(json.dumps(book))
-            if state.get("captain") == out_id:
-                state["captain"] = None
-            if state.get("vice") == out_id:
-                state["vice"] = None
-            applied.append(f"{m['out']}->{m['in']}")
-    if applied:
-        state["source"] += "+pending_user_moves"
-        state["pending_applied"] = applied
-        if "free_transfers_left" in pend:
-            state["free_transfers"] = pend["free_transfers_left"]
-    return state
+        transfers = fpl_api.entry_transfers(team_id)
+    return R.ft_replay(hist.get("current", []), transfers, hist.get("chips", []))
 
 
 def current(team_id: int) -> dict:
-    """Canonical squad state. API-first; manual fallback; loud about which."""
-    bs = fpl_api.bootstrap()
-    ev = next((e for e in bs["events"] if e.get("is_current")), None) \
-        or next((e for e in bs["events"] if e.get("is_next")), None)
-    gw = ev["id"] if ev else 1
-    for try_gw in (gw, gw - 1):
-        if try_gw < 1:
-            continue
-        try:
-            p = fpl_api.entry_picks(team_id, try_gw)
-            ent = fpl_api.entry(team_id)
-            state = dict(
-                source="fpl_api", gw=try_gw,
-                element_ids=[x["element"] for x in p["picks"]],
-                captain=next((x["element"] for x in p["picks"] if x["is_captain"]), None),
-                vice=next((x["element"] for x in p["picks"] if x["is_vice_captain"]), None),
-                chip=p.get("active_chip"),
-                bank=(ent.get("last_deadline_bank") or 0) / 10.0,
-                value=(ent.get("last_deadline_value") or 0) / 10.0,
-                free_transfers=1, unresolved=[])
-            try:
-                state["free_transfers"], state["ft_gw"] = free_transfers(team_id)
-            except Exception as ex:
-                state.setdefault("warnings", []).append(
-                    f"FT count unavailable ({type(ex).__name__}); assuming 1")
-            _update_purchases(state["element_ids"], bs)
-            return _apply_pending(state, bs)
-        except Exception:
-            continue
-    fb = _fallback_manual()
-    if fb:
-        _update_purchases(fb["element_ids"], bs)
-        return fb
-    return dict(source="none", gw=gw, element_ids=[], captain=None,
-                chip=None, bank=0.0, free_transfers=1,
-                unresolved=["NO SQUAD STATE AVAILABLE"])
-
-
-def _update_purchases(ids: list, bs) -> dict:
-    f = DATA / "purchases.json"
-    book = json.loads(f.read_text()) if f.exists() else {}
-    now = {e["id"]: e["now_cost"] for e in bs["elements"]}
-    for pid in ids:
-        book.setdefault(str(pid), now.get(pid))
-    # drop players no longer owned (sold) so re-buys re-book at new price
-    book = {k: v for k, v in book.items() if int(k) in set(ids)}
-    f.write_text(json.dumps(book))
-    return book
-
-
-def selling_price(pid: int, bs) -> float:
-    """FPL sell rule: purchase + floor(profit/2), full loss passed through."""
-    f = DATA / "purchases.json"
-    book = json.loads(f.read_text()) if f.exists() else {}
-    now = next((e["now_cost"] for e in bs["elements"] if e["id"] == pid), None)
-    buy = book.get(str(pid), now)
-    if now is None or buy is None:
-        return 0.0
-    sell = buy + max(0, (now - buy) // 2) if now > buy else now
-    return sell / 10.0
+    """Legacy dict view for report.py (live API, no elite fetch)."""
+    import bundle
+    try:
+        b = bundle.live(team_id, with_elite=False)
+        st = build_state(b)
+    except Exception as ex:
+        return dict(source="none", gw=None, element_ids=[], captain=None, chip=None,
+                    bank=0.0, free_transfers=1, sell={},
+                    unresolved=[f"NO SQUAD STATE: {type(ex).__name__}: {ex}"])
+    return dict(source="fpl_api" + ("+pending_user_moves" if st.pending_moves else ""),
+                gw=st.api_gw, target_gw=st.gw, element_ids=st.slots,
+                captain=st.captain, vice=st.vice, chip=st.chip_used_api_gw,
+                bank=st.bank / 10.0, free_transfers=st.ft, ft_gw=st.gw,
+                sell=st.sell, unresolved=[], warnings=st.warnings)
 
 
 if __name__ == "__main__":
-    import model_config as mc
-    st = current(mc.full().get("team_id"))
-    bs = fpl_api.bootstrap()
-    byid = {e["id"]: e for e in bs["elements"]}
-    short = {t["id"]: t["short_name"] for t in bs["teams"]}
-    print(f"source: {st['source']} | gw: {st['gw']} | chip: {st.get('chip')} | "
-          f"bank £{st['bank']:.1f}m | FTs {st['free_transfers']}"
-          + (f" (GW{st['ft_gw']})" if st.get("ft_gw") else ""))
-    for pid in st["element_ids"]:
-        e = byid.get(pid)
-        tag = " (C)" if pid == st.get("captain") else (" (V)" if pid == st.get("vice") else "")
-        print(f"  {e['web_name']:16} {short[e['team']]}{tag}" if e else f"  UNKNOWN {pid}")
-    if st["unresolved"]:
-        print("UNRESOLVED:", st["unresolved"])
+    import model_config as mc, bundle
+    b = bundle.live(mc.full().get("team_id"), with_elite=False)
+    st = build_state(b)
+    by = b.by_id
+    print(f"GW{st.gw} | bank £{st.bank / 10:.1f}m | FT {st.ft} ({st.ft_source})")
+    for k, pid in enumerate(st.slots, 1):
+        e = by[pid]
+        p, src = st.purchase[pid]
+        tag = " (C)" if pid == st.captain else (" (V)" if pid == st.vice else "")
+        print(f"{k:2} {e['web_name']:16} now {e['now_cost']/10:.1f} bought {p/10:.1f} "
+              f"sell {st.sell[pid]/10:.1f} [{src}]{tag}")
+    for w in st.warnings:
+        print("WARNING:", w)

@@ -209,7 +209,8 @@ def run() -> dict:
         bank = sq_state["bank"]
         plans = optimizer.transfer_plan(proj, ids, bank,
                                         free_transfers=sq_state["free_transfers"],
-                                        locked=locked, banned=banned)
+                                        locked=locked, banned=banned,
+                                        sells=sq_state.get("sell"))
         state["plans"] = [
             dict(n=p["n_transfers"], hits=p["hits"], gain=p["net_gain"],
                  out=proj[proj.id.isin(p["out"])]["name"].tolist(),

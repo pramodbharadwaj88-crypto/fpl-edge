@@ -1,0 +1,22 @@
+FPL Edge — GW10 plan (deadline Fri Nov 6, 1:30 PM ET)
+First, confirm your FPL app shows 1 free transfer and £1.9m in the bank. If it doesn't, stop and tell me.
+
+Transfers (1 free transfer, no hit):
+1. Dubravka (TOT GKP, sells £4.0m) → Kinsky (TOT GKP, £4.4m)
+   Elites start him 2/12 (vs 0 for Dubravka); 3 starts, 270 min in his club's last 3; his club's No.1 keeper
+   Needed: Dubravka isn't playing for his club and you have no playing GKP to cover him.
+Money: £1.9m bank + £4.0m − £4.4m = £1.5m left.
+
+The app puts each signing in the sold player's slot. Then:
+- Start Konsa, bench Hall
+- Start Groß, bench Ødegaard
+- Start De Cuyper, bench Gibbs-White
+- Set the bench order: 1. Bentley, 2. Ødegaard, 3. Gibbs-White, 4. Hall
+Starting XI (4-3-3): Kinsky, Muharemović, Calafiori, Konsa, De Cuyper, Palmer, Rogers, Groß, N.Jackson, Haaland, Barry
+Bench: 1. Bentley, 2. Ødegaard, 3. Gibbs-White, 4. Hall
+Captain: Haaland (12/12 elites) · Vice: Palmer — set both in the app.
+
+Heads-up:
+- no fresh model xP (odds tie-breaks unavailable)
+
+Checks passed 44/44 · plan b3c24b7b87f8

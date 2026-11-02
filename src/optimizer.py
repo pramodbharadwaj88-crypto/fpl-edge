@@ -6,7 +6,7 @@ Council-mandated properties:
   * min-keep is a real MILP constraint row (sum of current players >= k),
     not a greedy lock heuristic.
   * Transfer budgets use true FPL sell prices (purchase + floor(profit/2)),
-    from data/purchases.json maintained by report.py.
+    computed by squad_state from the API transfer record and passed in.
 Weights come from config.json "model" via model_config.
 """
 from __future__ import annotations
@@ -15,31 +15,10 @@ import pandas as pd
 import numpy as np
 import highspy
 import model_config as mc
-
-POS_SQUAD = {1: 2, 2: 5, 3: 5, 4: 3}
-POS_MIN_XI = {1: 1, 2: 3, 3: 2, 4: 1}
-POS_MAX_XI = {1: 1, 2: 5, 3: 5, 4: 3}
-BUDGET = 1000  # tenths of £m
-MAX_PER_CLUB = 3
+from fpl_rules import (POS_SQUAD, POS_MIN_XI, POS_MAX_XI, BUDGET, MAX_PER_CLUB,
+                       HIT_COST, sell_price, hits_for)
 
 DATA = pathlib.Path(__file__).resolve().parent.parent / "data"
-
-
-def sell_price(now_tenths: int, purchase_tenths: int) -> int:
-    """FPL rule: profit is banked at 50%, rounded down (in £0.1m steps)."""
-    if now_tenths <= purchase_tenths:
-        return now_tenths
-    return purchase_tenths + (now_tenths - purchase_tenths) // 2
-
-
-def load_purchases() -> dict:
-    f = DATA / "purchases.json"
-    if f.exists():
-        try:
-            return {int(k): int(v) for k, v in json.loads(f.read_text()).items()}
-        except Exception:
-            return {}
-    return {}
 
 
 def solve_squad(df: pd.DataFrame, budget: int = BUDGET,
@@ -127,15 +106,15 @@ def solve_squad(df: pd.DataFrame, budget: int = BUDGET,
 
 
 def transfer_plan(df: pd.DataFrame, current_ids: list[int], bank: float,
-                  free_transfers: int, max_transfers: int = 3, hit_cost: int = 4,
+                  free_transfers: int, max_transfers: int = 3,
                   locked: list[int] | None = None,
-                  banned: list[int] | None = None) -> list[dict]:
-    """Rank 0..max_transfers plans. Budget uses true sell prices."""
-    purchases = load_purchases()
+                  banned: list[int] | None = None,
+                  sells: dict | None = None) -> list[dict]:
+    """Rank 0..max_transfers plans. Budget uses true sell prices (`sells`,
+    {element id: tenths} from squad_state); without them, current prices."""
     now_tenths = {int(r.id): int(round(r.price * 10)) for r in df.itertuples()
                   if r.id in set(current_ids)}
-    sells = {pid: sell_price(now_tenths.get(pid, 0), purchases.get(pid, now_tenths.get(pid, 0)))
-             for pid in current_ids}
+    sells = {pid: int((sells or {}).get(pid, now_tenths.get(pid, 0))) for pid in current_ids}
     budget = int(sum(sells.values()) + round(bank * 10))
     results = []
     base = solve_squad(df, budget=budget, keep_ids=current_ids, min_keep=15,
@@ -150,7 +129,7 @@ def transfer_plan(df: pd.DataFrame, current_ids: list[int], bank: float,
         in_ = [int(p) for p in sol["squad"]["id"] if p not in set(current_ids)]
         if not out:
             continue
-        hits = max(0, len(out) - free_transfers) * hit_cost
+        hits = hits_for(len(out), free_transfers)
         gain = sol["xp_next"] - base["xp_next"] - hits
         results.append(dict(n_transfers=len(out), hits=hits, squad=sol,
                             net_gain=round(gain, 2), out=out, in_=in_))

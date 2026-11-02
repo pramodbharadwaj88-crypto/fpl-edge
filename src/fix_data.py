@@ -83,9 +83,16 @@ def parse(html: str) -> dict | None:
     from odds import match_player          # full-name -> element id (accent-aware)
     els = fpl_api.bootstrap()["elements"]
     byid = {e["id"]: e for e in els}
+    bycode = {e["code"]: e["id"] for e in els}
     _pid_cache: dict = {}
 
-    def pid_of(full: str):
+    def pid_of(full: str, a=None):
+        """Element id. Fix links each player to /player_modal/<FPL code>/,
+        an exact key (2026-11-02: the bare name "Muñoz" matched the wrong
+        Muñoz and broke a board). Name matching is only the fallback."""
+        m = re.search(r"/player_modal/(\d+)/", (a.get("href") or "") if a is not None else "")
+        if m and int(m.group(1)) in bycode:
+            return bycode[int(m.group(1))]
         if full not in _pid_cache:
             _pid_cache[full] = match_player(full, els) if full else None
         return _pid_cache[full]
@@ -137,7 +144,8 @@ def parse(html: str) -> dict | None:
             cls = a.get("class") or []
             if "open-playermodal" in cls:
                 full = a.get("data-name") or ""
-                nm, pid = _to_web_name(full, nmap), pid_of(full)
+                pid = pid_of(full, a)
+                nm = byid[pid]["web_name"] if pid else _to_web_name(full, nmap)
                 key = pid or nm
                 if nm and key not in seen and len(players) < 15:
                     seen.add(key)
@@ -209,6 +217,16 @@ def refresh(max_age: int = 6 * 3600) -> dict | None:
     if not parsed:
         return None
     data, proj5 = parsed
+    # each board's active chip and "Last Updated" (same page): a Free Hit
+    # board is a one-week squad and must not count toward the consensus
+    try:
+        meta = {m["manager"]: m for m in parse_meta(html)}
+        for t in data["teams"]:
+            m = meta.get(t["manager"])
+            t["chip"] = m.get("active_chip") if m else None
+            t["last_updated"] = m.get("last_updated") if m else None
+    except Exception:
+        pass
     out_f.write_text(json.dumps(data, ensure_ascii=False))
     if proj5:
         (DATA / "fix_proj5.json").write_text(json.dumps(proj5, ensure_ascii=False))

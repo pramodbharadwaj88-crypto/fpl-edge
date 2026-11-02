@@ -1,0 +1,6 @@
+requests>=2.31
+pandas>=2.2
+numpy>=1.26
+highspy>=1.7
+beautifulsoup4>=4.12
+tzdata>=2024.1
