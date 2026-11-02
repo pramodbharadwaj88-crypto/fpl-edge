@@ -67,6 +67,8 @@ class SquadState:
     ft_gw: int                           # the GW the FT replay applies to
     hist_gw: int                         # latest GW in the entry history
     approved_hits: int                   # points of hits Pramod approved (pending file)
+    pending_hits: int                    # points already spent by the pending moves
+    pending_priced: bool                 # every pending buy has a cost, or the app bank is known
     purchase: dict[int, tuple[int, str]]
     sell: dict[int, int]
     pending_moves: list[tuple[int, int]]
@@ -80,6 +82,25 @@ class SquadState:
     @property
     def bought_this_gw(self) -> set[int]:
         return {i for _, i in self.pending_moves}
+
+
+def _validate_pending(pend: dict) -> None:
+    """Reject malformed user notes before they can shape a plan."""
+    def intlike(v):
+        return isinstance(v, int) and not isinstance(v, bool)
+    if pend.get("app_ft_left") is not None and not (intlike(pend["app_ft_left"])
+                                                   and 0 <= pend["app_ft_left"] <= R.FT_CAP):
+        raise ValueError(f"app_ft_left must be 0-{R.FT_CAP}, got {pend['app_ft_left']!r}")
+    if pend.get("app_bank_tenths") is not None and not (intlike(pend["app_bank_tenths"])
+                                                       and 0 <= pend["app_bank_tenths"] <= 1000):
+        raise ValueError(f"app_bank_tenths must be 0-1000 tenths, got {pend['app_bank_tenths']!r}")
+    ah = pend.get("approved_hits")
+    if ah is not None and not (intlike(ah) and ah >= 0 and ah % R.HIT_COST == 0):
+        raise ValueError(f"approved_hits must be a multiple of {R.HIT_COST}, got {ah!r}")
+    for m in pend.get("moves", []):
+        c = m.get("in_cost")
+        if c is not None and not (intlike(c) and 35 <= c <= 160):
+            raise ValueError(f"in_cost must be in tenths (35-160), got {c!r}")
 
 
 def build_state(b: Bundle) -> SquadState:
@@ -100,10 +121,12 @@ def build_state(b: Bundle) -> SquadState:
     ft_computed = ft
     ft_source = "API replay"
 
-    purchase = facts.purchase_prices(api_slots, b.transfers, by, b.entry_history.get("chips"))
+    purchase = facts.purchase_prices(api_slots, b.transfers, by, b.entry_history.get("chips"),
+                                     opening=b.opening)
 
     moves: list[tuple[int, int]] = []
-    approved_hits = 0
+    approved_hits = pending_hits = 0
+    pending_priced = True
     pend = b.pending
     if pend:
         pgw = int(pend.get("gw", 0))
@@ -116,7 +139,11 @@ def build_state(b: Bundle) -> SquadState:
             pend = None
     slots = list(api_slots)
     if pend:
+        _validate_pending(pend)
         approved_hits = int(pend.get("approved_hits") or 0)
+        pending_hits = R.hits_for(len(pend.get("moves", [])), ft)
+        pending_priced = (pend.get("app_bank_tenths") is not None
+                          or all(m.get("in_cost") for m in pend.get("moves", [])))
         book = dict(purchase)                      # running book: chains A->B->C work
         for m in pend.get("moves", []):
             o, i = resolve(m["out"], by), resolve(m["in"], by)
@@ -148,7 +175,8 @@ def build_state(b: Bundle) -> SquadState:
     return SquadState(gw=gw, api_gw=b.picks_gw, api_slots=api_slots, slots=slots,
                       captain=cap, vice=vice, bank=bank, ft=ft, ft_computed=ft_computed,
                       ft_source=ft_source, ft_gw=ft_gw, hist_gw=hist_gw,
-                      approved_hits=approved_hits, purchase=purchase, sell=sell,
+                      approved_hits=approved_hits, pending_hits=pending_hits,
+                      pending_priced=pending_priced, purchase=purchase, sell=sell,
                       pending_moves=moves, chip_used_api_gw=b.picks.get("active_chip"),
                       warnings=warnings)
 

@@ -89,6 +89,10 @@ def synthesize(elite: dict, by_id: dict, seed: int = 7, tries: int = 50) -> dict
         real_sets = [set(t["player_ids"]) for t in real]
         if any(set(b["player_ids"]) in real_sets for b in boards):
             continue
+        for b, t in zip(boards, real):           # board metadata, not tied to any squad
+            for k in ("chip", "last_updated"):
+                if k in t:
+                    b[k] = t[k]
         out = dict(gw=elite["gw"], updated=elite.get("updated"), n_teams=len(boards),
                    source="synthetic test boards (counts preserved; no real squads)",
                    teams=[dict(manager=f"S{k:02d}", **b) for k, b in enumerate(boards, 1)])

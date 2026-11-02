@@ -45,6 +45,9 @@ IN_MIN_STARTS = 2               # of the club's last 3 matches
 IN_MIN_ELITE_STARTS = 3         # elite boards that START the incoming player
 MIN_START_GAP = 2               # a gap of exactly 1 needs the odds tie-break
 ENGINE_SLACK = 1                # plan may trail the engine by at most 1 elite start
+XP_TIE_MARGIN = 0.3             # xP edge that breaks a 1-board tie (odds rule)
+MIN_STAMP_CHECKS = 40           # a stamp claiming fewer checks is not ours
+MIN_PER_MATCH = 40              # incoming player: 40 min per club match (120 over 3)
 DEADLINE_BUFFER = dt.timedelta(minutes=15)
 
 FAIL, WARN = "FAIL", "WARN"
@@ -115,28 +118,35 @@ class _Ctx:
             pass
         # elite boards: legal, distinct, not a one-week Free Hit squad
         self.elite_ok, self.elite_bad = [], []
-        seen_m, seen_ids = set(), set()
+        seen = set()
         e = b.elite or {}
         for t in e.get("teams") or []:
             v = F.board_violations(t, self.by)
-            key = tuple(t.get("player_ids") or [])
-            if t.get("manager") in seen_m or key in seen_ids:
+            mgr = t.get("manager")
+            key = mgr if mgr not in (None, "", "unknown") else (
+                mgr, tuple(t.get("player_ids") or []), t.get("captain_id"), t.get("vice_id"))
+            if key in seen:
                 v = v + ["duplicate board"]
-            if (t.get("chip") or "").upper().startswith("FH"):
+            seen.add(key)
+            if "chip" not in t or F.parse_fix_time(t.get("last_updated")) is None:
+                v = v + ["no chip / last-updated data (a Free Hit board could slip in)"]
+            elif (t.get("chip") or "").upper().startswith("FH"):
                 v = v + ["Free Hit board (one-week squad)"]
-            seen_m.add(t.get("manager"))
-            seen_ids.add(key)
             (self.elite_bad if v else self.elite_ok).append((t, v))
+        self.missing_boards = max(0, EXPECTED_ELITE_BOARDS - len(self.elite_ok))
         self.ec = F.elite_counts(dict(teams=[t for t, _ in self.elite_ok]))
         self.fx_by_id = {f["id"]: f for f in b.fixtures if "id" in f}
         self.stale_history: set[int] = set()
-        self.xp_fresh = bool(b.xp) and (
-            "xp" not in b.fetched_at
-            or (b.now - b.fetched_at["xp"]).total_seconds() <= XP_MAX_AGE)
+        self.xp_fresh = bool(b.xp) and "xp" in b.fetched_at and (
+            (b.now - b.fetched_at["xp"]).total_seconds() <= XP_MAX_AGE)
+        self.names = F.display_names(b.bootstrap)
+
+    def xp(self, pid) -> float | None:
+        """Model xP for the target GW, only when fresh."""
+        return self.b.xp.get(pid) if self.xp_fresh else None
 
     def name(self, pid) -> str:
-        e = self.by.get(pid)
-        return e["web_name"] if e else f"#{pid}"
+        return self.names.get(pid, f"#{pid}")
 
     def _summary(self, pid) -> dict:
         s = self.b.summary(pid)
@@ -151,7 +161,7 @@ class _Ctx:
     def starter_gk(self, club) -> dict:
         sums = {p: self._summary(p) for p in self.b.club_gk_summaries(club)}
         return F.club_starter_gk(club, self.by, sums, self.gw, now=self.b.now,
-                                 fixtures_by_id=self.fx_by_id)
+                                 fixtures_by_id=self.fx_by_id, elite_starts=self.ec["start"])
 
     def has_fixture(self, pid) -> bool:
         return F.fixture_count(self.by[pid]["team"], self.gw, self.b.fixtures) > 0
@@ -160,7 +170,8 @@ class _Ctx:
         """Not out, and started at least once in his club's last 3 matches (or
         is started by half the elites: back from injury). Says nothing about
         this GW's fixture — a blank is not an injury."""
-        if F.fitness(self.by[pid])[0] == "out":
+        fit, ch = F.fitness(self.by[pid])
+        if fit == "out" or (fit == "doubt" and (ch or 0) <= 50):
             return False
         if self.recent(pid)["starts"] >= 1:
             return True
@@ -191,6 +202,9 @@ def _checks_data(c: _Ctx) -> list[Result]:
             stale.append(f"{src}: no fetch time")
         elif (c.b.now - t).total_seconds() > limit:
             stale.append(f"{src}: {int((c.b.now - t).total_seconds() // 60)} min old")
+    bt, lw = c.b.fetched_at.get("bootstrap"), F.last_price_window(c.b.now)
+    if bt is not None and bt < lw:
+        stale.append(f"bootstrap fetched before the {F.fmt_et(lw)} price change")
     out.append(Result("DATA_FRESH", not stale, FAIL, "; ".join(stale)))
     out.append(Result("GW_TARGET", c.plan.get("gw") == c.gw, FAIL,
                       f"plan GW{c.plan.get('gw')}, next deadline is GW{c.gw}"))
@@ -208,6 +222,8 @@ def _checks_data(c: _Ctx) -> list[Result]:
     n_ok = len(c.elite_ok)
     out.append(Result("ELITE_BOARDS", n_ok >= MIN_ELITE_BOARDS, FAIL,
                       f"{n_ok} legal boards (need {MIN_ELITE_BOARDS})"))
+    out.append(Result("ELITE_BOARDS_MAX", n_ok <= EXPECTED_ELITE_BOARDS, FAIL,
+                      f"{n_ok} boards parsed, expected {EXPECTED_ELITE_BOARDS}: an extra card was read as a board"))
     out.append(Result("ELITE_BOARDS_ALL", n_ok >= EXPECTED_ELITE_BOARDS and not c.elite_bad,
                       WARN, f"{n_ok} legal elite boards; dropped: " + "; ".join(
                           f"board {k}: {', '.join(v)}" for k, (t, v) in enumerate(c.elite_bad, 1))))
@@ -216,14 +232,29 @@ def _checks_data(c: _Ctx) -> list[Result]:
     if prev:
         prev_dl = F.parse_utc(prev["deadline_time"])
         old_boards = [k for k, (t, _) in enumerate(c.elite_ok, 1)
-                      if (F.parse_fix_time(t.get("last_updated")) or prev_dl) < prev_dl]
-        out.append(Result("ELITE_BOARDS_CURRENT", not old_boards, WARN,
+                      if F.parse_fix_time(t.get("last_updated")) < prev_dl]
+        current = len(c.elite_ok) - len(old_boards)
+        out.append(Result("ELITE_BOARDS_CURRENT", current >= MIN_ELITE_BOARDS, FAIL,
+                          f"only {current} elite boards updated since the GW{c.gw - 1} deadline"))
+        out.append(Result("ELITE_BOARDS_STALE", not old_boards, WARN,
                           f"{len(old_boards)} elite board(s) not updated since the GW{c.gw - 1} deadline"))
     st = c.st
-    ft_ok = st.ft_source.startswith("FPL app") or (st.ft_gw == c.gw and st.hist_gw == st.api_gw)
+    fh_gws = {ch["event"] for ch in c.b.entry_history.get("chips", []) if ch["name"] == "freehit"}
+    aligned = st.hist_gw == st.api_gw or (st.hist_gw == st.api_gw + 1 and st.hist_gw in fh_gws)
+    ft_ok = aligned and (st.ft_source.startswith("FPL app") or st.ft_gw == c.gw)
     out.append(Result("FT_GW", ft_ok, FAIL,
                       f"free-transfer count is for GW{st.ft_gw} (history to GW{st.hist_gw}, "
                       f"picks GW{st.api_gw}) but the advice is for GW{c.gw}: inputs out of step"))
+    out.append(Result("PENDING_PRICED", st.pending_priced, FAIL,
+                      "a move you already made has no price: tell me what you paid, or the bank your app shows"))
+    if c.b.opening is not None:
+        implied = F.squad_replay(c.b.opening, c.b.transfers, c.b.entry_history.get("chips"))
+        out.append(Result("SQUAD_REPLAY", implied == set(st.api_slots), FAIL,
+                          "opening squad + transfer record does not give your current squad "
+                          "(a transfer record is missing, so selling prices can't be trusted)"))
+    else:
+        out.append(Result("SQUAD_REPLAY", False, WARN,
+                          "purchase prices not cross-checked against your opening squad"))
     return out
 
 
@@ -282,9 +313,11 @@ def _checks_money(c: _Ctx) -> list[Result]:
                       f"£{worst / 10:.1f}m — make the moves before then"))
     hits = R.hits_for(len(c.moves), st.ft)
     c.hits = hits
-    out.append(Result("NO_UNAPPROVED_HITS", hits <= st.approved_hits, FAIL,
-                      f"{len(c.moves)} transfers with {st.ft} free = -{hits} points; Pramod "
-                      f"approved {st.approved_hits} (only his pending-moves note can approve a hit)"))
+    left = st.approved_hits - st.pending_hits
+    out.append(Result("NO_UNAPPROVED_HITS", hits == 0 or hits <= left, FAIL,
+                      f"{len(c.moves)} transfers with {st.ft} free = -{hits} points; Pramod approved "
+                      f"{st.approved_hits}, {st.pending_hits} already used (only his pending-moves note "
+                      "can approve a hit)"))
     out.append(Result("FT_NOT_WASTED", bool(c.moves) or st.ft < R.FT_CAP, WARN,
                       f"rolling at {st.ft} free transfers wastes one"))
     out.append(Result("FT_FROM_APP", st.ft_source.startswith("FPL app"), WARN,
@@ -343,10 +376,12 @@ def incoming_results(c: _Ctx, o: int, i: int) -> list[Result]:
     out.append(Result("IN_FIT", fit == "fit", FAIL, f"{ni}: {fit} ({ch}%) {by[i].get('news', '')}"))
     out.append(Result("IN_FIXTURE", c.has_fixture(i), FAIL, f"{ni} has no GW{c.gw} fixture"))
     rc = c.recent(i)
+    need_min = MIN_PER_MATCH * rc["matches"]                 # 120 over 3; scaled early season
+    need_st = max(1, rc["matches"] - 1)                      # 2 of 3
     out.append(Result("IN_RECENT_MINUTES",
-                      rc["minutes"] >= IN_MIN_MINUTES and rc["starts"] >= IN_MIN_STARTS, FAIL,
+                      rc["matches"] >= 1 and rc["minutes"] >= need_min and rc["starts"] >= need_st, FAIL,
                       f"{ni}: {rc['minutes']} min, {rc['starts']} starts in the club's last "
-                      f"{rc['matches']} (need {IN_MIN_MINUTES}+ min and {IN_MIN_STARTS}+ starts)"))
+                      f"{rc['matches']} (need {need_min}+ min and {need_st}+ starts)"))
     if by[i]["element_type"] == R.GK:
         sg = c.starter_gk(by[i]["team"])
         out.append(Result("IN_GK_STARTER", sg["starter"] == i, FAIL,
@@ -356,10 +391,12 @@ def incoming_results(c: _Ctx, o: int, i: int) -> list[Result]:
     s_out = c.out_starts(o)
     gap = s_in - s_out
     fix = must_fix(c, o)
-    keep = c.ec["own"][o] * 2 >= max(c.ec["n"], 1) and c.will_play(o)
+    # a one-week blank empties a player's elite STARTS but not his ownership:
+    # in a blank, the elites still holding him means "keep", not "sell"
+    keep = (not c.has_fixture(o) and c.will_play(o)
+            and c.ec["own"][o] * 2 >= max(c.ec["n"], 1))
     out.append(Result("SELL_ELITE_OWNED", not keep, FAIL,
-                      f"{no} is owned by {c.ec['own'][o]}/{c.ec['n']} elites and still playing "
-                      "— the consensus keeps him"))
+                      f"{no} blanks this week but {c.ec['own'][o]}/{c.ec['n']} elites keep him"))
     if s_in >= IN_MIN_ELITE_STARTS:
         out.append(Result("IN_ELITE_STARTS", True, FAIL, ""))
     elif fix:
@@ -372,10 +409,14 @@ def incoming_results(c: _Ctx, o: int, i: int) -> list[Result]:
     else:
         out.append(Result("IN_ELITE_STARTS", False, FAIL,
                           f"{ni} started by {s_in}/{c.ec['n']} elites (need {IN_MIN_ELITE_STARTS})"))
-    ok, why = gap >= MIN_START_GAP or (fix and gap >= 1), ""
-    if gap == 1 and not fix:
-        xi_, xo = c.b.xp.get(i), c.b.xp.get(o)
-        ok = c.xp_fresh and xi_ is not None and xo is not None and xi_ > xo
+    # missing boards could reverse a narrow call: the margin grows with them
+    need = MIN_START_GAP + c.missing_boards
+    ok, why = gap >= need or (fix and gap >= 1), ""
+    if c.missing_boards and not fix and gap < need:
+        why = f"; {c.missing_boards} board(s) missing, need a gap of {need}"
+    if gap == 1 and not fix and not c.missing_boards:
+        xi_, xo = c.xp(i), c.xp(o)
+        ok = xi_ is not None and xo is not None and xi_ > xo
         why = (f"; odds tie-break xP {xi_:.2f} v {xo:.2f}" if xi_ is not None and xo is not None
                else "; no fresh odds tie-break")
     out.append(Result("START_GAP", ok, FAIL,
@@ -444,18 +485,36 @@ def _checks_lineup(c: _Ctx) -> list[Result]:
     outfield_bench = c.bench[1:]
     for k, early in enumerate(outfield_bench):
         for late in outfield_bench[k + 1:]:
-            if c.playing(late) and c.eff_starts(late) - c.eff_starts(early) >= 2:
+            if c.playing(late) and (c.eff_starts(late) - c.eff_starts(early) >= 2
+                                    or not c.playing(early)):
                 order_bad.append(f"{c.name(late)} ({c.eff_starts(late)}) should come before "
                                  f"{c.name(early)} ({c.eff_starts(early)})")
     out.append(Result("BENCH_ORDER", not order_bad, FAIL,
                       "auto-sub order: " + "; ".join(order_bad)))
     out.append(Result("BENCH_CLOSE_CALLS", not close, WARN, "1-board calls: " + "; ".join(close)))
+    # 1-board gaps are ties that the odds break (Pramod's rule)
+    tie_bad = []
+    for b_ in c.bench[1:]:
+        if not c.playing(b_) or c.xp(b_) is None:
+            continue
+        for x in c.xi:
+            if by[x]["element_type"] == R.GK or c.xp(x) is None:
+                continue
+            if abs(c.eff_starts(b_) - c.eff_starts(x)) > 1:
+                continue
+            if R.xi_violations([b_ if p == x else p for p in c.xi], by):
+                continue
+            if c.xp(b_) > c.xp(x) + XP_TIE_MARGIN:
+                tie_bad.append(f"{c.name(b_)} (xP {c.xp(b_):.1f}) over {c.name(x)} (xP {c.xp(x):.1f})")
+    out.append(Result("XI_TIE_ODDS", not tie_bad, FAIL,
+                      "1-board ties the odds say to flip: " + "; ".join(tie_bad)))
     # captaincy
-    cap_ok = c.cap in by and c.cap in c.xi and F.fitness(by[c.cap])[0] == "fit"
+    cap_ok = c.cap in by and c.cap in c.xi and F.fitness(by[c.cap])[0] == "fit" and c.playing(c.cap)
     out.append(Result("CAPTAIN_VALID", cap_ok, FAIL, f"captain {c.name(c.cap)} must be a fit starter"))
     vice_ok = (c.vice in c.xi and c.vice != c.cap and c.vice in by
-               and F.fitness(by[c.vice])[0] == "fit")
-    out.append(Result("VICE_VALID", vice_ok, FAIL, f"vice {c.name(c.vice)} must be a different fit starter"))
+               and F.fitness(by[c.vice])[0] == "fit" and c.playing(c.vice))
+    out.append(Result("VICE_VALID", vice_ok, FAIL,
+                      f"vice {c.name(c.vice)} must be a different fit starter who plays this week"))
     caps = c.ec["cap"]
     opts = captain_options(c, c.xi)
     out.append(Result("CAPTAIN_ELITE", c.cap in opts, FAIL,
@@ -487,9 +546,9 @@ def captain_options(c: _Ctx, xi: list[int]) -> list[int]:
         return fit
     tops = [p for p in fit if caps.get(p, 0) == top]
     band = [p for p in fit if caps.get(p, 0) >= max(1, top - 1)]
-    if not c.xp_fresh or len(band) == len(tops):
-        return tops
-    return [max(band, key=lambda p: c.b.xp.get(p, -1e9))]
+    if len(band) == len(tops) or any(c.xp(p) is None for p in band):
+        return tops                      # no tie, or odds missing for someone: consensus
+    return [max(band, key=lambda p: c.xp(p))]
 
 
 def _checks_engine(c: _Ctx) -> list[Result]:
@@ -546,7 +605,10 @@ def render(c: _Ctx) -> str:
     short = F.club_short(c.b.bootstrap)
     pos = lambda p: R.POS_NAME[by[p]["element_type"]]
     ft_word = f"{st.ft} free transfer{'' if st.ft == 1 else 's'}"
+    until = min(F.next_price_window(c.b.now), c.deadline)
     L = [f"FPL Edge — GW{c.gw} plan (deadline {F.fmt_et(c.deadline)})",
+         f"Checked {F.fmt_et(c.b.now)} · valid until {F.fmt_et(until)}"
+         + (" (price change)" if until < c.deadline else ""),
          f"First, confirm your FPL app shows {ft_word} and {_money(st.bank)} in the bank"
          + (" after the moves you already made" if st.pending_moves else "")
          + ". If it doesn't, stop and tell me."]
@@ -656,7 +718,7 @@ def verify_stamp(message: str, plan: dict) -> bool:
     text = message.strip()
     body, _, last = text.rpartition("\n")
     m = re.fullmatch(r"Checks passed (\d+)/\1 · plan ([0-9a-f]{12})", last.strip())
-    return bool(m) and m.group(2) == plan_hash(plan, body)
+    return bool(m) and int(m.group(1)) >= MIN_STAMP_CHECKS and m.group(2) == plan_hash(plan, body)
 
 
 # ==========================================================================

@@ -5,6 +5,7 @@ import datetime as dt
 import pytest
 
 import facts as F
+import fpl_rules as R
 from conftest import pid
 
 
@@ -168,3 +169,45 @@ def test_synthesizer_preserves_counts_and_legality(gw10):
     syn = sb.synthesize(gw10.elite, gw10.by_id, seed=11)
     assert sb.same_counts(gw10.elite, syn)
     assert all(F.board_violations(t, gw10.by_id) == [] for t in syn["teams"])
+
+
+def test_last_three_uses_the_clubs_fixtures():
+    """A club match missing from the player's rows counts as 0 minutes."""
+    mk = lambda i, ko: dict(id=i, event=i, team_h=1, team_a=2, kickoff_time=ko)
+    fx = {i: mk(i, f"2026-10-{10 + i:02d}T15:00:00Z") for i in range(1, 6)}
+    rows = [dict(round=i, fixture=i, kickoff_time=fx[i]["kickoff_time"], minutes=90, starts=1)
+            for i in (1, 2, 3, 5)]                          # match 4 missing
+    now = F.parse_utc("2026-10-30T00:00:00Z")
+    rc = F.recent(dict(history=rows), 6, now=now, team=1, fixtures_by_id=fx)
+    assert rc["rounds"] == [3, 4, 5] and rc["minutes"] == 180 and rc["starts"] == 2
+
+
+def test_lineup_swaps_are_ordered_to_stay_legal(gw10):
+    by = gw10.by_id
+    g = lambda n: pid(gw10, n)
+    # 3-4-3 -> 5-4-1: swapping a forward out first keeps every step legal
+    app = [g("Dubravka"), g("Muharemović"), g("Hall"), g("Calafiori"), g("Ødegaard"),
+           g("Cole Palmer"), g("Gibbs-White"), g("Rogers"), g("N.Jackson"), g("Haaland"), g("Barry"),
+           g("Bentley"), g("Konsa"), g("De Cuyper"), g("Groß")]
+    xi = [x for x in app[:11] if x not in (g("N.Jackson"), g("Barry"))] + [g("Konsa"), g("De Cuyper")]
+    bench = [g("Bentley"), g("N.Jackson"), g("Barry"), g("Groß")]
+    acts = F.lineup_actions(app, xi, bench, by)
+    cur = list(app[:11])
+    for kind, a, b in acts:
+        if kind == "swap":
+            cur = [a if p == b else p for p in cur]
+            assert R.xi_violations(cur, by) == []
+
+
+def test_transfers_ordered_by_gameweek_first(gw10):
+    r = pid(gw10, "Rogers")
+    tr = [dict(event=8, element_in=r, element_in_cost=81, element_out=1, element_out_cost=50, time=None),
+          dict(event=2, element_in=r, element_in_cost=70, element_out=1, element_out_cost=50,
+               time="2026-08-27T10:00:00Z")]
+    assert F.purchase_prices([r], tr, gw10.by_id)[r][0] == 81
+
+
+def test_purchase_fallback_needs_the_opening_squad(gw10):
+    squad = [p["element"] for p in gw10.picks["picks"]]
+    with pytest.raises(ValueError):
+        F.purchase_prices(squad, [], gw10.by_id, opening=[])

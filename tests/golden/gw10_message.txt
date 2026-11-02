@@ -1,4 +1,5 @@
 FPL Edge — GW10 plan (deadline Fri Nov 6, 1:30 PM ET)
+Checked Mon Nov 2, 8:30 AM ET · valid until Mon Nov 2, 7:00 PM ET (price change)
 First, confirm your FPL app shows 1 free transfer and £1.9m in the bank. If it doesn't, stop and tell me.
 
 Transfers (1 free transfer, no hit):
@@ -12,11 +13,11 @@ The app puts each signing in the sold player's slot. Then:
 - Start Groß, bench Ødegaard
 - Start De Cuyper, bench Gibbs-White
 - Set the bench order: 1. Bentley, 2. Ødegaard, 3. Gibbs-White, 4. Hall
-Starting XI (4-3-3): Kinsky, Muharemović, Calafiori, Konsa, De Cuyper, Palmer, Rogers, Groß, N.Jackson, Haaland, Barry
+Starting XI (4-3-3): Kinsky, Muharemović, Calafiori, Konsa, De Cuyper, Palmer (CHE), Rogers, Groß, N.Jackson, Haaland, Barry
 Bench: 1. Bentley, 2. Ødegaard, 3. Gibbs-White, 4. Hall
-Captain: Haaland (12/12 elites) · Vice: Palmer — set both in the app.
+Captain: Haaland (12/12 elites) · Vice: Palmer (CHE) — set both in the app.
 
 Heads-up:
 - no fresh model xP (odds tie-breaks unavailable)
 
-Checks passed 44/44 · plan b3c24b7b87f8
+Checks passed 49/49 · plan 63cb565de2bb

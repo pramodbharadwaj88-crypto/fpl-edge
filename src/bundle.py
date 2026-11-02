@@ -34,6 +34,7 @@ class Bundle:
     team_id: int
     summaries: dict = dc.field(default_factory=dict)   # element id -> element-summary
     pending: dict | None = None      # user-reported pre-deadline moves (by id)
+    opening: list | None = None      # the entry's first-GW squad (purchase-price evidence)
     xp: dict = dc.field(default_factory=dict)          # element id -> model xP (odds tie-break)
     secrets: list = dc.field(default_factory=list, repr=False)
     live_fetch: bool = False
@@ -129,19 +130,33 @@ def live(team_id: int, pending_path: pathlib.Path | None = None,
                    picks=_mtime(f"picks_{team_id}_{pgw}"))
     if elite and elite.get("updated"):
         fetched["elite"] = _utc(elite["updated"])
+    target = next((e["id"] for e in sorted(bs["events"], key=lambda e: e["id"])
+                   if _utc(e["deadline_time"]) > now), None)
     xp = {}
     try:
+        # model xP for THE TARGET GW only (column xp_gw<N>); NaN rows dropped
+        import math
         import pandas as pd
         f = DATA / "projections.csv"
         df = pd.read_csv(f)
-        xp = {int(r.id): float(r.xp_next) for r in df.itertuples()}
-        fetched["xp"] = dt.datetime.fromtimestamp(f.stat().st_mtime, UTC)
+        col = f"xp_gw{target}"
+        if col in df.columns:
+            xp = {int(i): float(v) for i, v in zip(df["id"], df[col])
+                  if v is not None and not math.isnan(float(v))}
+            fetched["xp"] = dt.datetime.fromtimestamp(f.stat().st_mtime, UTC)
     except Exception:
-        pass
+        xp = {}
+    opening = None
+    rows = sorted(hist.get("current", []), key=lambda r: r["event"])
+    if rows:
+        first = rows[0]["event"]
+        op = fpl_api._get(f"entry/{team_id}/event/{first}/picks/", f"picks_{team_id}_{first}",
+                          max_age=7 * 24 * 3600)
+        opening = [p["element"] for p in op["picks"]]
     return Bundle(bootstrap=bs, fixtures=fx, elite=elite, entry_history=hist,
                   transfers=tr, picks=picks, picks_gw=pgw, now=now,
                   fetched_at=fetched, team_id=team_id,
-                  pending=load_pending(pending_path), xp=xp,
+                  pending=load_pending(pending_path), xp=xp, opening=opening,
                   secrets=_secrets_from_config(), live_fetch=True)
 
 
@@ -169,5 +184,6 @@ def from_dir(d: pathlib.Path) -> Bundle:
         team_id=int(meta["team_id"]),
         summaries={int(k): v for k, v in j("summaries.json", {}).items()},
         pending=j("pending.json", None),
+        opening=j("opening.json", None),
         xp={int(k): float(v) for k, v in j("xp.json", {}).items()},
         secrets=list(meta.get("secrets_for_test", [])), live_fetch=False)

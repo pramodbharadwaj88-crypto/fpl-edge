@@ -27,7 +27,7 @@ import guards as G
 from bundle import Bundle, MissingInput
 from squad_state import build_state
 
-TOP_PAIRS = 25          # candidate transfers kept for the combination search
+TOP_PAIRS = 40          # candidate transfers kept for the combination search
 MAX_MOVES_SEARCHED = 3  # combinations searched exhaustively up to this size
 
 
@@ -37,8 +37,10 @@ def _ctx(b: Bundle):
     return G._Ctx(dict(gw=gw, transfers=[], xi=[], bench=[]), b, st)
 
 
-def _xp(b: Bundle, pid: int) -> float:
-    return float(b.xp.get(pid) or 0.0)
+def _xp(c, pid: int) -> float:
+    """Model xP for the target GW, only when fresh (stale odds decide nothing)."""
+    v = c.xp(pid)
+    return float(v) if v is not None else 0.0
 
 
 # --------------------------------------------------------------------------
@@ -59,7 +61,7 @@ def _player_score(c, pid: int, incoming: set[int]) -> float:
         return -1e5
     if by[pid]["element_type"] == R.GK and c.starter_gk(by[pid]["team"])["starter"] != pid:
         return -1e5
-    s = c.ec["start"][pid] * 100 + _xp(c.b, pid) * 10
+    s = c.ec["start"][pid] * 100 + _xp(c, pid) * 10
     if fit == "doubt":
         s -= 150 if (ch or 0) >= 75 else 1e4
     return s
@@ -78,25 +80,62 @@ def best_lineup(c, squad: list[int], incoming: set[int]):
         s = sum(score[p] for p in xi)
         if s > best_s:
             best, best_s = xi, s
-    xi = best
-    sub_gk = pos[R.GK][1]
+    xi = _tie_pass(c, list(best), squad, incoming)
+    best_s = sum(score[p] for p in xi)
+    sub_gk = next(p for p in pos[R.GK] if p not in xi)
     rest = sorted((p for p in squad if p not in xi and by[p]["element_type"] != R.GK),
                   key=lambda p: (-score[p], squad.index(p)))
     bench = [sub_gk, *rest]
     caps = c.ec["cap"]
     opts = G.captain_options(c, xi) or xi
     captain = sorted(opts, key=lambda p: (-caps.get(p, 0), -score[p]))[0]
-    fit_xi = sorted((p for p in xi if p != captain and F.fitness(by[p])[0] == "fit"),
-                    key=lambda p: (-caps.get(p, 0), -score[p]))
-    return xi, bench, captain, fit_xi[0], best_s
+    vices = sorted((p for p in xi if p != captain and F.fitness(by[p])[0] == "fit"
+                    and (p in incoming or c.playing(p))),
+                   key=lambda p: (-caps.get(p, 0), -score[p]))
+    return xi, bench, captain, vices[0], best_s
+
+
+def _tie_pass(c, xi: list[int], squad: list[int], incoming: set[int]) -> list[int]:
+    """Pramod's rule: a 1-board elite-start gap is a tie that the odds break.
+    Swap a benched player in when he is within one board of a starter and his
+    fresh xP is clearly higher, as long as no 2-board order is broken."""
+    by = c.by
+    def eff(p):
+        return c.ec["start"][p] if (p in incoming or c.playing(p)) else -99
+    changed = True
+    while changed:
+        changed = False
+        for b_ in [p for p in squad if p not in xi and by[p]["element_type"] != R.GK]:
+            if eff(b_) < 0 or c.xp(b_) is None:
+                continue
+            for x in [p for p in xi if by[p]["element_type"] != R.GK]:
+                if c.xp(x) is None or abs(eff(b_) - eff(x)) > 1:
+                    continue
+                if c.xp(b_) <= c.xp(x) + G.XP_TIE_MARGIN:
+                    continue
+                trial = [b_ if p == x else p for p in xi]
+                if R.xi_violations(trial, by):
+                    continue
+                bench = [p for p in squad if p not in trial and by[p]["element_type"] != R.GK]
+                if any(eff(q) - eff(y) >= 2 for q in bench for y in trial
+                       if by[y]["element_type"] != R.GK
+                       and not R.xi_violations([q if p == y else p for p in trial], by)):
+                    continue
+                xi, changed = trial, True
+                break
+            if changed:
+                break
+    return xi
 
 
 # --------------------------------------------------------------------------
 # transfers
 # --------------------------------------------------------------------------
-def candidate_moves(c) -> list[tuple[int, int, int]]:
-    """[(out, in, gap)] single transfers that pass every incoming-player rule
-    and are affordable on their own, best first."""
+def candidate_moves(c, single: bool = True) -> list[tuple[int, int, int]]:
+    """[(out, in, gap)] transfers that pass every incoming-player rule, best
+    first. single=True also requires each to be affordable and inside the club
+    cap on its own (the fact table); single=False leaves money and club caps
+    to the combination search, so a sale can fund or make room for a buy."""
     st, by = c.st, c.by
     owned = set(st.slots)
     clubs: dict[int, int] = {}
@@ -111,17 +150,17 @@ def candidate_moves(c) -> list[tuple[int, int, int]]:
         for i in pool:
             if by[i]["element_type"] != by[o]["element_type"]:
                 continue
-            if st.bank + st.sell[o] - by[i]["now_cost"] < 0:
+            if single and st.bank + st.sell[o] - by[i]["now_cost"] < 0:
                 continue
             same_club = by[i]["team"] == by[o]["team"]
-            if not same_club and clubs.get(by[i]["team"], 0) >= R.MAX_PER_CLUB:
+            if single and not same_club and clubs.get(by[i]["team"], 0) >= R.MAX_PER_CLUB:
                 continue
             gap = c.ec["start"][i] - c.out_starts(o)
             if gap < 1:
                 continue
             if all(r.ok for r in G.incoming_results(c, o, i)):
                 pairs.append((o, i, gap))
-    pairs.sort(key=lambda p: (-p[2], -(_xp(c.b, p[1]) - _xp(c.b, p[0])), by[p[1]]["now_cost"]))
+    pairs.sort(key=lambda p: (-p[2], -(_xp(c, p[1]) - _xp(c, p[0])), by[p[1]]["now_cost"]))
     return pairs[:TOP_PAIRS]
 
 
@@ -129,10 +168,12 @@ def best_transfers(c) -> list[tuple[int, int]]:
     """The move set (within the free transfers — never a hit) that gives the
     best XI; ties go to the bigger total start gap, then xP, then bank."""
     st, by = c.st, c.by
-    pairs = candidate_moves(c)
+    k_max = min(st.ft + max(0, st.approved_hits - st.pending_hits) // R.HIT_COST,
+                MAX_MOVES_SEARCHED)
+    pairs = candidate_moves(c, single=k_max < 2)
     base = best_lineup(c, st.slots, set())[4]
     best, best_key = [], (base, 0, 0.0, st.bank)
-    for k in range(1, min(st.ft, MAX_MOVES_SEARCHED) + 1):
+    for k in range(1, k_max + 1):
         for combo in itertools.combinations(pairs, k):
             outs = [p[0] for p in combo]
             ins = [p[1] for p in combo]
@@ -146,8 +187,14 @@ def best_transfers(c) -> list[tuple[int, int]]:
             if R.squad_violations(squad, by):
                 continue
             lineup = best_lineup(c, squad, set(ins))[4]
+            # spending a free transfer on the bench alone isn't worth losing
+            # the rolled transfer, unless they're about to be wasted (cap)
+            if lineup <= base and st.ft < R.FT_CAP:
+                continue
+            if k > st.ft and lineup <= best_key[0]:
+                continue                  # an approved hit must improve the XI
             key = (lineup, sum(p[2] for p in combo),
-                   round(sum(_xp(c.b, i) - _xp(c.b, o) for o, i, _ in combo), 3), bank)
+                   round(sum(_xp(c, i) - _xp(c, o) for o, i, _ in combo), 3), bank)
             if key > best_key:
                 best, best_key = moves, key
     return best
@@ -223,6 +270,8 @@ def main(argv=None) -> int:
             p.add_argument("--out", default=None)
             p.add_argument("--msg-out", default=None)
     args = ap.parse_args(argv)
+    if getattr(args, "msg_out", None):
+        pathlib.Path(args.msg_out).unlink(missing_ok=True)   # never leave an old stamped message
     try:
         b = G._bundle_from_args(args)
     except Exception as ex:
@@ -236,11 +285,11 @@ def main(argv=None) -> int:
         if args.out:
             pathlib.Path(args.out).write_text(json.dumps(plan, indent=1))
         rep = G.check(plan, b)
+        banner = (f"REPLAY of a saved snapshot ({F.fmt_et(b.now)}) — not for sending.\n"
+                  if args.bundle else "")
         if args.msg_out:
-            pathlib.Path(args.msg_out).write_text(rep.message + "\n")
-        if args.bundle:
-            print(f"REPLAY of a saved snapshot ({F.fmt_et(b.now)}) — not for sending.")
-        print(rep.message)
+            pathlib.Path(args.msg_out).write_text(banner + rep.message + "\n")
+        print(banner + rep.message)
         return 0 if rep.passed else 2
     except MissingInput as ex:
         print(f"INPUTS MISSING: {ex}")

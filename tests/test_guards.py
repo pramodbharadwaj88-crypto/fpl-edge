@@ -66,8 +66,9 @@ def test_gw10_engine_fixes_the_keeper(gw10, gw10_plan):
     assert [m["in"] for m in gw10_plan["transfers"]] == [k]
     assert gw10_plan["xi"][0] == k and gw10_plan["captain"] == pid(gw10, "Haaland")
     assert "£1.9m bank + £4.0m − £4.4m = £1.5m left" in rep.message
-    assert rep.message.splitlines()[1].startswith(
-        "First, confirm your FPL app shows 1 free transfer and £1.9m in the bank")
+    lines = rep.message.splitlines()
+    assert lines[1] == "Checked Mon Nov 2, 8:30 AM ET · valid until Mon Nov 2, 7:00 PM ET (price change)"
+    assert lines[2].startswith("First, confirm your FPL app shows 1 free transfer and £1.9m in the bank")
     assert G.verify_stamp(rep.message, gw10_plan)
     other = dict(gw10_plan, captain=gw10_plan["vice"], vice=gw10_plan["captain"])
     assert not G.verify_stamp(rep.message, other)
@@ -202,7 +203,50 @@ def m_ft_gw(b, p):
 
 
 def m_sell_elite_owned(b, p):
+    # City blank this week; elites keep Haaland (benched) — selling him must fail
+    mci = b.by_id[pid(b, "Haaland")]["team"]
+    b.fixtures = [f for f in b.fixtures if not (f["event"] == 10 and mci in (f["team_h"], f["team_a"]))]
     p["transfers"] = p["transfers"] + [{"out": pid(b, "Haaland"), "in": pid(b, "Calvert-Lewin")}]
+
+
+def m_elite_boards_current(b, p):
+    for t in b.elite["teams"]:
+        t["last_updated"] = "Oct. 20, 2026, 9:00 a.m."          # before the GW9 deadline
+
+
+def m_elite_boards_max(b, p):
+    extra = copy.deepcopy(b.elite["teams"][0])
+    extra["manager"] = "S13"
+    b.elite["teams"].append(extra)
+
+
+def m_pending_priced(b, p):
+    b.pending = dict(gw=10, moves=[{"out": pid(b, "Hall"), "in": pid(b, "Silva")}], app_ft_left=1)
+
+
+def m_squad_replay(b, p):
+    b.opening = [pid(b, "Raya") if x == b.opening[0] else x for x in b.opening]
+
+
+def _tie_pair(b, p):
+    """A benched outfielder within one elite start of a starter (legal swap)."""
+    import advisor
+    c = advisor._ctx(b)
+    for q in p["bench"][1:]:
+        for x in p["xi"]:
+            if b.by_id[x]["element_type"] == 1 or not c.playing(q):
+                continue
+            if abs(c.eff_starts(q) - c.eff_starts(x)) <= 1 and not __import__("fpl_rules").xi_violations(
+                    [q if y == x else y for y in p["xi"]], b.by_id):
+                return q, x
+    raise AssertionError("no tie pair in fixture")
+
+
+def m_xi_tie_odds(b, p):
+    q, x = _tie_pair(b, p)
+    b.xp = {e["id"]: 3.0 for e in b.bootstrap["elements"]}
+    b.xp[q], b.xp[x] = 9.0, 2.0
+    b.fetched_at["xp"] = b.now
 
 
 def m_bench_order(b, p):
@@ -353,6 +397,8 @@ MUTATIONS = {
     "STATE_BUILD": m_state_build, "INPUT_MISSING": m_input_missing,
     "FT_GW": m_ft_gw, "SELL_ELITE_OWNED": m_sell_elite_owned, "BENCH_ORDER": m_bench_order,
     "ENGINE_AGREES": m_engine_agrees, "HISTORY_FRESH": m_history_fresh,
+    "ELITE_BOARDS_CURRENT": m_elite_boards_current, "ELITE_BOARDS_MAX": m_elite_boards_max,
+    "PENDING_PRICED": m_pending_priced, "SQUAD_REPLAY": m_squad_replay, "XI_TIE_ODDS": m_xi_tie_odds,
 }
 MESSAGE_CODES = {"NO_SECRETS", "CONFIRM_LINE", "ET_ONLY", "PRICE_WINDOW_LINE"}
 META_CODES = {"RENDER_ERROR"}                  # plus CHECK_ERROR_<group>
@@ -507,3 +553,119 @@ def test_rolling_at_five_free_transfers_warns(gw10):
     plan = dict(A.propose(gw10), transfers=[])
     rep = G.check(plan, gw10)
     assert "FT_NOT_WASTED" in {r.code for r in rep.warnings}
+
+
+# --------------------------------------------------------------------------
+# GPT / Gemini cross-family review (2026-11-02) kept as regressions
+# --------------------------------------------------------------------------
+def test_engine_applies_the_odds_tie_break(gw10, gw10_plan):
+    q, x = _tie_pair(gw10, gw10_plan)
+    gw10.xp = {e["id"]: 3.0 for e in gw10.bootstrap["elements"]}
+    gw10.xp[q], gw10.xp[x] = 9.0, 2.0
+    gw10.fetched_at["xp"] = gw10.now
+    plan = A.propose(gw10)
+    assert q in plan["xi"] and x not in plan["xi"]
+    assert G.check(plan, gw10).passed
+
+
+def test_stale_odds_decide_nothing(gw10):
+    gw10.xp = {e["id"]: 3.0 for e in gw10.bootstrap["elements"]}
+    gw10.fetched_at["xp"] = gw10.now - dt.timedelta(days=5)
+    c = A._ctx(gw10)
+    assert not c.xp_fresh and c.xp(pid(gw10, "Haaland")) is None
+
+
+def test_hits_already_taken_count_against_the_approval(gw10, gw10_plan):
+    hall, silva, gw_, tav = (pid(gw10, n) for n in ("Hall", "Silva", "Gibbs-White", "Tavernier"))
+    gw10.pending = dict(gw=10, moves=[{"out": hall, "in": silva, "in_cost": 50},
+                                      {"out": gw_, "in": tav, "in_cost": 66}],
+                        approved_hits=4, app_bank_tenths=20)
+    plan = A.propose(gw10)
+    plan["transfers"] = [{"out": pid(gw10, "Dubravka"), "in": pid(gw10, "Kinsky")}]
+    rep = G.check(plan, gw10)
+    assert "NO_UNAPPROVED_HITS" in failed_codes(rep)          # the approved -4 is used up
+
+
+def test_bad_pending_note_is_rejected(gw10):
+    gw10.pending = dict(gw=10, moves=[], app_ft_left=99)
+    rep = G.check(A.propose(load("gw10_nov2")), gw10)
+    assert "STATE_BUILD" in failed_codes(rep)
+
+
+def test_free_hit_rollback_is_aligned(gw10, gw10_plan):
+    gw10.entry_history["chips"].append({"name": "freehit", "event": 9})
+    gw10.picks_gw = 8                                       # bundle.live loads the pre-FH picks
+    rep = G.check(gw10_plan, gw10)
+    assert "FT_GW" not in failed_codes(rep)
+
+
+def test_doubtful_50_counts_as_not_playing(gw10):
+    c = A._ctx(gw10)
+    h = pid(gw10, "Haaland")
+    assert c.will_play(h)
+    gw10.by_id[h].update(status="d", chance_of_playing_next_round=50)
+    assert not A._ctx(gw10).will_play(h)
+
+
+def test_captain_band_needs_odds_for_everyone(gw10, gw10_plan):
+    c = G._Ctx(gw10_plan, gw10, A._ctx(gw10).st)
+    assert G.captain_options(c, gw10_plan["xi"]) == [pid(gw10, "Haaland")]
+
+
+def test_injured_no1_hands_the_gloves_to_the_elites_choice(gw10):
+    k, d = pid(gw10, "Kinsky"), pid(gw10, "Dubravka")
+    gw10.by_id[k].update(status="i", chance_of_playing_next_round=0)
+    c = A._ctx(gw10)
+    sg = c.starter_gk(gw10.by_id[k]["team"])
+    assert sg["starter"] in (d, None)
+    if c.ec["start"][d] >= 1:
+        assert sg["starter"] == d
+
+
+def test_vice_must_play_this_week(gw10, gw10_plan):
+    rogers = pid(gw10, "Rogers")
+    plan = dict(gw10_plan, vice=rogers)
+    che = gw10.by_id[rogers]["team"]
+    gw10.fixtures = [f for f in gw10.fixtures if not (f["event"] == 10 and che in (f["team_h"], f["team_a"]))]
+    assert "VICE_VALID" in failed_codes(G.check(plan, gw10))
+
+
+def test_playing_bench_players_come_before_non_playing(gw10, gw10_plan):
+    plan = copy.deepcopy(gw10_plan)
+    hall = pid(gw10, "Hall")
+    for r in gw10.summaries[hall]["history"]:
+        r.update(minutes=0, starts=0)                        # Hall stops playing
+    out = [x for x in plan["bench"][1:] if x != hall]
+    plan["bench"] = plan["bench"][:1] + [hall] + out         # ...but sits first on the bench
+    assert "BENCH_ORDER" in failed_codes(G.check(plan, gw10))
+
+
+def test_bootstrap_older_than_the_price_change_is_stale(gw10, gw10_plan):
+    gw10.now = F_parse("2026-11-03T01:00:00Z")               # after Mon 7 PM ET window
+    gw10.fetched_at = {k: F_parse("2026-11-02T23:30:00Z") for k in gw10.fetched_at}
+    rep = G.check(gw10_plan, gw10)
+    assert "DATA_FRESH" in failed_codes(rep)
+
+
+def F_parse(s):
+    import facts
+    return facts.parse_utc(s)
+
+
+def test_stamp_claiming_few_checks_is_rejected(gw10_plan):
+    body = "anything at all"
+    fake = body + "\n\nChecks passed 0/0 · plan " + G.plan_hash(gw10_plan, body)
+    assert not G.verify_stamp(fake, gw10_plan)
+
+
+def test_msg_out_never_keeps_an_old_message(tmp_path):
+    f = tmp_path / "message.txt"
+    f.write_text("Checks passed 44/44 · plan old")
+    assert A.main(["run", "--bundle", str(tmp_path / "missing"), "--msg-out", str(f)]) == 3
+    assert not f.exists()
+
+
+def test_display_names_disambiguate(gw10):
+    import facts
+    n = facts.display_names(gw10.bootstrap)
+    assert n[154] == "Palmer (CHE)" and n[pid(gw10, "Haaland")] == "Haaland"
