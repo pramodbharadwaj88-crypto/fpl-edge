@@ -1,0 +1,45 @@
+# FPL Edge — regression tests + secret scan on every push and pull request.
+# A red build on master opens (or comments on) a "tests failing" issue.
+name: tests
+on:
+  push:
+  pull_request:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+  issues: write
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - name: secret scan
+        run: python scripts/secret_scan.py
+      - name: pytest
+        run: python -m pytest
+  report:
+    needs: test
+    if: failure() && github.ref == 'refs/heads/master' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const title = "tests failing on master";
+            const body = `Run: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}\nCommit: ${context.sha}`;
+            const open = await github.rest.issues.listForRepo({...context.repo, state: "open", labels: "ci"});
+            const hit = open.data.find(i => i.title === title);
+            if (hit) {
+              await github.rest.issues.createComment({...context.repo, issue_number: hit.number, body});
+            } else {
+              await github.rest.issues.create({...context.repo, title, body, labels: ["ci"]});
+            }
