@@ -211,3 +211,19 @@ def test_purchase_fallback_needs_the_opening_squad(gw10):
     squad = [p["element"] for p in gw10.picks["picks"]]
     with pytest.raises(ValueError):
         F.purchase_prices(squad, [], gw10.by_id, opening=[])
+
+
+def test_start_share_follows_this_seasons_games():
+    """A fit backup with 0 starts in 9 GWs must not inherit last season's
+    start share (Dubravka 84 xMins over Spurs' starter, 2026-11-03)."""
+    import baseline
+    base = {"games": 38, "players": {"1": dict(minutes=3420, starts=38, expected_goals=0,
+                                                expected_assists=0, bonus=0, saves=100,
+                                                clearances_blocks_interceptions=0, tackles=0,
+                                                recoveries=0)}}
+    backup = dict(code=1, minutes=0, starts=0)
+    starter = dict(code=1, minutes=810, starts=9)
+    sb = baseline.blended_stats(backup, base, 9, 900)
+    ss = baseline.blended_stats(starter, base, 9, 900)
+    assert sb["start_share"] <= 0.25 + 1e-9
+    assert ss["start_share"] >= 0.99

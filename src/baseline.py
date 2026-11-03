@@ -60,6 +60,9 @@ def games_elapsed(bs=None) -> int:
     return sum(1 for e in bs["events"] if e.get("finished"))
 
 
+START_PRIOR_GAMES = 3   # last season's start share counts like 3 games of this season
+
+
 def blended_stats(el: dict, base: dict, n_games: int, shrink_mins: float) -> dict | None:
     """Combine current-season cumulative stats with last-season baseline into
     per-90 rates. Returns None if neither source has minutes (no PL history).
@@ -100,8 +103,15 @@ def blended_stats(el: dict, base: dict, n_games: int, shrink_mins: float) -> dic
     # minutes structure, per game elapsed (never /38 hard-coded)
     cur_games = max(n_games, 1)
     prev_games = base.get("games", 38)
-    start_share = (w * (cur("starts") / cur_games)
-                   + (1 - w) * (prv("starts") / prev_games))
+    # Who STARTS is decided by this season's games, not this season's
+    # minutes: a fit backup with 0 minutes after 9 GWs has w = 0 above, which
+    # used to hand him last season's start share (2026-11-03: Spurs' backup
+    # Dubravka got 84 xMins and outranked the starter Kinsky). Weight the
+    # start share by games elapsed instead (3-game prior).
+    w_start = 1.0 if prev_mins <= 0 else (n_games / (n_games + START_PRIOR_GAMES)
+                                          if n_games > 0 else 0.0)
+    start_share = (w_start * (cur("starts") / cur_games)
+                   + (1 - w_start) * (prv("starts") / prev_games))
     mins_per_start_cur = cur_mins / max(cur("starts"), 1.0) if cur("starts") else 0.0
     mins_per_start_prv = prev_mins / max(prv("starts"), 1.0) if prev and prv("starts") else 0.0
     mins_per_start = w * mins_per_start_cur + (1 - w) * mins_per_start_prv
