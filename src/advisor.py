@@ -230,7 +230,7 @@ def fact_table(b: Bundle) -> str:
         L.append(f"{k:>4} {e['web_name'][:17]:17} {short[e['team']]:4} {R.POS_NAME[e['element_type']]} "
                  f"{e['now_cost'] / 10:5.1f} {st.sell[p] / 10:5.1f} {fit:5}{'' if ch is None else f'{ch:>3}%':4} "
                  f"{rc['minutes']:>4}/{rc['starts']}         {c.ec['own'][p]:>2}/{c.ec['start'][p]:>2}/{c.ec['cap'][p]:<2}"
-                 f"          {_xp(b, p):.2f}")
+                 f"          {_xp(c, p):.2f}")
     L += ["", "Starting keepers (club's last match):"]
     for gk in [p for p in st.slots if by[p]["element_type"] == R.GK]:
         sg = c.starter_gk(by[gk]["team"])

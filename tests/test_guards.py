@@ -669,3 +669,14 @@ def test_display_names_disambiguate(gw10):
     import facts
     n = facts.display_names(gw10.bootstrap)
     assert n[154] == "Palmer (CHE)" and n[pid(gw10, "Haaland")] == "Haaland"
+
+
+def test_fact_table_runs(gw10, capsys):
+    """The scheduled runs print the fact table; it must never crash
+    (2026-11-03: a leftover _xp(b, ...) call raised TypeError)."""
+    out = A.fact_table(gw10)
+    assert "Free transfers 1" in out and "Kinsky" in out
+    assert A.main(["facts", "--bundle", str(FIX / "gw10_nov2")]) == 0
+    gw10.xp = {e["id"]: 2.0 for e in gw10.bootstrap["elements"]}
+    gw10.fetched_at["xp"] = gw10.now
+    assert "Kinsky" in A.fact_table(gw10)
