@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-02T23:36:48Z",
+ "generated_utc": "2026-11-03T06:53:36Z",
  "gw": 9,
  "next_deadline": "2026-11-06T18:30:00Z",
  "entry": {
   "gw_points": 55,
   "total": 622,
-  "overall_rank": 179364
+  "overall_rank": 179637
  },
  "league": [
   {
@@ -175,8 +175,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 44,
-   "total": 498,
+   "gw": 45,
+   "total": 499,
    "last_rank": 19
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 52,
-   "total": 474,
+   "gw": 51,
+   "total": 473,
    "last_rank": 20
   }
  ],
