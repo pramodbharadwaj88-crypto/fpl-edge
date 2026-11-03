@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-03T06:53:36Z",
+ "generated_utc": "2026-11-03T15:14:19Z",
  "gw": 9,
  "next_deadline": "2026-11-06T18:30:00Z",
  "entry": {
   "gw_points": 55,
   "total": 622,
-  "overall_rank": 179637
+  "overall_rank": 186729
  },
  "league": [
   {
@@ -46,21 +46,21 @@
   },
   {
    "rank": 5,
+   "entry": 2734531,
+   "team": "Grim's XI",
+   "manager": "Vikram B",
+   "gw": 74,
+   "total": 611,
+   "last_rank": 7
+  },
+  {
+   "rank": 6,
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
    "gw": 64,
    "total": 604,
    "last_rank": 6
-  },
-  {
-   "rank": 6,
-   "entry": 2734531,
-   "team": "Grim's XI",
-   "manager": "Vikram B",
-   "gw": 65,
-   "total": 602,
-   "last_rank": 7
   },
   {
    "rank": 7,
@@ -139,8 +139,8 @@
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
-   "gw": 48,
-   "total": 553,
+   "gw": 49,
+   "total": 554,
    "last_rank": 12
   },
   {
@@ -166,8 +166,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 45,
-   "total": 518,
+   "gw": 46,
+   "total": 519,
    "last_rank": 18
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 51,
-   "total": 473,
+   "gw": 57,
+   "total": 479,
    "last_rank": 20
   }
  ],
