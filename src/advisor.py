@@ -89,9 +89,9 @@ def best_lineup(c, squad: list[int], incoming: set[int]):
     caps = c.ec["cap"]
     opts = G.captain_options(c, xi) or xi
     captain = sorted(opts, key=lambda p: (-caps.get(p, 0), -score[p]))[0]
-    vices = sorted((p for p in xi if p != captain and F.fitness(by[p])[0] == "fit"
-                    and (p in incoming or c.playing(p))),
-                   key=lambda p: (-caps.get(p, 0), -score[p]))
+    vcs = c.ec["vice"]
+    vices = sorted(G.vice_options(c, xi, captain) or [p for p in xi if p != captain],
+                   key=lambda p: (-vcs.get(p, 0), -caps.get(p, 0), -score[p]))
     return xi, bench, captain, vices[0], best_s
 
 

@@ -521,6 +521,12 @@ def _checks_lineup(c: _Ctx) -> list[Result]:
                       f"elites captain {', '.join(f'{c.name(k)} {v}' for k, v in caps.most_common(3))}; "
                       f"among your starters the pick is {', '.join(c.name(p) for p in opts) or 'none'}; "
                       f"plan captains {c.name(c.cap)} ({caps.get(c.cap, 0)})"))
+    vcs = c.ec["vice"]
+    vopts = vice_options(c, c.xi, c.cap)
+    out.append(Result("VICE_ELITE", c.vice in vopts, FAIL,
+                      f"elites' vice picks {', '.join(f'{c.name(k)} {v}' for k, v in vcs.most_common(3))}; "
+                      f"among your other starters the pick is {', '.join(c.name(p) for p in vopts) or 'none'}; "
+                      f"plan has {c.name(c.vice)} ({vcs.get(c.vice, 0)})"))
     # auto-sub cover for every doubtful starter
     uncovered = []
     played = {p for p in c.xi + c.bench if c.playing(p) and F.fitness(by[p])[0] == "fit"}
@@ -535,20 +541,37 @@ def _checks_lineup(c: _Ctx) -> list[Result]:
     return out
 
 
+def _elite_pick(c: _Ctx, fit: list[int], counts) -> list[int]:
+    """Among `fit`, the players with the most elite votes in `counts`; a
+    1-board gap is a tie that fresh odds (xP) break. Empty if nobody in
+    `fit` has a vote."""
+    top = max((counts.get(p, 0) for p in fit), default=0)
+    if top == 0:
+        return []
+    tops = [p for p in fit if counts.get(p, 0) == top]
+    band = [p for p in fit if counts.get(p, 0) >= max(1, top - 1)]
+    if len(band) == len(tops) or any(c.xp(p) is None for p in band):
+        return tops                      # no tie, or odds missing for someone: consensus
+    return [max(band, key=lambda p: c.xp(p))]
+
+
 def captain_options(c: _Ctx, xi: list[int]) -> list[int]:
     """Who may wear the armband: among fit, playing starters, the most
     elite captaincies; a 1-board gap is a tie that fresh odds (xP) break.
     With no elite captain among them, any fit starter."""
-    caps = c.ec["cap"]
     fit = [p for p in xi if p in c.by and F.fitness(c.by[p])[0] == "fit" and c.playing(p)]
-    top = max((caps.get(p, 0) for p in fit), default=0)
-    if top == 0:
-        return fit
-    tops = [p for p in fit if caps.get(p, 0) == top]
-    band = [p for p in fit if caps.get(p, 0) >= max(1, top - 1)]
-    if len(band) == len(tops) or any(c.xp(p) is None for p in band):
-        return tops                      # no tie, or odds missing for someone: consensus
-    return [max(band, key=lambda p: c.xp(p))]
+    return _elite_pick(c, fit, c.ec["cap"]) or fit
+
+
+def vice_options(c: _Ctx, xi: list[int], cap: int | None) -> list[int]:
+    """Who may be vice: among fit, playing starters other than the captain,
+    the elites' most-picked VICE (2026-11-05: the engine had sorted by
+    captaincies, which are 0 for everyone but Haaland, so a 0.01 xP wobble
+    swapped the elites' 8/12 vice Palmer for Rogers). Falls back to elite
+    captaincies, then any fit starter."""
+    fit = [p for p in xi if p != cap and p in c.by
+           and F.fitness(c.by[p])[0] == "fit" and c.playing(p)]
+    return _elite_pick(c, fit, c.ec["vice"]) or _elite_pick(c, fit, c.ec["cap"]) or fit
 
 
 def _checks_engine(c: _Ctx) -> list[Result]:

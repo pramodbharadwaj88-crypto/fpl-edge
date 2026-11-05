@@ -358,6 +358,10 @@ def m_captain_elite(b, p):
     p["captain"], p["vice"] = pid(b, "Cole Palmer"), pid(b, "Haaland")
 
 
+def m_vice_elite(b, p):
+    p["vice"] = pid(b, "Rogers")              # fit starter, but 0 elite vice picks
+
+
 def m_autosub_cover(b, p):
     b.by_id[pid(b, "Rogers")].update(status="d", chance_of_playing_next_round=75)
     for x in p["bench"][1:]:
@@ -392,7 +396,7 @@ MUTATIONS = {
     "XI_NO_LONG_SHOTS": m_xi_no_long_shots, "XI_HAS_FIXTURE": m_xi_has_fixture,
     "XI_PLAYING": m_xi_playing, "XI_GK_STARTER": m_xi_gk_starter,
     "BENCH_ELITE_ORDER": m_bench_elite_order, "CAPTAIN_VALID": m_captain_valid,
-    "VICE_VALID": m_vice_valid, "CAPTAIN_ELITE": m_captain_elite,
+    "VICE_VALID": m_vice_valid, "CAPTAIN_ELITE": m_captain_elite, "VICE_ELITE": m_vice_elite,
     "AUTOSUB_COVER": m_autosub_cover, "BEFORE_DEADLINE": m_before_deadline,
     "STATE_BUILD": m_state_build, "INPUT_MISSING": m_input_missing,
     "FT_GW": m_ft_gw, "SELL_ELITE_OWNED": m_sell_elite_owned, "BENCH_ORDER": m_bench_order,
@@ -680,3 +684,31 @@ def test_fact_table_runs(gw10, capsys):
     gw10.xp = {e["id"]: 2.0 for e in gw10.bootstrap["elements"]}
     gw10.fetched_at["xp"] = gw10.now
     assert "Kinsky" in A.fact_table(gw10)
+
+
+# --------------------------------------------------------------------------
+# 2026-11-05 pre-check: vice followed xP, not the elites' vice picks
+# --------------------------------------------------------------------------
+def test_vice_follows_elite_vice_picks_not_xp(gw10):
+    """Live GW10 run, Nov 5: Palmer is the elites' vice on 8/12 boards, but
+    Rogers' xP edged Palmer's by 0.01 and the engine made Rogers vice."""
+    palmer, rogers = pid(gw10, "Cole Palmer"), pid(gw10, "Rogers")
+    c = A._ctx(gw10)
+    assert c.ec["vice"][palmer] > c.ec["vice"][rogers] + 1
+    gw10.xp = {e["id"]: 3.0 for e in gw10.bootstrap["elements"]}
+    gw10.xp[palmer], gw10.xp[rogers] = 4.46, 4.48
+    gw10.fetched_at["xp"] = gw10.now
+    plan = A.propose(gw10)
+    assert plan["vice"] == palmer
+    rep = G.check(plan, gw10)
+    assert rep.passed, rep.message
+    assert "VICE_ELITE" in failed_codes(G.check(dict(plan, vice=rogers), gw10))
+
+
+def test_vice_falls_back_when_the_elite_vice_is_our_captain(gw10):
+    palmer = pid(gw10, "Cole Palmer")
+    c = A._ctx(gw10)
+    xi = A.propose(gw10)["xi"]
+    opts = G.vice_options(c, xi, palmer)          # Palmer captain -> not his own vice
+    assert opts and palmer not in opts
+

@@ -20,4 +20,4 @@ Captain: Haaland (12/12 elites) · Vice: Palmer (CHE) — set both in the app.
 Heads-up:
 - no fresh model xP (odds tie-breaks unavailable)
 
-Checks passed 49/49 · plan 63cb565de2bb
+Checks passed 50/50 · plan 63cb565de2bb
