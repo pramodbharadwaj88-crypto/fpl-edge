@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-09T08:01:26Z",
+ "generated_utc": "2026-11-09T18:51:25Z",
  "gw": 10,
  "next_deadline": "2026-11-21T11:00:00Z",
  "entry": {
   "gw_points": 82,
   "total": 704,
-  "overall_rank": 73730
+  "overall_rank": 74374
  },
  "league": [
   {
@@ -139,8 +139,8 @@
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 47,
-   "total": 607,
+   "gw": 48,
+   "total": 608,
    "last_rank": 13
   },
   {
@@ -163,6 +163,15 @@
   },
   {
    "rank": 18,
+   "entry": 7312337,
+   "team": "KhayegaKela",
+   "manager": "Jayneel Parikh",
+   "gw": 55,
+   "total": 574,
+   "last_rank": 18
+  },
+  {
+   "rank": 19,
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
@@ -171,21 +180,12 @@
    "last_rank": 19
   },
   {
-   "rank": 19,
-   "entry": 7312337,
-   "team": "KhayegaKela",
-   "manager": "Jayneel Parikh",
-   "gw": 46,
-   "total": 565,
-   "last_rank": 18
-  },
-  {
    "rank": 20,
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 27,
-   "total": 506,
+   "gw": 30,
+   "total": 509,
    "last_rank": 20
   }
  ],
