@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-08T20:30:56Z",
+ "generated_utc": "2026-11-09T00:56:32Z",
  "gw": 10,
  "next_deadline": "2026-11-21T11:00:00Z",
  "entry": {
   "gw_points": 82,
   "total": 704,
-  "overall_rank": 73770
+  "overall_rank": 73730
  },
  "league": [
   {
@@ -166,8 +166,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 73,
-   "total": 572,
+   "gw": 71,
+   "total": 570,
    "last_rank": 19
   },
   {
