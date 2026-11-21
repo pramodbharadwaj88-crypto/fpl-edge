@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-21T18:01:23Z",
+ "generated_utc": "2026-11-21T23:23:39Z",
  "gw": 11,
  "next_deadline": "2026-11-27T18:30:00Z",
  "entry": {
   "gw_points": 23,
   "total": 727,
-  "overall_rank": 106523
+  "overall_rank": 108765
  },
  "league": [
   {
@@ -37,21 +37,21 @@
   },
   {
    "rank": 4,
-   "entry": 5445035,
-   "team": "Xabi to Win",
-   "manager": "Raj Desai",
-   "gw": 26,
-   "total": 706,
-   "last_rank": 4
-  },
-  {
-   "rank": 5,
    "entry": 5432670,
    "team": "Babuchak's XI",
    "manager": "Aditya Mehta",
    "gw": 35,
    "total": 706,
    "last_rank": 6
+  },
+  {
+   "rank": 5,
+   "entry": 5445035,
+   "team": "Xabi to Win",
+   "manager": "Raj Desai",
+   "gw": 23,
+   "total": 703,
+   "last_rank": 4
   },
   {
    "rank": 6,
@@ -76,8 +76,8 @@
    "entry": 2873635,
    "team": "ManutdForever7",
    "manager": "zoheb lalani",
-   "gw": 29,
-   "total": 678,
+   "gw": 35,
+   "total": 684,
    "last_rank": 8
   },
   {
@@ -136,21 +136,21 @@
   },
   {
    "rank": 15,
+   "entry": 4709922,
+   "team": "Flames",
+   "manager": "Nirav Tony",
+   "gw": 22,
+   "total": 630,
+   "last_rank": 15
+  },
+  {
+   "rank": 16,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
    "gw": 17,
    "total": 627,
    "last_rank": 14
-  },
-  {
-   "rank": 16,
-   "entry": 4709922,
-   "team": "Flames",
-   "manager": "Nirav Tony",
-   "gw": 18,
-   "total": 626,
-   "last_rank": 15
   },
   {
    "rank": 17,
@@ -293,7 +293,7 @@
    "mult": 0,
    "cap": false,
    "vice": false,
-   "points": 1
+   "points": 5
   },
   {
    "name": "Muharemović",
