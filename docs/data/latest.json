@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-21T23:23:39Z",
+ "generated_utc": "2026-11-22T06:56:53Z",
  "gw": 11,
  "next_deadline": "2026-11-27T18:30:00Z",
  "entry": {
   "gw_points": 23,
   "total": 727,
-  "overall_rank": 108765
+  "overall_rank": 109023
  },
  "league": [
   {
@@ -49,8 +49,8 @@
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
-   "gw": 23,
-   "total": 703,
+   "gw": 25,
+   "total": 705,
    "last_rank": 4
   },
   {
