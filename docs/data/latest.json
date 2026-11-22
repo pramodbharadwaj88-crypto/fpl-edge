@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-22T15:23:31Z",
+ "generated_utc": "2026-11-22T21:50:24Z",
  "gw": 11,
  "next_deadline": "2026-11-27T18:30:00Z",
  "entry": {
-  "gw_points": 42,
-  "total": 746,
-  "overall_rank": 74734
+  "gw_points": 30,
+  "total": 734,
+  "overall_rank": 113099
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 42,
-   "total": 746,
+   "gw": 30,
+   "total": 734,
    "last_rank": 1
   },
   {
@@ -22,8 +22,8 @@
    "entry": 5289,
    "team": "Devil's Own XI",
    "manager": "Chandan Gupta",
-   "gw": 41,
-   "total": 738,
+   "gw": 36,
+   "total": 733,
    "last_rank": 2
   },
   {
@@ -31,30 +31,12 @@
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
-   "gw": 49,
-   "total": 734,
+   "gw": 37,
+   "total": 722,
    "last_rank": 3
   },
   {
    "rank": 4,
-   "entry": 2894511,
-   "team": "Goal Of Duty",
-   "manager": "Nirav Patel",
-   "gw": 40,
-   "total": 718,
-   "last_rank": 5
-  },
-  {
-   "rank": 5,
-   "entry": 5432670,
-   "team": "Babuchak's XI",
-   "manager": "Aditya Mehta",
-   "gw": 45,
-   "total": 716,
-   "last_rank": 6
-  },
-  {
-   "rank": 6,
    "entry": 5445035,
    "team": "Xabi to Win",
    "manager": "Raj Desai",
@@ -63,12 +45,30 @@
    "last_rank": 4
   },
   {
+   "rank": 5,
+   "entry": 2894511,
+   "team": "Goal Of Duty",
+   "manager": "Nirav Patel",
+   "gw": 35,
+   "total": 713,
+   "last_rank": 5
+  },
+  {
+   "rank": 6,
+   "entry": 5432670,
+   "team": "Babuchak's XI",
+   "manager": "Aditya Mehta",
+   "gw": 40,
+   "total": 711,
+   "last_rank": 6
+  },
+  {
    "rank": 7,
    "entry": 2734531,
    "team": "Grim's XI",
    "manager": "Vikram B",
-   "gw": 36,
-   "total": 702,
+   "gw": 31,
+   "total": 697,
    "last_rank": 7
   },
   {
@@ -85,8 +85,8 @@
    "entry": 6246591,
    "team": "Lawade Na Bhojyam",
    "manager": "Faraz Virani",
-   "gw": 47,
-   "total": 691,
+   "gw": 40,
+   "total": 684,
    "last_rank": 9
   },
   {
@@ -94,8 +94,8 @@
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
-   "gw": 41,
-   "total": 673,
+   "gw": 34,
+   "total": 666,
    "last_rank": 10
   },
   {
@@ -103,35 +103,35 @@
    "entry": 2798588,
    "team": "Manchester United FC",
    "manager": "Ali Babwani",
-   "gw": 65,
-   "total": 669,
+   "gw": 58,
+   "total": 662,
    "last_rank": 16
   },
   {
    "rank": 12,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 47,
-   "total": 665,
-   "last_rank": 13
-  },
-  {
-   "rank": 13,
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
-   "gw": 43,
-   "total": 661,
+   "gw": 38,
+   "total": 656,
    "last_rank": 12
+  },
+  {
+   "rank": 13,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 38,
+   "total": 656,
+   "last_rank": 13
   },
   {
    "rank": 14,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
-   "gw": 34,
-   "total": 659,
+   "gw": 29,
+   "total": 654,
    "last_rank": 11
   },
   {
@@ -148,8 +148,8 @@
    "entry": 4709922,
    "team": "Flames",
    "manager": "Nirav Tony",
-   "gw": 25,
-   "total": 633,
+   "gw": 30,
+   "total": 638,
    "last_rank": 15
   },
   {
@@ -166,8 +166,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 32,
-   "total": 606,
+   "gw": 34,
+   "total": 608,
    "last_rank": 18
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 29,
-   "total": 538,
+   "gw": 35,
+   "total": 544,
    "last_rank": 20
   }
  ],
@@ -197,7 +197,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 9
+   "points": 2
   },
   {
    "name": "Konsa",
@@ -213,7 +213,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 7
+   "points": 1
   },
   {
    "name": "Calafiori",
@@ -245,7 +245,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 3
+   "points": 4
   },
   {
    "name": "Rogers",
