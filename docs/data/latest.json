@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-24T00:56:33Z",
+ "generated_utc": "2026-11-24T10:59:35Z",
  "gw": 11,
  "next_deadline": "2026-11-27T18:30:00Z",
  "entry": {
   "gw_points": 32,
   "total": 736,
-  "overall_rank": 103872
+  "overall_rank": 104476
  },
  "league": [
   {
@@ -31,8 +31,8 @@
    "entry": 2875701,
    "team": "One Last Season",
    "manager": "Saurabh Kharkar",
-   "gw": 37,
-   "total": 722,
+   "gw": 39,
+   "total": 724,
    "last_rank": 3
   },
   {
@@ -94,8 +94,8 @@
    "entry": 4749698,
    "team": "Jungle_King",
    "manager": "Pankit Khant",
-   "gw": 34,
-   "total": 666,
+   "gw": 39,
+   "total": 671,
    "last_rank": 10
   },
   {
@@ -136,21 +136,21 @@
   },
   {
    "rank": 15,
+   "entry": 4709922,
+   "team": "Flames",
+   "manager": "Nirav Tony",
+   "gw": 36,
+   "total": 644,
+   "last_rank": 15
+  },
+  {
+   "rank": 16,
    "entry": 1315673,
    "team": "Ramurai Push",
    "manager": "Sid Damle",
    "gw": 29,
    "total": 639,
    "last_rank": 14
-  },
-  {
-   "rank": 16,
-   "entry": 4709922,
-   "team": "Flames",
-   "manager": "Nirav Tony",
-   "gw": 30,
-   "total": 638,
-   "last_rank": 15
   },
   {
    "rank": 17,
