@@ -59,6 +59,12 @@
    "my": 82,
    "model": null,
    "delta": null
+  },
+  {
+   "gw": 11,
+   "my": 32,
+   "model": null,
+   "delta": null
   }
  ],
  "cumulative_delta": 0
