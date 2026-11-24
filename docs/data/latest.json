@@ -1,11 +1,11 @@
 {
- "generated_utc": "2026-11-23T12:56:23Z",
+ "generated_utc": "2026-11-24T00:56:33Z",
  "gw": 11,
  "next_deadline": "2026-11-27T18:30:00Z",
  "entry": {
-  "gw_points": 30,
-  "total": 734,
-  "overall_rank": 113044
+  "gw_points": 32,
+  "total": 736,
+  "overall_rank": 103872
  },
  "league": [
   {
@@ -13,8 +13,8 @@
    "entry": 3314291,
    "team": "YehBaburaoKaStyleHai",
    "manager": "Pramod B",
-   "gw": 30,
-   "total": 734,
+   "gw": 32,
+   "total": 736,
    "last_rank": 1
   },
   {
@@ -49,8 +49,8 @@
    "entry": 2894511,
    "team": "Goal Of Duty",
    "manager": "Nirav Patel",
-   "gw": 35,
-   "total": 713,
+   "gw": 37,
+   "total": 715,
    "last_rank": 5
   },
   {
@@ -109,6 +109,15 @@
   },
   {
    "rank": 12,
+   "entry": 7499007,
+   "team": "Nuksan FC",
+   "manager": "Mustansir Lokhandwala",
+   "gw": 39,
+   "total": 657,
+   "last_rank": 13
+  },
+  {
+   "rank": 13,
    "entry": 5363619,
    "team": "Galactic FC",
    "manager": "Vaikrant Pandav",
@@ -117,21 +126,12 @@
    "last_rank": 12
   },
   {
-   "rank": 13,
-   "entry": 7499007,
-   "team": "Nuksan FC",
-   "manager": "Mustansir Lokhandwala",
-   "gw": 38,
-   "total": 656,
-   "last_rank": 13
-  },
-  {
    "rank": 14,
    "entry": 4387682,
    "team": "Tappu Ke Papa",
    "manager": "Hursh Anandwala",
-   "gw": 29,
-   "total": 654,
+   "gw": 31,
+   "total": 656,
    "last_rank": 11
   },
   {
@@ -166,8 +166,8 @@
    "entry": 7312337,
    "team": "KhayegaKela",
    "manager": "Jayneel Parikh",
-   "gw": 34,
-   "total": 608,
+   "gw": 56,
+   "total": 630,
    "last_rank": 18
   },
   {
@@ -175,8 +175,8 @@
    "entry": 2108081,
    "team": "Gunners11",
    "manager": "Karan Mankodi",
-   "gw": 32,
-   "total": 602,
+   "gw": 34,
+   "total": 604,
    "last_rank": 19
   },
   {
@@ -184,8 +184,8 @@
    "entry": 7810137,
    "team": "Ganpati Bappa Morya",
    "manager": "Tushar Panchal",
-   "gw": 35,
-   "total": 544,
+   "gw": 37,
+   "total": 546,
    "last_rank": 20
   }
  ],
@@ -277,7 +277,7 @@
    "mult": 1,
    "cap": false,
    "vice": false,
-   "points": 0
+   "points": 2
   },
   {
    "name": "Bentley",
