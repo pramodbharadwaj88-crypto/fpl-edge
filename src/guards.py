@@ -492,7 +492,18 @@ def _checks_lineup(c: _Ctx) -> list[Result]:
     out.append(Result("BENCH_ORDER", not order_bad, FAIL,
                       "auto-sub order: " + "; ".join(order_bad)))
     out.append(Result("BENCH_CLOSE_CALLS", not close, WARN, "1-board calls: " + "; ".join(close)))
-    # 1-board gaps are ties that the odds break (Pramod's rule)
+    # 1-board gaps are ties that the odds break (Pramod's rule) — but never by
+    # a flip that would leave a 2-board better player benched (that is the firm
+    # rule, BENCH_ELITE_ORDER). Ties are not transitive: Calafiori 5 ~ Gibbs-White
+    # 4 ~ Ødegaard 3, yet Calafiori must not sit behind Ødegaard (GW12, 11-25).
+    outfield = [p for p in c.xi + c.bench if by[p]["element_type"] != R.GK]
+
+    def breaks_two_board(trial):
+        benched = [p for p in outfield if p not in trial]
+        return any(c.eff_starts(q) - c.eff_starts(y) >= 2 for q in benched for y in trial
+                   if by[y]["element_type"] != R.GK
+                   and not R.xi_violations([q if p == y else p for p in trial], by))
+
     tie_bad = []
     for b_ in c.bench[1:]:
         if not c.playing(b_) or c.xp(b_) is None:
@@ -502,9 +513,10 @@ def _checks_lineup(c: _Ctx) -> list[Result]:
                 continue
             if abs(c.eff_starts(b_) - c.eff_starts(x)) > 1:
                 continue
-            if R.xi_violations([b_ if p == x else p for p in c.xi], by):
+            trial = [b_ if p == x else p for p in c.xi]
+            if R.xi_violations(trial, by):
                 continue
-            if c.xp(b_) > c.xp(x) + XP_TIE_MARGIN:
+            if c.xp(b_) > c.xp(x) + XP_TIE_MARGIN and not breaks_two_board(trial):
                 tie_bad.append(f"{c.name(b_)} (xP {c.xp(b_):.1f}) over {c.name(x)} (xP {c.xp(x):.1f})")
     out.append(Result("XI_TIE_ODDS", not tie_bad, FAIL,
                       "1-board ties the odds say to flip: " + "; ".join(tie_bad)))

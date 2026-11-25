@@ -572,6 +572,34 @@ def test_engine_applies_the_odds_tie_break(gw10, gw10_plan):
     assert G.check(plan, gw10).passed
 
 
+def test_tie_chain_never_flips_past_a_two_board_gap(gw10, monkeypatch):
+    """GW12 (11-25): Calafiori 5 ~ Gibbs-White 4 ~ Ødegaard 3 starts. The odds
+    favoured each lower player by one board, so XI_TIE_ODDS demanded a flip
+    that BENCH_ELITE_ORDER forbids — no lineup could pass. Same shape here:
+    Muharemović 4 ~ Ødegaard 3 ~ Gibbs-White 2 (Gibbs-White's starts set to 2)."""
+    import facts as F
+    mgw, ode, muh = (pid(gw10, n) for n in ("Gibbs-White", "Ødegaard", "Muharemović"))
+    real = F.elite_counts
+
+    def counts(elite):
+        ec = real(elite)
+        ec["start"][mgw] = 2
+        return ec
+    monkeypatch.setattr(F, "elite_counts", counts)
+    gw10.xp = {e["id"]: 3.0 for e in gw10.bootstrap["elements"]}
+    gw10.xp[muh], gw10.xp[ode], gw10.xp[mgw] = 2.0, 5.0, 8.0
+    gw10.fetched_at["xp"] = gw10.now
+    plan = A.propose(gw10)
+    # the engine takes the first 1-board flip and stops before the 2-board break
+    assert ode in plan["xi"] and muh in plan["bench"] and mgw in plan["bench"]
+    rep = G.check(plan, gw10)
+    assert rep.passed, rep.message
+    # the flip the odds still like would bench Muharemović (4) behind Gibbs-White (2)
+    flipped = dict(plan, xi=[mgw if p == ode else p for p in plan["xi"]],
+                   bench=[ode if p == mgw else p for p in plan["bench"]])
+    assert "BENCH_ELITE_ORDER" in failed_codes(G.check(flipped, gw10))
+
+
 def test_stale_odds_decide_nothing(gw10):
     gw10.xp = {e["id"]: 3.0 for e in gw10.bootstrap["elements"]}
     gw10.fetched_at["xp"] = gw10.now - dt.timedelta(days=5)
